@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './BanerHero.module.css';
 import baner from '../../images/baner.jpg';
 export const BanerHero = () => {

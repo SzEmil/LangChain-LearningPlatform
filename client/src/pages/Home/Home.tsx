@@ -1,6 +1,5 @@
-import React from 'react';
-import css from './Home.module.css';
-import baner from '../../images/baner.jpg';
+// import css from './Home.module.css';
+
 import { About } from '../../Components/About/About';
 import { BanerHero } from '../../Components/BanerHero/BanerHero';
 
