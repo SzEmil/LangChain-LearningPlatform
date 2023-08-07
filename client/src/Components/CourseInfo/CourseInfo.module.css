@@ -1,0 +1,135 @@
+.course {
+  padding-top: 150px;
+}
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 40px;
+  padding-bottom: 10px;
+  opacity: 0;
+
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 100ms;
+}
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 200px;
+}
+.text {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26px;
+  padding-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 500ms;
+  margin-bottom: 20px;
+}
+.titleVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-top: 50px;
+  gap: 20px;
+}
+.item {
+  max-width: 350px;
+  border: 0.2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateX(-15px);
+
+  transition: all 500ms ease;
+  transition-delay: 250ms;
+
+  flex-grow: 1;
+}
+.item:nth-child(2) {
+  transition-delay: 500ms;
+}
+.item:nth-child(3) {
+  transition-delay: 750ms;
+}
+.item:nth-child(4) {
+  transition-delay: 1000ms;
+}
+.cardVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 15px;
+  background: rgb(24, 7, 66);
+  background: linear-gradient(
+    -45deg,
+    rgba(19, 5, 54, 0.9) 20%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  border: 0.3px solid rgba(255, 255, 255, 0.3);
+  height: 100%;
+  border-radius: 20px;
+}
+.btnRegister {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 50px;
+  cursor: pointer;
+
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+}
+.btnRegister:hover {
+  cursor: pointer;
+  background-color: rgb(165, 25, 72);
+}
+.image {
+  /* border: 0.1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px; */
+  padding: 0 15px 0 15px;
+}
+.itemHeader {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 28px;
+  padding: 20px 0;
+}
+.description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+  flex-grow: 1;
+}
