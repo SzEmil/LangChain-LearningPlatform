@@ -1,0 +1,85 @@
+.about {
+  padding: 300px 0;
+
+  display: flex;
+  justify-content: center;
+}
+.container {
+  width: 1200px;
+}
+.text {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  padding-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 250ms;
+}
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 40px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 100ms;
+}
+.titleVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 200px;
+}
+
+.gallery {
+  margin-top: 20px;
+}
+.galleryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+.galleryItem {
+  border: 0.2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+
+  opacity: 0;
+  transform: translatex(-15px);
+
+  transition: all 500ms ease;
+  transition-delay: 250ms;
+}
+.galleryItem:nth-child(2) {
+  transition-delay: 500ms;
+}
+.galleryItem:nth-child(3) {
+  transition-delay: 750ms;
+}
+.galleryItemVisible {
+  opacity: 1;
+  transform: translatex(0);
+}
+.galleryImage {
+  display: block;
+  border-radius: 10px;
+}

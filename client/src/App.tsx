@@ -3,7 +3,9 @@ import { SharedLayout } from './Components/SharedLayout/SharedLayout';
 import { Home } from './pages/Home/Home';
 import { NotFound } from './pages/NotFound/NotFound';
 
+
 export const App = () => {
+
   return (
     <>
       <Routes>

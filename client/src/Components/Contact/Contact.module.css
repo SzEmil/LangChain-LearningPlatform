@@ -1,0 +1,151 @@
+.contact {
+  padding: 150px 0 300px 0;
+
+  display: flex;
+  justify-content: center;
+}
+.container {
+  width: 1200px;
+}
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 40px;
+  opacity: 0;
+
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 100ms;
+}
+.text {
+  color: white;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26px;
+  padding-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 250ms;
+}
+.titleVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.contactWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 30px;
+}
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 200px;
+}
+.formWrapper {
+  margin-top: 20px;
+  background: linear-gradient(
+    45deg,
+    rgba(27, 8, 75, 0.9),
+    rgba(235, 71, 167, 0.9)
+  );
+  padding: 30px;
+  border-radius: 10px;
+  color: white;
+  min-width: 500px;
+  border: 0.1px solid rgba(255, 255, 255, 0.1);
+
+  opacity: 0;
+  transform: translateX(15px);
+
+  transition: all 500ms ease;
+  transition-delay: 200ms;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.input,
+.textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.textarea {
+  resize: vertical;
+}
+.button {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 50px;
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+  width: 100%;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: rgb(165, 25, 72);
+}
+.contactData {
+  opacity: 0;
+  transform: translateY(-10px);
+
+  transition: all 500ms ease;
+  transition-delay: 200ms;
+}
+.contactDataVisible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+.contactDataList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.contactDataLink {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+}
+.image {
+  max-width: 400px;
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateX(-15px);
+
+  transition: all 500ms ease;
+  transition-delay: 200ms;
+}
+.imageInView {
+  opacity: 1;
+  transform: translateX(0);
+}
