@@ -1,0 +1,76 @@
+.aboutMe {
+  padding: 150px 0 300px 0;
+
+  display: flex;
+  justify-content: center;
+}
+.container {
+  width: 1200px;
+}
+.article {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 40px;
+  padding-bottom: 10px;
+  opacity: 0;
+
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 100ms;
+}
+.text {
+  color: white;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26px;
+  padding-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 250ms ease;
+  transition-delay: 250ms;
+}
+.titleVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 200px;
+}
+.aside {
+  min-width: 350px;
+  max-width: 400px;
+}
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateX(15px);
+
+  transition: all 500ms ease;
+  transition-delay: 200ms;
+}
+.imageVisible {
+  opacity: 1;
+  transform: translateX(0);
+}

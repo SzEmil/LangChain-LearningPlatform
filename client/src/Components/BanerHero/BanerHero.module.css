@@ -1,140 +1,146 @@
 .baner {
-    width: 100%;
-    min-height: 100vh;
-    background-color: black;
-    background-image: url('../../images/baner.jpg');
-  
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-      url('../../images/baner.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    position: relative;
-  }
-  
-  .baner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
+  width: 100%;
+  min-height: 100vh;
+  background-color: black;
+  background-image: url('../../images/baner.jpg');
+
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url('../../images/baner.jpg');
+
+  /* background: linear-gradient(
       45deg,
-      rgba(24, 7, 66, 0.5) 0%,
-      rgba(114, 33, 60, 0.5) 100%
-    );
+      rgba(94, 230, 193, 0.3) 0%,
+      rgba(155, 29, 253, 0.3) 50%,
+      rgba(237, 93, 242, 0.3) 100%
+    ),
+    url('../../images/baner.jpg'); */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  position: relative;
+}
+
+.baner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(24, 7, 66, 0.5) 0%,
+    rgba(235, 71, 167, 0.5) 100%
+  );
+}
+/* background: rgb(24,7,66); */
+.box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  text-align: center;
+
+  transform: translateX(-50%);
+}
+.sloganWrapper {
+  position: relative;
+  z-index: 10;
+
+  opacity: 1;
+  animation: sloganWrapperShow 1000ms ease;
+}
+.sloganWrapper::before {
+  content: '';
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  top: -55%;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+.headerPrimary {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 68px;
+  line-height: 72px;
+  color: white;
+}
+
+.headerSecondary {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 32px;
+  line-height: 34px;
+  color: white;
+
+  padding-bottom: 10px;
+}
+
+.btnBox {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+
+  z-index: 20;
+
+  animation: btnSlideDown 1s ease;
+}
+.btnRegister {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 50px;
+  cursor: pointer;
+
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+}
+.btnInfo {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 30px;
+  padding: 15px 50px;
+
+  background-color: transparent;
+  border-color: goldenrod;
+  color: goldenrod;
+  z-index: 100;
+}
+.btnInfo:hover {
+  cursor: pointer;
+}
+.btnRegister:hover {
+  cursor: pointer;
+  background-color: rgb(165, 25, 72);
+}
+
+@keyframes btnSlideDown {
+  0% {
+    transform: translateY(-50px);
   }
-  /* background: rgb(24,7,66); */
-  .box {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    text-align: center;
-  
-    transform: translateX(-50%);
+  100% {
+    transform: translateY(0px);
   }
-  .sloganWrapper {
-    position: relative;
-    z-index: 10;
-  
-  
+}
+
+@keyframes sloganWrapperShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
-    animation: sloganWrapperShow 1000ms ease;
   }
-  .sloganWrapper::before {
-    content: '';
-    position: absolute;
-    width: 550px;
-    height: 550px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.05);
-    top: -55%;
-    left: 50%;
-    z-index: 10;
-    transform: translateX(-50%);
-  }
-  .headerPrimary {
-    font-style: normal;
-    font-weight: 900;
-    font-size: 68px;
-    line-height: 72px;
-    color: white;
-  }
-  
-  .headerSecondary {
-    font-style: normal;
-    font-weight: 100;
-    font-size: 32px;
-    line-height: 34px;
-    color: white;
-  
-    padding-bottom: 10px;
-  }
-  
-  .btnBox {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-  
-    z-index: 20;
-  
-    animation: btnSlideDown 1s ease;
-  }
-  .btnRegister {
-    font-style: normal;
-    font-weight: 100;
-    font-size: 18px;
-    line-height: 18px;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 50px;
-    cursor: pointer;
-  
-    background-color: rgb(211, 33, 93);
-    z-index: 100;
-  
-    transition: background-color 200ms ease;
-  }
-  .btnInfo {
-    font-style: normal;
-    font-weight: 100;
-    font-size: 18px;
-    line-height: 18px;
-    border-radius: 30px;
-    padding: 15px 50px;
-  
-    background-color: transparent;
-    border-color: goldenrod;
-    color: goldenrod;
-    z-index: 100;
-  }
-  .btnInfo:hover {
-    cursor: pointer;
-  }
-  .btnRegister:hover {
-    cursor: pointer;
-    background-color: rgb(165, 25, 72);
-  }
-  
-  @keyframes btnSlideDown {
-    0% {
-      transform: translateY(-50px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
-  }
-  
-  @keyframes sloganWrapperShow {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  
+}

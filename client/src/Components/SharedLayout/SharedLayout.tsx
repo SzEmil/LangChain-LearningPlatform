@@ -1,6 +1,7 @@
 // import { Suspense } from 'react';
- import {  Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import css from './SharedLayout.module.css';
+import { Link } from 'react-scroll';
 
 export const SharedLayout = () => {
   return (
@@ -12,17 +13,68 @@ export const SharedLayout = () => {
             <nav>
               <ul className={css.navList}>
                 <li>
-                  <a className={css.navItemLink}>Home</a>
+                  <Link
+                    activeClass={css.acitveLink}
+                    to="home"
+                    spy={true}
+                    smooth={true}
+                    offset={-150}
+                    duration={500}
+                  >
+                    <a className={css.navItemLink}>Home</a>
+                  </Link>
                 </li>
                 <li>
-                  <a className={css.navItemLink}>About</a>
+                  <Link
+                    activeClass={css.acitveLink}
+                    to="aboutLangChain"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                  >
+                    <a className={css.navItemLink}>LangChain</a>
+                  </Link>
                 </li>
                 <li>
-                  <a className={css.navItemLink}>Contact</a>
+                  <Link
+                    activeClass={css.acitveLink}
+                    to="offer"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                  >
+                    <a className={css.navItemLink}>Offer</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    activeClass={css.acitveLink}
+                    to="aboutMe"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                  >
+                    <a className={css.navItemLink}>About Me</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    activeClass={css.acitveLink}
+                    to="contact"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                  >
+                    <a className={css.navItemLink}>Contact</a>
+                  </Link>
                 </li>
               </ul>
             </nav>
-            <button className={css.navBtn}>Buy Now</button>
+            <button className={css.navBtn}>Get Started</button>
           </div>
         </div>
       </header>
