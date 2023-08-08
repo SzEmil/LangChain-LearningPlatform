@@ -1,9 +1,11 @@
 import css from './BanerHero.module.css';
 import baner from '../../images/baner.jpg';
+
 import { Link } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
+
 export const BanerHero = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
