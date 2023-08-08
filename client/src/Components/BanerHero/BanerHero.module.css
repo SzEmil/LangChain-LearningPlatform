@@ -112,7 +112,8 @@
   font-size: 18px;
   line-height: 18px;
   border-radius: 30px;
-  padding: 15px 50px;
+  border: none;
+  padding: 0;
 
   background-color: transparent;
   border-color: goldenrod;
@@ -121,6 +122,11 @@
 }
 .btnInfo:hover {
   cursor: pointer;
+}
+.btnInfoText {
+  padding: 12px 50px;
+  border: 1px solid goldenrod;
+  border-radius: 30px;
 }
 .btnRegister:hover {
   cursor: pointer;
