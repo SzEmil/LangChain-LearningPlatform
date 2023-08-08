@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import { RiAccountBoxLine } from 'react-icons/ri';
 import { GoVideo } from 'react-icons/go';
 import { MdOutlineQuiz } from 'react-icons/md';
+import { AiOutlineCode } from 'react-icons/ai';
 
 export const CourseInfo = () => {
   const courseInView = useInView({
@@ -10,7 +11,7 @@ export const CourseInfo = () => {
     triggerOnce: false,
   });
   return (
-    <div className={css.course} ref={courseInView.ref}>
+    <div className={css.course} ref={courseInView.ref} id="howItWorks">
       <h2
         className={`${css.title} ${
           courseInView.inView ? css.titleVisible : css.titleNoVisible
@@ -80,7 +81,7 @@ export const CourseInfo = () => {
               as a showcase in your portfolio.
             </p>
             <div className={css.image}>
-              <MdOutlineQuiz size={'100%'} />
+              <AiOutlineCode size={'100%'} />
             </div>
             <button className={css.btnRegister}>Try it now</button>
           </div>

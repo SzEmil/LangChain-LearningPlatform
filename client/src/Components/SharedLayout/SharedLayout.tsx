@@ -2,11 +2,40 @@
 import { Outlet } from 'react-router-dom';
 import css from './SharedLayout.module.css';
 import { Link } from 'react-scroll';
+import { FaFacebookF } from 'react-icons/fa';
+import { SiTiktok } from 'react-icons/si';
+import { useState, useEffect } from 'react';
+import _ from 'lodash';
+import { UserNav } from '../userNav/userNav';
+import { useSelector } from 'react-redux';
+import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 
 export const SharedLayout = () => {
+  const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
+  function getCurrentYear() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return currentYear;
+  }
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = _.throttle(() => {
+    if (window.scrollY > 100) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  }, 200);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <div className={css.sharedLayout}>
-      <header className={css.header}>
+      <header className={`${css.header} ${isScrolled && css.movedHeader}`}>
         <div className={css.container}>
           <div className={css.navBar}>
             <h2 className={css.logo}>LangChain Academy</h2>
@@ -66,7 +95,7 @@ export const SharedLayout = () => {
                     to="contact"
                     spy={true}
                     smooth={true}
-                    offset={-100}
+                    offset={-20}
                     duration={500}
                   >
                     <a className={css.navItemLink}>Contact</a>
@@ -74,13 +103,46 @@ export const SharedLayout = () => {
                 </li>
               </ul>
             </nav>
-            <button className={css.navBtn}>Get Started</button>
+            {isLoggedIn ? (
+              <div className={css.userWrapper}>
+                <UserNav />
+              </div>
+            ) : (
+              <button className={css.navBtn}>Get Started</button>
+            )}
           </div>
         </div>
       </header>
       {/* <Suspense fallback={<div> Loading...</div>}> */}
+
       <Outlet />
+
       {/* </Suspense> */}
+      <footer className={css.footer}>
+        <div className="container">
+          <div className={css.footerWrapper}>
+            <div>
+              <ul className={css.socialList}>
+                <li>
+                  <a href="/" className={css.socialLink}>
+                    <FaFacebookF size={24} />
+                  </a>
+                </li>
+                <li>
+                  <a href="/" className={css.socialLink}>
+                    <SiTiktok size={24} />
+                  </a>
+                </li>
+              </ul>
+              <p>©{getCurrentYear()} LangChain Academy</p>
+            </div>
+            <div className={css.linksWrapper}>
+              <a className={css.navItemLink}>Terms</a>
+              <a className={css.navItemLink}>Privacy</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

@@ -40,7 +40,7 @@ export const Offer = () => {
           Embark on an exciting journey from absolute beginner to a skilled
           LangChain programmer. Our comprehensive course is tailored for those
           with no prior programming experience. Unlock the world of programming
-          and unleash your potential today
+          and unleash your potential today.
         </p>
         <ul className={css.list} ref={sectionInView.ref}>
           <li
