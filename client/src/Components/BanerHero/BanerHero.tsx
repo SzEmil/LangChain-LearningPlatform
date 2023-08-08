@@ -1,6 +1,6 @@
 import css from './BanerHero.module.css';
 import baner from '../../images/baner.jpg';
-import { Link } from 'react-scroll';
+// import { Link } from 'react-scroll';
 export const BanerHero = () => {
   return (
     <section className={css.baner} style={{ backgroundImage: baner }} id="home">
