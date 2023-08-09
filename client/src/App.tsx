@@ -13,8 +13,7 @@ export const App = () => {
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshUser());
-  }),
-    [];
+  }, []);
 
   return (
     <>

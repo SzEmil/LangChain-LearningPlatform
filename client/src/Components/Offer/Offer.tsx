@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import { CourseInfo } from '../CourseInfo/CourseInfo';
 
 export const Offer = () => {
+
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
     triggerOnce: false,

@@ -4,8 +4,10 @@ import { RiAccountBoxLine } from 'react-icons/ri';
 import { GoVideo } from 'react-icons/go';
 import { MdOutlineQuiz } from 'react-icons/md';
 import { AiOutlineCode } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 export const CourseInfo = () => {
+  const navigate = useNavigate();
   const courseInView = useInView({
     rootMargin: '-150px 0px',
     triggerOnce: false,
@@ -35,7 +37,12 @@ export const CourseInfo = () => {
             <div className={css.image}>
               <RiAccountBoxLine size={'100%'} />
             </div>
-            <button className={css.btnRegister}>Register Now</button>
+            <button
+              className={css.btnRegister}
+              onClick={() => navigate('/auth')}
+            >
+              Register Now
+            </button>
           </div>
         </li>
 

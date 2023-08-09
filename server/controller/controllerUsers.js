@@ -41,6 +41,18 @@ export const authUser = async (req, res, next) => {
         },
       });
     }
+
+    const currentTimestamp = Date.now() / 1000; 
+    if (user.exp < currentTimestamp) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        ResponseBody: {
+          message: 'Unauthorized: Token has expired',
+        },
+      });
+    }
+
     try {
       const foundUser = await userService.getUserByEmail(user.email);
 
