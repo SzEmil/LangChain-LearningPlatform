@@ -5,7 +5,7 @@ export const PayUForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [address, setAddress] = useState('');
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const paymentData = {
@@ -31,7 +31,7 @@ export const PayUForm = () => {
         address: address,
       },
     };
-
+    console.log(paymentData);
     // Wyślij ten obiekt do backendu
     // ...
 
