@@ -4,8 +4,8 @@ import Notiflix from 'notiflix';
 import { authInitialStateType } from './userSlice';
 import { apiKey } from '../globals/globalsOperations';
 
-export const apiLink = 'http://localhost:3001/api';
-// export const apiLink = "https://langchain-platform.onrender.com/api"
+// export const apiLink = 'http://localhost:3001/api';
+ export const apiLink = "https://langchain-platform.onrender.com/api"
 axios.defaults.baseURL = apiLink;
 
 const setAuthHeader = (token: string) => {
