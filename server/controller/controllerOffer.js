@@ -1,17 +1,7 @@
 import offerService from '../service/serviceOffer.js';
 import userService from '../service/serviceUsers.js';
+
 const getCurrentOfferData = async (req, res, next) => {
-  const { _id } = req.user;
-  const user = await userService.getUserById(_id);
-  if (!user) {
-    res.status(401).json({
-      status: 'error',
-      code: 401,
-      ResponseBody: {
-        message: 'Unauthorized',
-      },
-    });
-  }
   try {
     const offer = await offerService.getOffer();
 
@@ -25,26 +15,20 @@ const getCurrentOfferData = async (req, res, next) => {
       });
     }
 
-    return res.status(204).json({
+    return res.status(200).json({
       status: 'success',
-      code: 204,
+      code: 200,
       ResponseBody: {
         message: 'data fetched successfully',
         offer: offer,
       },
     });
   } catch (error) {
-    res.status(401).json({
-      status: 'error',
-      code: 401,
-      ResponseBody: {
-        message: 'Unauthorized',
-      },
-    });
+    next(error);
   }
 };
 
 const offerController = {
-    getCurrentOfferData
+  getCurrentOfferData,
 };
 export default offerController;

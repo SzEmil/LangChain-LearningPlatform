@@ -9,8 +9,13 @@ import _ from 'lodash';
 import { UserNav } from '../userNav/userNav';
 import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const SharedLayout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   function getCurrentYear() {
     const currentDate = new Date();
@@ -33,82 +38,103 @@ export const SharedLayout = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   return (
     <div className={css.sharedLayout}>
       <header className={`${css.header} ${isScrolled && css.movedHeader}`}>
         <div className={css.container}>
           <div className={css.navBar}>
-            <h2 className={css.logo}>LangChain Academy</h2>
-            <nav>
-              <ul className={css.navList}>
-                <li>
-                  <Link
-                    activeClass={css.acitveLink}
-                    to="home"
-                    spy={true}
-                    smooth={true}
-                    offset={-150}
-                    duration={500}
-                  >
-                    <a className={css.navItemLink}>Home</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    activeClass={css.acitveLink}
-                    to="aboutLangChain"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
-                  >
-                    <a className={css.navItemLink}>LangChain</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    activeClass={css.acitveLink}
-                    to="offer"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
-                  >
-                    <a className={css.navItemLink}>Offer</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    activeClass={css.acitveLink}
-                    to="aboutMe"
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
-                  >
-                    <a className={css.navItemLink}>About Me</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    activeClass={css.acitveLink}
-                    to="contact"
-                    spy={true}
-                    smooth={true}
-                    offset={-20}
-                    duration={500}
-                  >
-                    <a className={css.navItemLink}>Contact</a>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <h2 className={css.logo} onClick={() => navigate('/')}>
+              LangChain Academy
+            </h2>
+            {location.pathname === '/' && (
+              <nav>
+                <ul className={css.navList}>
+                  <li>
+                    <Link
+                      activeClass={css.acitveLink}
+                      to="home"
+                      spy={true}
+                      smooth={true}
+                      offset={-150}
+                      duration={500}
+                    >
+                      <a className={css.navItemLink}>Home</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClass={css.acitveLink}
+                      to="aboutLangChain"
+                      spy={true}
+                      smooth={true}
+                      offset={-100}
+                      duration={500}
+                    >
+                      <a className={css.navItemLink}>LangChain</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClass={css.acitveLink}
+                      to="offer"
+                      spy={true}
+                      smooth={true}
+                      offset={-100}
+                      duration={500}
+                    >
+                      <a className={css.navItemLink}>Offer</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClass={css.acitveLink}
+                      to="aboutMe"
+                      spy={true}
+                      smooth={true}
+                      offset={-100}
+                      duration={500}
+                    >
+                      <a className={css.navItemLink}>About Me</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClass={css.acitveLink}
+                      to="contact"
+                      spy={true}
+                      smooth={true}
+                      offset={-20}
+                      duration={500}
+                    >
+                      <a className={css.navItemLink}>Contact</a>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>
                 <UserNav />
               </div>
             ) : (
-              <button className={css.navBtn}>Get Started</button>
+              <>
+                {location.pathname === '/courses' ? (
+                  <button
+                    className={css.navBtn}
+                    onClick={() => navigate('auth')}
+                  >
+                    Register
+                  </button>
+                ) : (
+                  <button
+                    className={css.navBtn}
+                    onClick={() => navigate('courses')}
+                  >
+                    Get Started
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -120,6 +146,15 @@ export const SharedLayout = () => {
       {/* </Suspense> */}
       <footer className={css.footer}>
         <div className="container">
+          <div className={css.creatorBox}>
+            <a
+              className={css.creatorText}
+              target="_blank"
+              href="https://github.com/SzEmil"
+            >
+              App creator
+            </a>
+          </div>
           <div className={css.footerWrapper}>
             <div>
               <ul className={css.socialList}>

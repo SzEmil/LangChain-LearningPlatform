@@ -26,14 +26,14 @@ dotenv.config();
 //   }
 // };
 
-const privateApiKey = process.env.privateApiKey;
-const secretKey = process.env.secretKey;
+const privateApiKey = process.env.PRIVATE_API_KEY;
+const secretKey = process.env.SECRET_KEY;
 
 // console.log(privateApiKey, secretKey);
 export const checkApiKey = (req, res, next) => {
   const encryptedKey = req.headers['x-api-key'];
-//   console.log(privateApiKey);
-//   console.log('key from front:', encryptedKey);
+  //   console.log(privateApiKey);
+  //   console.log('key from front:', encryptedKey);
   if (!encryptedKey) {
     return res.status(403).json({ error: 'API key is required' });
   }

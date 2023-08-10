@@ -5,9 +5,12 @@ import { GoVideo } from 'react-icons/go';
 import { MdOutlineQuiz } from 'react-icons/md';
 import { AiOutlineCode } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 
 export const CourseInfo = () => {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   const courseInView = useInView({
     rootMargin: '-150px 0px',
     triggerOnce: false,
@@ -37,12 +40,21 @@ export const CourseInfo = () => {
             <div className={css.image}>
               <RiAccountBoxLine size={'100%'} />
             </div>
-            <button
-              className={css.btnRegister}
-              onClick={() => navigate('/auth')}
-            >
-              Register Now
-            </button>
+            {isLoggedIn ? (
+              <button
+                className={css.btnRegister}
+                onClick={() => navigate('/courses')}
+              >
+                Buy now
+              </button>
+            ) : (
+              <button
+                className={css.btnRegister}
+                onClick={() => navigate('/auth')}
+              >
+                Register Now
+              </button>
+            )}
           </div>
         </li>
 
@@ -59,7 +71,12 @@ export const CourseInfo = () => {
             <div className={css.image}>
               <GoVideo size={'100%'} />
             </div>
-            <button className={css.btnRegister}>Get Started</button>
+            <button
+              className={css.btnRegister}
+              onClick={() => navigate('/courses')}
+            >
+              Get Started
+            </button>
           </div>
         </li>
 
@@ -75,7 +92,12 @@ export const CourseInfo = () => {
             <div className={css.image}>
               <MdOutlineQuiz size={'100%'} />
             </div>
-            <button className={css.btnRegister}>Try it now</button>
+            <button
+              className={css.btnRegister}
+              onClick={() => navigate('/courses')}
+            >
+              Try it now
+            </button>
           </div>
         </li>
 
@@ -90,7 +112,12 @@ export const CourseInfo = () => {
             <div className={css.image}>
               <AiOutlineCode size={'100%'} />
             </div>
-            <button className={css.btnRegister}>Try it now</button>
+            <button
+              className={css.btnRegister}
+              onClick={() => navigate('/courses')}
+            >
+              Show me
+            </button>
           </div>
         </li>
       </ul>
