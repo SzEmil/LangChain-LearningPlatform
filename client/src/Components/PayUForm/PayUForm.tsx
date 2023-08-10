@@ -1,18 +1,28 @@
 import { useState } from 'react';
-export const PayUForm = () => {
+import css from './PayUForm.module.css';
+import { useSelector } from 'react-redux';
+import { selectAuthUserData } from '../../redux/user/userSelectors';
+
+type payUFormPropsType = {
+  pickedCourseId: string | undefined;
+};
+export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
+  const user = useSelector(selectAuthUserData);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [address, setAddress] = useState('');
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-
+    //trzeba  stworzyć obiekt payment await i pobrać z niego id i uzupełnić ID płatności oraz description
+    
     const paymentData = {
-      merchantPosId: 'YOUR_MERCHANT_POS_ID',
+      merchantPosId: pickedCourseId,
       notifyUrl: 'https://your-domain.com/payu-notify',
       continueUrl: 'https://your-domain.com/payment-success',
-      customerIp: '127.0.0.1',
+      customerIp: 'exampleCustomerIP',
       currencyCode: 'PLN',
       totalAmount: 1,
       description: 'Course Payment',
@@ -24,7 +34,7 @@ export const PayUForm = () => {
         },
       ],
       buyer: {
-        email: 'user@example.com',
+        email: user.email,
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
@@ -34,7 +44,7 @@ export const PayUForm = () => {
 
     // Wyślij ten obiekt do backendu
     // ...
-
+    console.log(paymentData);
     // Wyczyść dane z formularza
     setFirstName('');
     setLastName('');
@@ -43,34 +53,41 @@ export const PayUForm = () => {
   };
 
   return (
-    <div className="container">
-      <form id="payu-form" onSubmit={handleSubmit}>
+    <div className="formContainer">
+      <form id="payu-form" onSubmit={handleSubmit} className={css.form}>
+        <h2 className={css.title}>Input this data for payment</h2>
         {/* Pozostałe pola ukryte */}
         <input
           type="text"
           placeholder="First Name"
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
+          className={css.input}
         />
         <input
           type="text"
           placeholder="Last Name"
           value={lastName}
           onChange={e => setLastName(e.target.value)}
+          className={css.input}
         />
         <input
           type="text"
           placeholder="Phone Number"
           value={phoneNumber}
           onChange={e => setPhoneNumber(e.target.value)}
+          className={css.input}
         />
         <input
           type="text"
           placeholder="Address"
           value={address}
           onChange={e => setAddress(e.target.value)}
+          className={css.input}
         />
-        <button type="submit">Proceed to Payment</button>
+        <button type="submit" className={css.submitButton}>
+          Proceed to Payment
+        </button>
       </form>
     </div>
   );

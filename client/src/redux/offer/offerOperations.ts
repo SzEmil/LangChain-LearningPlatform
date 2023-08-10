@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiKey } from "../globals/globalsOperations";
-import { apiLink } from "../user/userOperations";
+import { apiLink } from "../globals/globalsOperations";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Notiflix from "notiflix";
 

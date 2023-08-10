@@ -8,6 +8,9 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './redux/store';
 import { useEffect } from 'react';
 import { refreshUser } from './redux/user/userOperations';
+import { ProtectedRoute } from './Components/ProtectedRoute';
+import { RestrictedRoute } from './Components/RestrictedRoute';
+import { BuyCourse } from './pages/BuyCourse/BuyCourse';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -21,8 +24,17 @@ export const App = () => {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute component={BuyCourse} redirectTo="/auth" />
+            }
+          />
         </Route>
-        <Route path="/auth" element={<AuthUser />} />
+        <Route
+          path="/auth"
+          element={<RestrictedRoute component={AuthUser} redirectTo="/" />}
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -59,7 +59,7 @@ export const SharedLayout = () => {
                       offset={-150}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Home</a>
+                      <p className={css.navItemLink}>Home</p>
                     </Link>
                   </li>
                   <li>
@@ -71,7 +71,7 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>LangChain</a>
+                      <p className={css.navItemLink}>LangChain</p>
                     </Link>
                   </li>
                   <li>
@@ -83,7 +83,7 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Offer</a>
+                      <p className={css.navItemLink}>Offer</p>
                     </Link>
                   </li>
                   <li>
@@ -95,7 +95,7 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>About Me</a>
+                      <p className={css.navItemLink}>About Me</p>
                     </Link>
                   </li>
                   <li>
@@ -107,7 +107,7 @@ export const SharedLayout = () => {
                       offset={-20}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Contact</a>
+                      <p className={css.navItemLink}>Contact</p>
                     </Link>
                   </li>
                 </ul>

@@ -10,11 +10,13 @@ import { TiTick } from 'react-icons/ti';
 import { useInView } from 'react-intersection-observer';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
+import { pickCourse } from '../../redux/payUData/paymentSlice';
 
 export const Courses = () => {
   const navigate = useNavigate();
   const [isMounted, setIsMounted] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+
   const currentOfferData = useSelector(selectCurrentOfferData);
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
 
@@ -32,6 +34,11 @@ export const Courses = () => {
       setIsMounted(true);
     }
   }, [isMounted]);
+
+  const handleOnClickPickCoursToBuy = (courseId: string) => {
+    dispatch(pickCourse(courseId));
+    navigate('/payment');
+  };
 
   return (
     <div className={css.courses}>
@@ -73,7 +80,12 @@ export const Courses = () => {
                   </ul>
                   <div className={css.btnBox}>
                     {isLoggedIn ? (
-                      <button className={css.btnBuy}>Buy Now</button>
+                      <button
+                        className={css.btnBuy}
+                        onClick={() => handleOnClickPickCoursToBuy(offer._id)}
+                      >
+                        Buy Now
+                      </button>
                     ) : (
                       <button
                         className={css.btnBuy}
