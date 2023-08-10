@@ -2,14 +2,15 @@ import css from './LoginForm.module.css';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/user/userOperations';
-import {FormEvent} from "react"
-
+import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type credentialsLoginType = {
   email: string;
   password: string;
 };
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -22,6 +23,7 @@ export const LoginForm = () => {
     };
 
     await dispatch(logIn(credentials));
+    navigate('/');
     form.reset();
   };
   return (

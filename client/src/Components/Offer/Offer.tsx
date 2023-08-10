@@ -5,8 +5,10 @@ import { BiMoneyWithdraw } from 'react-icons/bi';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { CourseInfo } from '../CourseInfo/CourseInfo';
+import { useNavigate } from 'react-router-dom';
 
 export const Offer = () => {
+  const navigate = useNavigate();
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
     triggerOnce: false,
@@ -61,7 +63,12 @@ export const Offer = () => {
                 the time to acquire skills all future programmers will seek.
               </p>
               <div className={css.buttonBox}>
-                <button className={css.button}>Learn More</button>
+                <button
+                  className={css.button}
+                  onClick={() => navigate('/courses')}
+                >
+                  Learn More
+                </button>
               </div>
             </div>
           </li>
@@ -85,7 +92,12 @@ export const Offer = () => {
                 service range in the tech world.
               </p>
               <div className={css.buttonBox}>
-                <button className={css.button}>Check Courses</button>
+                <button
+                  className={css.button}
+                  onClick={() => navigate('/courses')}
+                >
+                  Check Courses
+                </button>
               </div>
             </div>
           </li>
@@ -106,7 +118,12 @@ export const Offer = () => {
                 out in evolving tech.
               </p>
               <div className={css.buttonBox}>
-                <button className={css.button}>Buy Now</button>
+                <button
+                  className={css.button}
+                  onClick={() => navigate('/courses')}
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
           </li>

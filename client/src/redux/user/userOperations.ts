@@ -2,9 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { authInitialStateType } from './userSlice';
+import { apiKey } from '../globals/globalsOperations';
 
-const apiLink = 'http://localhost:3001/api';
-
+export const apiLink = 'http://localhost:3001/api';
+// export const apiLink = "https://langchain-platform.onrender.com/api"
 axios.defaults.baseURL = apiLink;
 
 const setAuthHeader = (token: string) => {
@@ -13,6 +14,11 @@ const setAuthHeader = (token: string) => {
 
 const removeAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
+};
+
+const setApiKeyHeader = (apiKey: string | undefined) => {
+  console.log(apiKey);
+  axios.defaults.headers.common['x-api-key'] = apiKey;
 };
 
 type credentialsRegisterType = {
@@ -24,6 +30,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials: credentialsRegisterType, thunkAPI) => {
     try {
+      setApiKeyHeader(apiKey);
       const response = await axios.post('/users/signup', credentials);
       setAuthHeader(response.data.ResponseBody.user.token);
 
@@ -44,6 +51,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials: credentialsLoginType, thunkAPI) => {
     try {
+      setApiKeyHeader(apiKey);
       const response = await axios.post('/users/login', credentials);
       setAuthHeader(response.data.ResponseBody.token);
 
@@ -62,6 +70,7 @@ export const logOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
 
     if (!token) return thunkAPI.rejectWithValue('Valid token is not provided');
     setAuthHeader(token);
+    setApiKeyHeader(apiKey);
     await axios.post('/users/logout');
     removeAuthHeader();
   } catch (error: any) {
@@ -84,7 +93,7 @@ export const refreshUser = createAsyncThunk<
 
   if (!token)
     return thunkAPI.rejectWithValue('Login or register to get access');
-
+  setApiKeyHeader(apiKey);
   setAuthHeader(token);
   try {
     const res = await axios.get('/users/current');

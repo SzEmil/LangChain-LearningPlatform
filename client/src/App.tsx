@@ -13,16 +13,15 @@ export const App = () => {
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshUser());
-  }),
-    [];
+  }, []);
 
   return (
     <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
         </Route>
-        <Route path="/courses" element={<Courses />} />
         <Route path="/auth" element={<AuthUser />} />
 
         <Route path="*" element={<NotFound />} />

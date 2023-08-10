@@ -2,13 +2,11 @@ import express from 'express';
 import userController from '../controller/controllerUsers.js';
 import { authUser } from '../controller/controllerUsers.js';
 import upload from '../middlewares/fileUpload/upload.js';
+import offerController from '../controller/controllerOffer.js';
 
 const router = express.Router();
 
-
 //contacts/?page=1&limit=10&favorite=true
-
-
 
 //users api router
 router.get('/users', userController.get);
@@ -28,6 +26,7 @@ router.patch(
   userController.uploadAvatar
 );
 
-
+// offer
+router.get('/offer', offerController.getCurrentOfferData);
 
 export default router;

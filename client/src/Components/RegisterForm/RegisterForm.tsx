@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/user/userOperations';
 import { useSelector } from 'react-redux';
 import { selectAuthUserError } from '../../redux/user/userSelectors';
+import { useNavigate } from 'react-router-dom';
 
 type credentialsRegisterType = {
   username: string;
@@ -12,9 +13,10 @@ type credentialsRegisterType = {
   password: string;
 };
 export const RegisterForm = () => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const error = useSelector(selectAuthUserError);
-  
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -26,6 +28,7 @@ export const RegisterForm = () => {
     };
 
     await dispatch(register(credentials));
+    navigate('/');
     form.reset();
   };
   return (
