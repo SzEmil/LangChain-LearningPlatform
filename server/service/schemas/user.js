@@ -18,6 +18,12 @@ export const users = new Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
+    courses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course', 
+      },
+    ],
     // subscription: {
     //   type: String,
     //   enum: ['starter', 'pro', 'business'],

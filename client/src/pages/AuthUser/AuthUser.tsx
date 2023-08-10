@@ -5,7 +5,6 @@ import css from './AuthUser.module.css';
 import { useNavigate } from 'react-router-dom';
 import { IoReturnUpBack } from 'react-icons/io5';
 
-
 export const AuthUser = () => {
   const [isRegisterFormVisible, setIsRegisterFormVisible] = useState(true);
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
@@ -13,7 +12,7 @@ export const AuthUser = () => {
 
   return (
     <div className={css.authPage}>
-      <button className={css.goBackButton} onClick={() => navigate('/')}>
+      <button className={css.goBackButton} onClick={() => navigate(-1)}>
         <IoReturnUpBack size={34} />
       </button>
       <div className={css.formsWrapper}>

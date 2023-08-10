@@ -7,6 +7,7 @@ import router from './api/api.js';
 import path from 'node:path';
 import { uploadDir, storeImageDir } from './middlewares/fileUpload/upload.js';
 import createFolderIsNotExist from './utils.js';
+import { checkApiKey } from './middlewares/dekodeAPIKey/dekoderKey.js';
 // import http from 'http';
 // import {io} from 'socket.io';
 
@@ -24,6 +25,9 @@ app.use(cors());
 import './config/config-passport.js';
 
 app.use(express.static(path.join(process.cwd(), 'public')));
+
+
+ app.use(checkApiKey);
 
 app.use('/api', router);
 
@@ -63,38 +67,6 @@ app.use((err, _, res, __) => {
     data: 'Internal Server Error',
   });
 });
-////////////////////////////////
-
-// io.on('connection', (socket) => {
-//   // Pobierz ID restauracji, do której ma dostęp dany użytkownik
-//   socket.on('createTable', (data) => {
-//     console.log('Otrzymano żądanie utworzenia nowego stolika:', data);
-
-//     // Wykonaj operację dodawania nowego stolika w bazie danych
-//     // Korzystając z metody controllera
-//     controllerRestaurant.createRestaurantTable(data)
-//       .then((newTable) => {
-//         // Wysyłamy odpowiedź zwrotną do klienta, że stolik został utworzony
-//         socket.emit('tableCreated', newTable);
-
-//         // Wysyłamy informacje do wszystkich klientów w pokoju o nazwie danej restauracji
-//         socket.to(data.restaurantId).emit('tableAddedToRestaurant', newTable);
-//       })
-//       .catch((error) => {
-//         // W przypadku błędu, wysyłamy informacje do klienta
-//         socket.emit('tableCreationError', error.message);
-//       });
-//   });
-
-// })
-
-//   // Obsługa rozłączenia klienta WebSocket
-//   socket.on('disconnect', () => {
-//     console.log('Klient WebSocket rozłączony.');
-//   });
-// });
-
-/////////////////////////////////
 
 const PORT = process.env.PORT || 3001;
 
@@ -118,5 +90,3 @@ connection
     console.log(`Server not running. Error message: ${error}`);
     process.exit(1);
   });
-
-
