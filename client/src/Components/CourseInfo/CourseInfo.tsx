@@ -7,8 +7,9 @@ import { AiOutlineCode } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
-
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 export const CourseInfo = () => {
+  const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   const courseInView = useInView({
@@ -22,7 +23,7 @@ export const CourseInfo = () => {
           courseInView.inView ? css.titleVisible : css.titleNoVisible
         }`}
       >
-        How it works
+        {language === 'PL' ? 'Jak To Działa' : '  How It Works'}
       </h2>
       <div
         className={`${css.spanLine} ${courseInView.inView && css.lineVisible}`}
@@ -31,11 +32,15 @@ export const CourseInfo = () => {
         <li className={`${css.item} ${courseInView.inView && css.cardVisible}`}>
           <div className={css.card}>
             <h3 className={css.itemHeader}>
-              Register for personal learning plarform
+              {language === 'PL'
+                ? 'Zarejestruj się by uzyskać dostęp do platformy do nauki'
+                : 'Register for personal learning plarform'}
             </h3>
             <p className={css.description}>
-              After successful login, you'll have the opportunity to purchase a
-              course, which will be assigned to your account.
+              {language === 'PL'
+                ? `Po udanym zalogowaniu będziesz mieć możliwość zakupu kursu, który zostanie przypisany do Twojego konta.`
+                : `After successful login, you'll have the opportunity to purchase a
+              course, which will be assigned to your account.`}
             </p>
             <div className={css.image}>
               <RiAccountBoxLine size={'100%'} />
@@ -45,14 +50,14 @@ export const CourseInfo = () => {
                 className={css.btnRegister}
                 onClick={() => navigate('/courses')}
               >
-                Buy now
+                {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
               </button>
             ) : (
               <button
                 className={css.btnRegister}
                 onClick={() => navigate('/auth')}
               >
-                Register Now
+                {language === 'PL' ? 'Rejestracja' : 'Register Now'}
               </button>
             )}
           </div>
@@ -61,12 +66,16 @@ export const CourseInfo = () => {
         <li className={`${css.item} ${courseInView.inView && css.cardVisible}`}>
           <div className={css.card}>
             <h3 className={css.itemHeader}>
-              Watch instructional videos prepared by me
+              {language === 'PL'
+                ? 'Oglądaj filmy instruktarzowe przygotowane przeze mnie'
+                : 'Watch instructional videos prepared by me'}
             </h3>
             <p className={css.description}>
-              Step by step, progress through successive stages of learning by
+              {language === 'PL'
+                ? `Krok po kroku, posuń się przez kolejne etapy nauki, oglądając specjalistyczne filmy instruktażowe zawierające niezbędną wiedzę do pracy z LangChain i Flowise.`
+                : `Step by step, progress through successive stages of learning by
               watching specialized instructional videos containing essential
-              knowledge for working with LangChain and Flowise.
+              knowledge for working with LangChain and Flowise.`}
             </p>
             <div className={css.image}>
               <GoVideo size={'100%'} />
@@ -75,7 +84,7 @@ export const CourseInfo = () => {
               className={css.btnRegister}
               onClick={() => navigate('/courses')}
             >
-              Get Started
+              {language === 'PL' ? 'Zaczynamy' : 'Get Started'}
             </button>
           </div>
         </li>
@@ -83,11 +92,15 @@ export const CourseInfo = () => {
         <li className={`${css.item} ${courseInView.inView && css.cardVisible}`}>
           <div className={css.card}>
             <h3 className={css.itemHeader}>
-              Take quizzes to test your knowledge
+              {language === 'PL'
+                ? 'Sprawdź swoją więdzę korzsytając z quizów'
+                : 'Take quizzes to test your knowledge'}
             </h3>
             <p className={css.description}>
-              After completing each learning stage, you can test your knowledge
-              using an interactive quiz.
+              {language === 'PL'
+                ? `Po ukończeniu każdego etapu nauki, będziesz mógł/mogła przetestować swoją wiedzę za pomocą interaktywnego quizu.`
+                : `After completing each learning stage, you can test your knowledge
+              using an interactive quiz.`}
             </p>
             <div className={css.image}>
               <MdOutlineQuiz size={'100%'} />
@@ -96,18 +109,24 @@ export const CourseInfo = () => {
               className={css.btnRegister}
               onClick={() => navigate('/courses')}
             >
-              Try it now
+              {language === 'PL' ? 'Wypróbuj' : 'Try it now'}
             </button>
           </div>
         </li>
 
         <li className={`${css.item} ${courseInView.inView && css.cardVisible}`}>
           <div className={css.card}>
-            <h3 className={css.itemHeader}>Build your first no-code app</h3>
+            <h3 className={css.itemHeader}>
+              {language === 'PL'
+                ? 'Stwórz swoją pierwszą aplikację no-code'
+                : 'Build your first no-code app'}
+            </h3>
             <p className={css.description}>
-              As part of the course, you'll have the opportunity to create your
+              {language === 'PL'
+                ? `W ramach kursu będziesz miał/a okazję stworzyć swoją pierwszą aplikację bez kodowania przy użyciu LangChain. Ten projekt może posłużyć jako element wizytówki w Twoim portfolio.`
+                : `As part of the course, you'll have the opportunity to create your
               first no-code application using LangChain. This project can serve
-              as a showcase in your portfolio.
+              as a showcase in your portfolio.`}
             </p>
             <div className={css.image}>
               <AiOutlineCode size={'100%'} />
@@ -116,7 +135,7 @@ export const CourseInfo = () => {
               className={css.btnRegister}
               onClick={() => navigate('/courses')}
             >
-              Show me
+              {language === 'PL' ? `Pokaż` : 'Show me'}
             </button>
           </div>
         </li>

@@ -4,12 +4,15 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/user/userOperations';
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 type credentialsLoginType = {
   email: string;
   password: string;
 };
 export const LoginForm = () => {
+  const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
@@ -29,17 +32,19 @@ export const LoginForm = () => {
   return (
     <div className={css.formWrapper}>
       <form className={css.loginForm} onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>{language === 'PL' ? 'Logowanie' : 'Login'}</h2>
         <div className={css.inputGroup}>
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" required />
         </div>
         <div className={css.inputGroup}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">
+            {language === 'PL' ? 'Hasło' : 'Password'}
+          </label>
           <input type="password" id="password" name="password" required />
         </div>
         <button className={css.button} type="submit">
-          Log in
+          {language === 'PL' ? 'Zaloguj' : 'Log in'}
         </button>
       </form>
     </div>

@@ -9,34 +9,71 @@
   min-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f0f0f0;
+  border: 0.1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(68, 13, 82, 0.288);
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .title {
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 26px;
   line-height: 28px;
-  color: black;
+  color: white;
+  /* text-transform: uppercase; */
+  text-align: center;
 }
 .input {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  color: white;
 }
 
 .submitButton {
-  background-color: rgb(211, 33, 93);
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 30px;
+  padding: 15px 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  margin-top: 10px;
+
+  transition: background-color 200ms ease;
+  width: 100%;
 }
 
 .submitButton:hover {
   background-color: rgb(165, 25, 72);
+}
+.nameWrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.checkboxWrapper {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox {
+  margin-right: 5px;
+  display: inline;
+  max-width: 20px;
+}
+.regulationsText {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+  color: white;
 }

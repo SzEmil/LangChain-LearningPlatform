@@ -1,12 +1,13 @@
 import css from './BanerHero.module.css';
 import baner from '../../images/baner.jpg';
-
 import { Link } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const BanerHero = () => {
+  const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   return (
@@ -15,10 +16,14 @@ export const BanerHero = () => {
         <div className={css.box}>
           <div className={css.sloganWrapper}>
             <h2 className={css.headerSecondary}>
-              Become LangChain Developer !
+              {language === 'PL'
+                ? 'Zostań LangChain Developerem !'
+                : 'Become LangChain Developer !'}
             </h2>
             <h1 className={css.headerPrimary}>
-              LangChain Course for Beginners
+              {language === 'PL'
+                ? 'Kurs LangChain dla Początkujących'
+                : 'LangChain Course for Beginners !'}
             </h1>
             <div className={css.btnBox}>
               {isLoggedIn ? (
@@ -26,14 +31,14 @@ export const BanerHero = () => {
                   onClick={() => navigate('courses')}
                   className={css.btnRegister}
                 >
-                  Buy Now
+                  {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
                 </button>
               ) : (
                 <button
                   onClick={() => navigate('auth')}
                   className={css.btnRegister}
                 >
-                  Register Now
+                  {language === 'PL' ? 'Rejestracja' : 'Register Now'}
                 </button>
               )}
 
@@ -45,7 +50,9 @@ export const BanerHero = () => {
                   offset={50}
                   duration={500}
                 >
-                  <span className={css.btnInfoText}>How it works</span>
+                  <span className={css.btnInfoText}>
+                    {language === 'PL' ? 'Jak to Działa' : 'How it works'}
+                  </span>
                 </Link>
               </button>
             </div>

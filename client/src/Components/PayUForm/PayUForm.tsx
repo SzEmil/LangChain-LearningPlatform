@@ -12,12 +12,16 @@ export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
+  const [street, setStreet] = useState('');
+  const [flatNumber, setFlatNumber] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [place, setPlace] = useState('');
+  const [isRegulationsAccepted, setIsRegulationsAccepted] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     //trzeba  stworzyć obiekt payment await i pobrać z niego id i uzupełnić ID płatności oraz description
-    
+
     const paymentData = {
       merchantPosId: pickedCourseId,
       notifyUrl: 'https://your-domain.com/payu-notify',
@@ -38,53 +42,104 @@ export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
-        address: address,
+        address: {
+          street,
+          flatNumber,
+          zipCode,
+          place,
+        },
       },
     };
 
     // Wyślij ten obiekt do backendu
-    // ...
+
     console.log(paymentData);
     // Wyczyść dane z formularza
     setFirstName('');
     setLastName('');
     setPhoneNumber('');
-    setAddress('');
+    setStreet('');
+    setFlatNumber('');
+    setZipCode('');
+    setPlace('');
   };
 
   return (
     <div className="formContainer">
       <form id="payu-form" onSubmit={handleSubmit} className={css.form}>
-        <h2 className={css.title}>Input this data for payment</h2>
+        <h2 className={css.title}>Payment Details</h2>
         {/* Pozostałe pola ukryte */}
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          className={css.input}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          className={css.input}
-        />
+        <div className={css.nameWrapper}>
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            className={css.input}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            className={css.input}
+            required
+          />
+        </div>
         <input
           type="text"
           placeholder="Phone Number"
           value={phoneNumber}
           onChange={e => setPhoneNumber(e.target.value)}
           className={css.input}
+          required
         />
         <input
           type="text"
-          placeholder="Address"
-          value={address}
-          onChange={e => setAddress(e.target.value)}
+          placeholder="Street"
+          value={street}
+          onChange={e => setStreet(e.target.value)}
           className={css.input}
+          required
         />
+        <input
+          type="text"
+          placeholder="Flat Number"
+          value={flatNumber}
+          onChange={e => setFlatNumber(e.target.value)}
+          className={css.input}
+          required
+        />
+        <div className={css.nameWrapper}>
+          <input
+            type="text"
+            placeholder="Zip Code"
+            value={zipCode}
+            onChange={e => setZipCode(e.target.value)}
+            className={css.input}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Place"
+            value={place}
+            onChange={e => setPlace(e.target.value)}
+            className={css.input}
+            required
+          />
+        </div>
+        <div className={css.checkboxWrapper}>
+          <input
+            type="checkbox"
+            checked={isRegulationsAccepted}
+            onChange={e => setIsRegulationsAccepted(e.target.checked)}
+            className={css.checkbox}
+            required
+          />
+          <p className={css.regulationsText}>I accept the regulations</p>
+        </div>
         <button type="submit" className={css.submitButton}>
           Proceed to Payment
         </button>

@@ -6,6 +6,7 @@ import { register } from '../../redux/user/userOperations';
 import { useSelector } from 'react-redux';
 import { selectAuthUserError } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 type credentialsRegisterType = {
   username: string;
@@ -13,6 +14,7 @@ type credentialsRegisterType = {
   password: string;
 };
 export const RegisterForm = () => {
+  const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const error = useSelector(selectAuthUserError);
@@ -34,10 +36,12 @@ export const RegisterForm = () => {
   return (
     <div className={css.formWrapper}>
       <form className={css.registrationForm} onSubmit={handleSubmit}>
-        <h2>Register Now!</h2>
+        <h2>{language === 'PL' ? 'Rejestracja' : 'Register Now!'}</h2>
         <p>{error}</p>
         <div className={css.inputGroup}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">
+            {language === 'PL' ? 'Nazwa Użytkownika' : 'Username'}
+          </label>
           <input type="text" id="username" name="username" required />
         </div>
         <div className={css.inputGroup}>
@@ -45,11 +49,13 @@ export const RegisterForm = () => {
           <input type="email" id="email" name="email" required />
         </div>
         <div className={css.inputGroup}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">
+            {language === 'PL' ? 'Hasło' : 'Password'}
+          </label>
           <input type="password" id="password" name="password" required />
         </div>
         <button className={css.button} type="submit">
-          Register
+          {language === 'PL' ? 'Zarejestruj' : 'Register'}
         </button>
       </form>
     </div>
