@@ -27,6 +27,6 @@ router.patch(
 );
 
 // offer
-router.get('/offer', offerController.getCurrentOfferData);
+router.post('/offer', offerController.getCurrentOfferData);
 
 export default router;

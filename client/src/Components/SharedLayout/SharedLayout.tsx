@@ -133,6 +133,21 @@ export const SharedLayout = () => {
             )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>
+                <div className={css.btnLanguageWrapper}>
+                  <button
+                    className={css.languageBtn}
+                    onClick={() => handleOnClickChangeLanguage('PL')}
+                  >
+                    PL
+                  </button>
+                  <p>/</p>
+                  <button
+                    className={css.languageBtn}
+                    onClick={() => handleOnClickChangeLanguage('ENG')}
+                  >
+                    ENG
+                  </button>
+                </div>
                 <UserNav />
               </div>
             ) : (

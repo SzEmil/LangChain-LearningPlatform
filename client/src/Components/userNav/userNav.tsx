@@ -4,8 +4,11 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { logOut } from '../../redux/user/userOperations';
+import { useSelector } from 'react-redux';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const UserNav = () => {
+  const language = useSelector(selectPageLanguage)
   const dispatch: AppDispatch = useDispatch();
   const [userModalOpen, setUserModalOpen] = useState(false);
 
@@ -25,7 +28,9 @@ export const UserNav = () => {
           <ul>
             <li>
               <button className={css.btn} onClick={() => handleOnClickLogOut()}>
-                LogOut
+              {language === 'PL'
+                    ? 'Wyloguj'
+                    : 'LogOut'}
               </button>
             </li>
           </ul>
