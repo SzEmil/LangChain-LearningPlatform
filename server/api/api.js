@@ -3,6 +3,7 @@ import userController from '../controller/controllerUsers.js';
 import { authUser } from '../controller/controllerUsers.js';
 import upload from '../middlewares/fileUpload/upload.js';
 import offerController from '../controller/controllerOffer.js';
+import paymentController from '../controller/controllerPayment.js';
 
 const router = express.Router();
 
@@ -28,5 +29,8 @@ router.patch(
 
 // offer
 router.post('/offer', offerController.getCurrentOfferData);
+
+//payment
+router.post('/payment', authUser, paymentController.createNewPayment);
 
 export default router;

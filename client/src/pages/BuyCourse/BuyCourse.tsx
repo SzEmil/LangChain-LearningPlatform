@@ -60,7 +60,10 @@ export const BuyCourse = () => {
                 </div>
               </div>
               <div className={css.paymentForm}>
-                <PayUForm pickedCourseId={pickedCourseData?.targetCourseId} />
+                <PayUForm
+                  pickedCourseId={pickedCourseData?.targetCourseId}
+                  pickedCourseName={pickedCourseData?.name}
+                />
               </div>
             </div>
           </div>

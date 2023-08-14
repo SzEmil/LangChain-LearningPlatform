@@ -2,11 +2,54 @@ import { useState } from 'react';
 import css from './PayUForm.module.css';
 import { useSelector } from 'react-redux';
 import { selectAuthUserData } from '../../redux/user/userSelectors';
+import { createNewPayment } from '../../redux/payUData/paymentOperations';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 type payUFormPropsType = {
   pickedCourseId: string | undefined;
+  pickedCourseName: string | undefined;
 };
-export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
+
+export type paymentDataType = {
+  merchantPosId: string | undefined;
+  notifyUrl: string;
+  continueUrl: string;
+  courseId: string | undefined;
+  customerIp: string;
+  currencyCode: string;
+  totalAmount: number;
+  description: string;
+  regulationsAccepted: boolean;
+  products: [
+    {
+      name: string | undefined;
+      unitPrice: number;
+      quantity: number;
+    }
+  ];
+  buyer: {
+    email: string | null;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    language: string;
+    address: {
+      street: string;
+      flatNumber: string;
+      zipCode: string;
+      place: string;
+    };
+  };
+};
+
+export const PayUForm = ({
+  pickedCourseId,
+  pickedCourseName,
+}: payUFormPropsType) => {
+  const dispatch: AppDispatch = useDispatch();
+  const language = useSelector(selectPageLanguage);
   const user = useSelector(selectAuthUserData);
 
   const [firstName, setFirstName] = useState('');
@@ -22,17 +65,19 @@ export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
     e.preventDefault();
     //trzeba  stworzyć obiekt payment await i pobrać z niego id i uzupełnić ID płatności oraz description
 
-    const paymentData = {
-      merchantPosId: pickedCourseId,
+    const paymentData: paymentDataType = {
+      merchantPosId: 'exampleShopCode',
+      courseId: pickedCourseId,
       notifyUrl: 'https://your-domain.com/payu-notify',
       continueUrl: 'https://your-domain.com/payment-success',
       customerIp: 'exampleCustomerIP',
       currencyCode: 'PLN',
       totalAmount: 1,
       description: 'Course Payment',
+      regulationsAccepted: isRegulationsAccepted,
       products: [
         {
-          name: 'Programming Course',
+          name: pickedCourseName,
           unitPrice: 1,
           quantity: 1,
         },
@@ -41,7 +86,8 @@ export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
         email: user.email,
         firstName: firstName,
         lastName: lastName,
-        phoneNumber: phoneNumber,
+        phone: phoneNumber,
+        language: language,
         address: {
           street,
           flatNumber,
@@ -54,14 +100,17 @@ export const PayUForm = ({ pickedCourseId }: payUFormPropsType) => {
     // Wyślij ten obiekt do backendu
 
     console.log(paymentData);
-    // Wyczyść dane z formularza
-    setFirstName('');
-    setLastName('');
-    setPhoneNumber('');
-    setStreet('');
-    setFlatNumber('');
-    setZipCode('');
-    setPlace('');
+
+    dispatch(createNewPayment(paymentData));
+
+    // setFirstName('');
+    // setLastName('');
+    // setPhoneNumber('');
+    // setStreet('');
+    // setFlatNumber('');
+    // setZipCode('');
+    // setPlace('');
+    //setIsRegulationsAccepted(false)
   };
 
   return (

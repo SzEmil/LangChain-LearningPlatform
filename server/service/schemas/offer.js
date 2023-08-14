@@ -13,6 +13,10 @@ export const offer = new Schema(
       enum: ['PLN', 'EUR'],
       default: 'PLN',
     },
+    targetCourseId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
+    },
     price: {
       type: Number,
       require: true,

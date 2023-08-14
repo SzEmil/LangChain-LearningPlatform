@@ -4,21 +4,31 @@ const { Schema } = mongoose;
 export const payments = new Schema(
   {
     itemId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
       require: true,
     },
     amount: {
-      type: String | Number,
+      type: String,
       require: true,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     refererToItem: {
       type: String,
       require: true,
     },
-    paymentMethod: {
+    currency: {
       type: String,
       require: true,
+      default: 'PLN',
     },
+    // paymentMethod: {
+    //   type: String,
+    //   require: true,
+    // },
     paymentStatus: {
       type: String,
       require: true,
@@ -27,6 +37,7 @@ export const payments = new Schema(
     },
     refundStatus: {
       type: String,
+      default: 'none',
       require: true,
     },
     regulationsAccepted: {
@@ -34,6 +45,10 @@ export const payments = new Schema(
       require: true,
     },
     buyer: {
+      language: {
+        type: String,
+        require: true,
+      },
       firstName: {
         type: String,
         require: true,
