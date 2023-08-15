@@ -15,8 +15,13 @@ const getPaymentByOwner = async (ownerId, itemId) => {
   return Payment.findOne({ $and: [{ owner: ownerId }, { itemId: itemId }] });
 };
 
+const getPaymentById = async paymentId => {
+  return Payment.findOne({_id: paymentId });
+};
+
 const paymentService = {
   createNewPayment,
   getPaymentByOwner,
+  getPaymentById,
 };
 export default paymentService;

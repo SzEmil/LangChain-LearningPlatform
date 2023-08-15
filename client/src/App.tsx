@@ -11,11 +11,18 @@ import { refreshUser } from './redux/user/userOperations';
 import { ProtectedRoute } from './Components/ProtectedRoute';
 import { RestrictedRoute } from './Components/RestrictedRoute';
 import { BuyCourse } from './pages/BuyCourse/BuyCourse';
+import { RedirectPayment } from './pages/RedirectPayment/RedirectPayment';
+import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(refreshUser());
+    const refreshUserData = async () => {
+      await dispatch(refreshUser());
+    };
+
+    refreshUserData();
   }, []);
 
   return (
@@ -35,7 +42,14 @@ export const App = () => {
           path="/auth"
           element={<RestrictedRoute component={AuthUser} redirectTo="/" />}
         />
-
+        {/* <Route
+          path="/secure"
+          element={
+            <ProtectedRoute component={RedirectPayment} redirectTo="/" />
+          }
+        /> */}
+        <Route path="/secure" element={<RedirectPayment />} />
+        <Route path="/payment/:paymentId" element={<PaymentStatus />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -54,7 +54,7 @@ const createNewPayment = async (req, res, next) => {
         status: 'error',
         code: 404,
         ResponseBody: {
-          message: `Not found restaurant with id ${courseId}`,
+          message: `Not found course with id ${courseId}`,
         },
       });
     }
@@ -99,12 +99,10 @@ const createNewPayment = async (req, res, next) => {
       }
     );
 
-    // Wysłanie żądania do PayU API po utworzeniu płatności w bazie danych
-    const payuApiUrl = 'https://secure.snd.payu.com/api/v2_1/orders';
     const payuToken = oAuthToken.data.access_token;
 
-    const continueURL = `https://lang-chain-academy/notify/${newPaymentDB._id}`;
-
+    const continueUrlLink = `https://9c7f-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/payment/${newPaymentDB._id}`;
+    // const continueUrlLink = `https://9c7f-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/`;
     const buyerData = {
       email: buyer.email,
       phone: buyer.phone,
@@ -112,8 +110,9 @@ const createNewPayment = async (req, res, next) => {
       lastName: buyer.lastName,
     };
     const testData = {
-      notifyUrl: `http://localhost:3001/api/notify/${newPaymentDB._id}`,
+      notifyUrl: `https://ad9d-46-205-212-212.ngrok-free.app/api/notify/${newPaymentDB._id}`,
       customerIp: customerIpData,
+      continueUrl: continueUrlLink,
       merchantPosId: merchantPosIdData,
       description: description,
       extOrderId: newPaymentDB._id,
@@ -159,8 +158,79 @@ const createNewPayment = async (req, res, next) => {
     }
   }
 };
+
+const getNotificationFromPayment = async (req, res, next) => {
+  try {
+    const paymentId = req.params.paymentId;
+    const notification = req.body;
+
+    const paymentDB = await paymentService.getPaymentById(paymentId);
+    if (!paymentDB) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: `Not found payment with id ${paymentId}`,
+        },
+      });
+    }
+    const userId = paymentDB.owner;
+
+    if (notification.order.status === 'COMPLETED') {
+      const user = await userService.getUserById(userId);
+      paymentDB.payMethod = notification.order.payMethod.type;
+      user.courses.push(paymentDB.itemId);
+      user.save();
+    }
+
+    paymentDB.paymentStatus = notification.order.status;
+    await paymentDB.save();
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPaymentById = async (req, res, next) => {
+  const { _id } = req.user;
+  const user = await userService.getUserById(_id);
+  try {
+    if (!user) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        ResponseBody: {
+          message: 'Unauthorized',
+        },
+      });
+    }
+    const { paymentId } = req.params;
+    const paymentById = await paymentService.getPaymentById(paymentId);
+    if (!paymentById) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: `Not found payment with id ${paymentId}`,
+        },
+      });
+    }
+    return res.status(200).json({
+      status: 'success',
+      code: 200,
+      ResponseBody: {
+        message: 'Payment successfully fetched',
+        payment: paymentById,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 const paymentController = {
   createNewPayment,
+  getNotificationFromPayment,
+  getPaymentById,
 };
 
 export default paymentController;

@@ -25,6 +25,9 @@ export const payments = new Schema(
       require: true,
       default: 'PLN',
     },
+    payMethod: {
+      type: String,
+    },
     // paymentMethod: {
     //   type: String,
     //   require: true,

@@ -6,6 +6,7 @@ import { createNewPayment } from '../../redux/payUData/paymentOperations';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { useNavigate } from 'react-router-dom';
 
 type payUFormPropsType = {
   pickedCourseId: string | undefined;
@@ -51,6 +52,7 @@ export const PayUForm = ({
   const dispatch: AppDispatch = useDispatch();
   const language = useSelector(selectPageLanguage);
   const user = useSelector(selectAuthUserData);
+  const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -103,14 +105,16 @@ export const PayUForm = ({
 
     dispatch(createNewPayment(paymentData));
 
-    // setFirstName('');
-    // setLastName('');
-    // setPhoneNumber('');
-    // setStreet('');
-    // setFlatNumber('');
-    // setZipCode('');
-    // setPlace('');
-    //setIsRegulationsAccepted(false)
+    setFirstName('');
+    setLastName('');
+    setPhoneNumber('');
+    setStreet('');
+    setFlatNumber('');
+    setZipCode('');
+    setPlace('');
+    setIsRegulationsAccepted(false);
+
+     navigate('/secure');
   };
 
   return (
