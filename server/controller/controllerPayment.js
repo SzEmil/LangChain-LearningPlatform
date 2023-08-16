@@ -1,6 +1,7 @@
 import paymentService from '../service/servicePayment.js';
 import userService from '../service/serviceUsers.js';
 import courseService from '../service/serviceCourses.js';
+import progressService from '../service/serviceProgress.js';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
@@ -101,8 +102,8 @@ const createNewPayment = async (req, res, next) => {
 
     const payuToken = oAuthToken.data.access_token;
 
-    const continueUrlLink = `https://9c7f-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/payment/${newPaymentDB._id}`;
-    // const continueUrlLink = `https://9c7f-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/`;
+    const continueUrlLink = `https://5798-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/payment/${newPaymentDB._id}`;
+
     const buyerData = {
       email: buyer.email,
       phone: buyer.phone,
@@ -110,7 +111,7 @@ const createNewPayment = async (req, res, next) => {
       lastName: buyer.lastName,
     };
     const testData = {
-      notifyUrl: `https://ad9d-46-205-212-212.ngrok-free.app/api/notify/${newPaymentDB._id}`,
+      notifyUrl: `https://82c8-46-205-212-212.ngrok-free.app/api/notify/${newPaymentDB._id}`,
       customerIp: customerIpData,
       continueUrl: continueUrlLink,
       merchantPosId: merchantPosIdData,
@@ -180,7 +181,39 @@ const getNotificationFromPayment = async (req, res, next) => {
       const user = await userService.getUserById(userId);
       paymentDB.payMethod = notification.order.payMethod.type;
       user.courses.push(paymentDB.itemId);
-      user.save();
+      const foundCourse = await courseService.getCourseById(paymentDB.itemId);
+
+      const foundUserProgress = await progressService.getUserProgress(user._id);
+      if (!foundUserProgress) {
+        return res.status(404).json({
+          status: 'error',
+          code: 404,
+          ResponseBody: {
+            message: `Not found progress for user ${user._id}`,
+          },
+        });
+      }
+
+      const newCourseData = {
+        courseId: foundCourse._id,
+        title: foundCourse.title,
+        description: foundCourse.description,
+        progressData:{
+
+        sections: [],
+        }
+      };
+      const newSectionsData = foundCourse.sections.map(section => ({
+        videoWatched: false,
+        quizCompleted: false,
+        quizResult: 0,
+      }));
+
+      newCourseData.progressData.sections = newSectionsData;
+      foundUserProgress.courses.push(newCourseData);
+
+      await foundUserProgress.save();
+      await user.save();
     }
 
     paymentDB.paymentStatus = notification.order.status;

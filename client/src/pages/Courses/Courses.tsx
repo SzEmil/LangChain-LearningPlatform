@@ -12,6 +12,7 @@ import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
 import { pickCourse } from '../../redux/payUData/paymentSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { selectCoursesData } from '../../redux/courses/coursesSelectors';
 
 export const Courses = () => {
   const language = useSelector(selectPageLanguage);
@@ -20,6 +21,7 @@ export const Courses = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const currentOfferData = useSelector(selectCurrentOfferData);
+  const courseData = useSelector(selectCoursesData);
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
 
   const courseInView = useInView({
@@ -35,7 +37,7 @@ export const Courses = () => {
   };
   useEffect(() => {
     // if (!isMounted) {
-      getOfferData();
+    getOfferData();
     //   setIsMounted(true);
     // }
   }, [isMounted, language]);
@@ -89,18 +91,36 @@ export const Courses = () => {
                   </ul>
                   <div className={css.btnBox}>
                     {isLoggedIn ? (
-                      <button
-                        className={css.btnBuy}
-                        onClick={() => handleOnClickPickCoursToBuy(offer._id)}
-                      >
-                         {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
-                      </button>
+                      <>
+                        {courseData.some(
+                          course => course._id === offer.targetCourseId
+                        ) ? (
+                          <div className={css.infoText}>
+                            <TiTick size={34} />
+
+                            <p>
+                              {language === 'PL' ? 'Kupione' : 'Already Bought'}
+                            </p>
+                          </div>
+                        ) : (
+                          <button
+                            className={css.btnBuy}
+                            onClick={() =>
+                              handleOnClickPickCoursToBuy(offer._id)
+                            }
+                          >
+                            {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
+                          </button>
+                        )}
+                      </>
                     ) : (
                       <button
                         className={css.btnBuy}
                         onClick={() => navigate('/auth')}
                       >
-                        {language === 'PL' ? 'Zarejestruj Się By Kupić' : 'Register Free Account To Purchase'}
+                        {language === 'PL'
+                          ? 'Zarejestruj Się By Kupić'
+                          : 'Register Free Account To Purchase'}
                       </button>
                     )}
                     <p className={css.price}>{offer.price} ZŁ</p>

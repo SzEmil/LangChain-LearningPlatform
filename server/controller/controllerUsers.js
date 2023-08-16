@@ -9,6 +9,7 @@ import path from 'path';
 import { nanoid } from 'nanoid';
 import { storeImageDir } from '../middlewares/fileUpload/upload.js';
 import fs from 'fs/promises';
+import progressService from '../service/serviceProgress.js';
 import { join } from 'path';
 
 dotenv.config();
@@ -42,7 +43,7 @@ export const authUser = async (req, res, next) => {
       });
     }
 
-    const currentTimestamp = Date.now() / 1000; 
+    const currentTimestamp = Date.now() / 1000;
     if (user.exp < currentTimestamp) {
       return res.status(401).json({
         status: 'error',
@@ -126,6 +127,9 @@ const register = async (req, res, next) => {
         id: newUser._id,
       };
 
+      const newProgress = await progressService.createProgress(newUser._id);
+      newUser.progressData = newProgress._id;
+
       const token = jwt.sign(payload, secret, { expiresIn: '12h' });
       newUser.token = token;
       await newUser.save();
@@ -203,6 +207,7 @@ const login = async (req, res, next) => {
           username: user.username,
           email: user.email,
           avatarURL: user.avatarURL,
+          courses: user.courses,
         },
       },
     });
@@ -263,6 +268,7 @@ const currentUser = async (req, res, next) => {
         email: user.email,
         _id: user._id,
         avatarURL: user.avatarURL,
+        courses: user.courses,
       },
     });
   } catch (error) {

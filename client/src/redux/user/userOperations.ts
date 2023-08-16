@@ -57,6 +57,7 @@ export const logIn = createAsyncThunk(
       Notiflix.Notify.success(response.data.ResponseBody.message);
       return response.data.ResponseBody;
     } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
       return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
     }
   }
@@ -102,3 +103,25 @@ export const refreshUser = createAsyncThunk<
     return thunkAPI.rejectWithValue(e.response.data.ResponseBody.message);
   }
 });
+
+
+export const getUserProgress = createAsyncThunk(
+  'user/getUserProgress',
+  async (_, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.get('/courses/progress');
+
+      return response.data.ResponseBody.progress;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);

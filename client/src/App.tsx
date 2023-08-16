@@ -13,6 +13,8 @@ import { RestrictedRoute } from './Components/RestrictedRoute';
 import { BuyCourse } from './pages/BuyCourse/BuyCourse';
 import { RedirectPayment } from './pages/RedirectPayment/RedirectPayment';
 import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
+import { MyCourses } from './pages/MyCourses/MyCourses';
+import { getUserCourses } from './redux/courses/coursesOperations';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,6 +22,7 @@ export const App = () => {
   useEffect(() => {
     const refreshUserData = async () => {
       await dispatch(refreshUser());
+      dispatch(getUserCourses());
     };
 
     refreshUserData();
@@ -35,6 +38,12 @@ export const App = () => {
             path="/payment"
             element={
               <ProtectedRoute component={BuyCourse} redirectTo="/auth" />
+            }
+          />
+          <Route
+            path="/my-courses"
+            element={
+              <ProtectedRoute component={MyCourses} redirectTo="/auth" />
             }
           />
         </Route>

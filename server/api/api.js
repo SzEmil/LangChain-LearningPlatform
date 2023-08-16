@@ -6,6 +6,8 @@ import offerController from '../controller/controllerOffer.js';
 import paymentController from '../controller/controllerPayment.js';
 import verifyPaymentSource from '../middlewares/verifyPaymentSource/verifyPaymentSource.js';
 import { checkApiKey } from '../middlewares/dekodeAPIKey/dekoderKey.js';
+import coursesController from '../controller/controllerCourses.js';
+import progressController from '../controller/controllerProgress.js';
 
 const router = express.Router();
 
@@ -53,4 +55,22 @@ router.post(
   verifyPaymentSource,
   paymentController.getNotificationFromPayment
 );
+
+//courses
+
+router.get(
+  '/courses',
+  checkApiKey,
+  authUser,
+  coursesController.getUserCoursesData
+);
+
+//progress
+router.get(
+  '/courses/progress',
+  checkApiKey,
+  authUser,
+  progressController.getUserProgress
+);
+
 export default router;
