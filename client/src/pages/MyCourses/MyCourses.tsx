@@ -23,7 +23,6 @@ export const MyCourses = () => {
     triggerOnce: false,
   });
 
-  console.log(coursesData);
   useEffect(() => {
     dispatch(getUserProgress());
   }, []);
@@ -39,8 +38,13 @@ export const MyCourses = () => {
       <div className={css.container}>
         {coursesData !== null ? (
           <ul className={css.list} ref={sectionInView.ref}>
-            {coursesData.courses.map(course => (
-              <li key={nanoid()}>
+            {coursesData!.courses.map(course => (
+              <li
+                key={nanoid()}
+                className={`${css.item} ${
+                  sectionInView.inView && css.itemVisible
+                }`}
+              >
                 <div className={css.card}>
                   <div className={css.infoBox}>
                     <h2 className={css.title}>{course.title}</h2>
@@ -82,11 +86,13 @@ export const MyCourses = () => {
                       </div>
                     </div>
                   </div>
-                  <img
-                    className={css.galleryImage}
-                    src={'https://picsum.photos/350'}
-                    alt="random pic"
-                  />
+                  <div className={css.imgBox}>
+                    <img
+                      className={css.galleryImage}
+                      src={'https://picsum.photos/350'}
+                      alt="random pic"
+                    />
+                  </div>
                 </div>
               </li>
             ))}

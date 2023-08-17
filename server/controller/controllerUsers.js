@@ -102,7 +102,7 @@ const register = async (req, res, next) => {
   try {
     const value = await userSchema.validateAsync(req.body);
     const { username, email, password } = value;
-    console.log(value);
+
     const user = await userService.getUserByEmail(email);
 
     if (user) {

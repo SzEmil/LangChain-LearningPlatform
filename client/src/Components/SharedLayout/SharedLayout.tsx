@@ -17,10 +17,29 @@ import { setLanguage } from '../../redux/globals/globalsSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const SharedLayout = () => {
+  const [userModalOpen, setUserModalOpen] = useState(false);
+
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const language = useSelector(selectPageLanguage);
+
+  const closeUserNav = () => {
+    setUserModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (userModalOpen && !event.target.closest(`.${css.userWrapper}`)) {
+        closeUserNav();
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [userModalOpen]);
 
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   function getCurrentYear() {
@@ -135,20 +154,27 @@ export const SharedLayout = () => {
               <div className={css.userWrapper}>
                 <div className={css.btnLanguageWrapper}>
                   <button
-                    className={css.languageBtn}
+                    className={`${css.languageBtn} ${
+                      language === 'PL' && css.acitveLink
+                    }`}
                     onClick={() => handleOnClickChangeLanguage('PL')}
                   >
                     PL
                   </button>
                   <p>/</p>
                   <button
-                    className={css.languageBtn}
+                    className={`${css.languageBtn} ${
+                      language !== 'PL' && css.acitveLink
+                    }`}
                     onClick={() => handleOnClickChangeLanguage('ENG')}
                   >
                     ENG
                   </button>
                 </div>
-                <UserNav />
+                <UserNav
+                  setUserModalOpen={setUserModalOpen}
+                  userModalOpen={userModalOpen}
+                />
               </div>
             ) : (
               <div className={css.btnLanguageBox}>
@@ -226,7 +252,7 @@ export const SharedLayout = () => {
                 target="_blank"
                 href="https://github.com/SzEmil"
               >
-               {language === "PL" ? "Autor aplikacji" : "App Creator"}
+                {language === 'PL' ? 'Autor aplikacji' : 'App Creator'}
               </a>
             </div>
           </div>

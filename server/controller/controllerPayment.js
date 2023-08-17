@@ -11,6 +11,9 @@ const oAuthClientId = process.env.OAUTH_CLIENT_ID;
 const oAuthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 const merchantPosIdData = process.env.MERCHANT_POS_ID;
 
+const continueServerUrl = `https://aac2-46-205-213-173.ngrok-free.app`;
+const notifyServerUrl = `https://231d-46-205-213-173.ngrok-free.app`;
+
 const createNewPayment = async (req, res, next) => {
   try {
     const { _id } = req.user;
@@ -65,7 +68,7 @@ const createNewPayment = async (req, res, next) => {
       courseId
     );
 
-    if (isPaymentExist) {
+    if (isPaymentExist && isPaymentExist.status === 'COMPLETED') {
       return res.status(409).json({
         status: 'error',
         code: 409,
@@ -102,16 +105,19 @@ const createNewPayment = async (req, res, next) => {
 
     const payuToken = oAuthToken.data.access_token;
 
-    const continueUrlLink = `https://5798-46-205-212-212.ngrok-free.app/LangChain-LearningPlatform/payment/${newPaymentDB._id}`;
-
+    const continueUrlLink = `${continueServerUrl}/LangChain-LearningPlatform/payment/${newPaymentDB._id}`;
+    const addressData = `${buyer.address.street} ${buyer.address.flatNumber}`;
     const buyerData = {
       email: buyer.email,
       phone: buyer.phone,
       firstName: buyer.firstName,
       lastName: buyer.lastName,
+      address: addressData,
+      city: buyer.address.place,
+      postalCode: buyer.address.zipCode,
     };
     const testData = {
-      notifyUrl: `https://82c8-46-205-212-212.ngrok-free.app/api/notify/${newPaymentDB._id}`,
+      notifyUrl: `${notifyServerUrl}/api/notify/${newPaymentDB._id}`,
       customerIp: customerIpData,
       continueUrl: continueUrlLink,
       merchantPosId: merchantPosIdData,
@@ -119,7 +125,7 @@ const createNewPayment = async (req, res, next) => {
       extOrderId: newPaymentDB._id,
       buyer: buyerData,
       currencyCode: currencyCode,
-      totalAmount: totalAmount,
+      totalAmount: totalAmount * 100,
       products: products,
     };
 
@@ -175,8 +181,10 @@ const getNotificationFromPayment = async (req, res, next) => {
         },
       });
     }
+    console.log(notification);
     const userId = paymentDB.owner;
-
+    if (notification.order.status === 'CANCELED') {
+    }
     if (notification.order.status === 'COMPLETED') {
       const user = await userService.getUserById(userId);
       paymentDB.payMethod = notification.order.payMethod.type;
@@ -198,10 +206,9 @@ const getNotificationFromPayment = async (req, res, next) => {
         courseId: foundCourse._id,
         title: foundCourse.title,
         description: foundCourse.description,
-        progressData:{
-
-        sections: [],
-        }
+        progressData: {
+          sections: [],
+        },
       };
       const newSectionsData = foundCourse.sections.map(section => ({
         videoWatched: false,

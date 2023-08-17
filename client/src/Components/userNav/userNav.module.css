@@ -23,6 +23,8 @@
   gap: 10px;
 }
 .btn {
+  width: 100%;
+  box-sizing: border-box;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -32,7 +34,9 @@
   border-radius: 2px;
   padding: 10px 40px;
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   background-color: rgb(211, 33, 93);
   z-index: 100;

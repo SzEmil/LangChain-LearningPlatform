@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 type payUFormPropsType = {
   pickedCourseId: string | undefined;
   pickedCourseName: string | undefined;
+  pickedCoursePrice: number | undefined;
+
 };
 
 export type paymentDataType = {
@@ -20,13 +22,13 @@ export type paymentDataType = {
   courseId: string | undefined;
   customerIp: string;
   currencyCode: string;
-  totalAmount: number;
+  totalAmount: number | undefined;
   description: string;
   regulationsAccepted: boolean;
   products: [
     {
       name: string | undefined;
-      unitPrice: number;
+      unitPrice: number | undefined;
       quantity: number;
     }
   ];
@@ -48,6 +50,7 @@ export type paymentDataType = {
 export const PayUForm = ({
   pickedCourseId,
   pickedCourseName,
+  pickedCoursePrice,
 }: payUFormPropsType) => {
   const dispatch: AppDispatch = useDispatch();
   const language = useSelector(selectPageLanguage);
@@ -74,13 +77,13 @@ export const PayUForm = ({
       continueUrl: 'https://your-domain.com/payment-success',
       customerIp: 'exampleCustomerIP',
       currencyCode: 'PLN',
-      totalAmount: 1,
+      totalAmount: pickedCoursePrice,
       description: 'Course Payment',
       regulationsAccepted: isRegulationsAccepted,
       products: [
         {
           name: pickedCourseName,
-          unitPrice: 1,
+          unitPrice: pickedCoursePrice,
           quantity: 1,
         },
       ],
@@ -114,7 +117,7 @@ export const PayUForm = ({
     setPlace('');
     setIsRegulationsAccepted(false);
 
-     navigate('/secure');
+    navigate('/secure');
   };
 
   return (

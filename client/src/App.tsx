@@ -15,14 +15,21 @@ import { RedirectPayment } from './pages/RedirectPayment/RedirectPayment';
 import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
 import { MyCourses } from './pages/MyCourses/MyCourses';
 import { getUserCourses } from './redux/courses/coursesOperations';
+import { clearCoursesData } from './redux/courses/coursesSlice';
+import { selectAuthUserIsLoggedIn } from './redux/user/userSelectors';
+import { useSelector } from 'react-redux';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
-
+  const loggedIn = useSelector(selectAuthUserIsLoggedIn);
   useEffect(() => {
     const refreshUserData = async () => {
       await dispatch(refreshUser());
-      dispatch(getUserCourses());
+      if (loggedIn) {
+        dispatch(getUserCourses());
+      } else {
+        dispatch(clearCoursesData());
+      }
     };
 
     refreshUserData();

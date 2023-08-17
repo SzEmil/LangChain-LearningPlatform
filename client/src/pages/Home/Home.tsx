@@ -5,7 +5,10 @@ import { AboutLangChain } from '../../Components/AboutLangChain/AboutLangChain';
 import { AboutMe } from '../../Components/AboutMe/AboutMe';
 import { Contact } from '../../Components/Contact/Contact';
 
+
+
 export const Home = () => {
+  
   return (
     <div className={css.home}>
       <BanerHero />
@@ -13,7 +16,6 @@ export const Home = () => {
       <Offer />
       <AboutMe />
       <Contact />
-
     </div>
   );
 };

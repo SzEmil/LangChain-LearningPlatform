@@ -8,7 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { TestQuiz } from '../testQuiz/TestQuiz';
+import { useState } from 'react';
+import { quizType } from '../testQuiz/testQuizData';
+import { quizData } from '../testQuiz/testQuizData';
+
 export const CourseInfo = () => {
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizStart, setQuiz] = useState<quizType>();
+
   const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
@@ -16,6 +24,15 @@ export const CourseInfo = () => {
     rootMargin: '-150px 0px',
     triggerOnce: false,
   });
+
+  const handleOnClickOpenQuiz = () => {
+    setQuizOpen(true);
+    if (language === 'PL') {
+      setQuiz(quizData.testPL);
+    } else {
+      setQuiz(quizData.testENG);
+    }
+  };
   return (
     <div className={css.course} ref={courseInView.ref} id="howItWorks">
       <h2
@@ -107,7 +124,7 @@ export const CourseInfo = () => {
             </div>
             <button
               className={css.btnRegister}
-              onClick={() => navigate('/courses')}
+              onClick={() => handleOnClickOpenQuiz()}
             >
               {language === 'PL' ? 'Wypróbuj' : 'Try it now'}
             </button>
@@ -140,6 +157,13 @@ export const CourseInfo = () => {
           </div>
         </li>
       </ul>
+      {quizOpen && (
+        <div className={css.quizBackdrop}>
+          <div className={css.quizWrapper}>
+            <TestQuiz setQuizOpen={setQuizOpen} quizStart={quizStart} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

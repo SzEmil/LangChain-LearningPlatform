@@ -96,7 +96,7 @@ export const Courses = () => {
                           course => course._id === offer.targetCourseId
                         ) ? (
                           <div className={css.infoText}>
-                            <TiTick size={34} />
+                            <TiTick size={28} />
 
                             <p>
                               {language === 'PL' ? 'Kupione' : 'Already Bought'}

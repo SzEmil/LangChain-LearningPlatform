@@ -33,6 +33,10 @@ const coursesSlice = createSlice({
   initialState: coursesInitialState,
   reducers: {
     importInfoData: state => state,
+    clearCoursesData: state => {
+      state.courses.data = [];
+      state.currentCourse.data = null;
+    },
   },
   extraReducers(builder) {
     builder.addCase(getUserCourses.pending, state => {
@@ -49,5 +53,5 @@ const coursesSlice = createSlice({
   },
 });
 
-export const { importInfoData } = coursesSlice.actions;
+export const { importInfoData, clearCoursesData } = coursesSlice.actions;
 export const coursesReducer = coursesSlice.reducer;

@@ -15,7 +15,6 @@ const removeAuthHeader = () => {
 };
 
 const setApiKeyHeader = (apiKey: string | undefined) => {
-  console.log(apiKey);
   axios.defaults.headers.common['x-api-key'] = apiKey;
 };
 
