@@ -3,9 +3,8 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import { authInitialStateType } from './userSlice';
 import { apiKey } from '../globals/globalsOperations';
+import { apiLink } from '../globals/globalsOperations';
 
-// export const apiLink = 'http://localhost:3001/api';
- export const apiLink = "https://langchain-platform.onrender.com/api"
 axios.defaults.baseURL = apiLink;
 
 const setAuthHeader = (token: string) => {
@@ -17,7 +16,6 @@ const removeAuthHeader = () => {
 };
 
 const setApiKeyHeader = (apiKey: string | undefined) => {
-  console.log(apiKey);
   axios.defaults.headers.common['x-api-key'] = apiKey;
 };
 
@@ -58,6 +56,7 @@ export const logIn = createAsyncThunk(
       Notiflix.Notify.success(response.data.ResponseBody.message);
       return response.data.ResponseBody;
     } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
       return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
     }
   }
@@ -103,3 +102,25 @@ export const refreshUser = createAsyncThunk<
     return thunkAPI.rejectWithValue(e.response.data.ResponseBody.message);
   }
 });
+
+
+export const getUserProgress = createAsyncThunk(
+  'user/getUserProgress',
+  async (_, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.get('/courses/progress');
+
+      return response.data.ResponseBody.progress;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);

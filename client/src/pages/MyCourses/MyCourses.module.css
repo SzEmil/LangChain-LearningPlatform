@@ -1,0 +1,173 @@
+.myCourses {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+  padding-top: 50px;
+}
+.container {
+  width: 1200px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.item {
+  transform: translateY(-10px);
+  opacity: 0;
+
+  transition: all 200ms ease;
+  transition-delay: 550ms;
+}
+.item:nth-child(n) {
+  transition-delay: calc((n - 1) * 250ms);
+}
+.itemVisible {
+  transform: translateY(0);
+  opacity: 1;
+}
+li:nth-child(odd) .card {
+  display: flex;
+  flex-direction: row-reverse;
+
+  background: linear-gradient(
+    90deg,
+    rgba(3, 3, 33, 1) 50%,
+    rgb(70, 13, 78) 100%
+  );
+}
+
+li:nth-child(even) .card {
+  display: flex;
+  flex-direction: row;
+
+  background: linear-gradient(
+    270deg,
+    rgba(3, 3, 33, 1) 50%,
+    rgb(70, 13, 78) 100%
+  );
+}
+.card {
+  background: rgb(3, 3, 33);
+
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.infoBox {
+  padding: 60px;
+}
+.title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 32px;
+  color: white;
+}
+.dateBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.date {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 12px;
+  color: white;
+}
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 50px;
+}
+.description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+  color: white;
+  text-align: justify;
+}
+.btnBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+.btn {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  cursor: pointer;
+
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn:hover {
+  background-color: rgb(165, 25, 72);
+}
+.statsBox {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+
+  background-color: rgb(29, 29, 29);
+  border: none;
+  gap: 5px;
+}
+.frame {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.imgBox {
+  min-width: 350px;
+  height: 100%;
+  overflow: hidden;
+}
+.galleryImage {
+  display: block;
+
+  transition: transform 500ms ease;
+}
+li:nth-child(even) .imgBox {
+  border-radius: 0 10px 10px 0;
+}
+
+li:nth-child(odd) .imgBox {
+  border-radius: 10px 0 0 10px;
+}
+.card:hover .galleryImage {
+  transform: scale(1.2);
+}
+.card:hover .spanLine {
+  width: 300px;
+}

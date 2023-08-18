@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type globalsStateType = {
+export type globalsStateType = {
   serverConnection: boolean;
+  pageLanguage: 'PL' | 'ENG';
 };
 
 const globalsInitialState: globalsStateType = {
   serverConnection: true,
+  pageLanguage: 'ENG',
 };
 
 const globalsSlice = createSlice({
@@ -13,9 +15,12 @@ const globalsSlice = createSlice({
   initialState: globalsInitialState,
   reducers: {
     importInfoData: state => state,
+    setLanguage: (state, action) => {
+      state.pageLanguage = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { importInfoData } = globalsSlice.actions;
+export const { importInfoData, setLanguage } = globalsSlice.actions;
 export const globalsReducer = globalsSlice.reducer;

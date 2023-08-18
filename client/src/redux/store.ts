@@ -4,6 +4,9 @@ import persistStore from 'redux-persist/es/persistStore';
 import storage from 'redux-persist/lib/storage';
 import { userReducer } from './user/userSlice';
 import { offerReducer } from './offer/offerSlice';
+import { paymentReducer } from './payUData/paymentSlice';
+import { globalsReducer } from './globals/globalsSlice';
+import { coursesReducer } from './courses/coursesSlice';
 
 import {
   FLUSH,
@@ -26,6 +29,9 @@ export const store = configureStore({
   reducer: {
     user: persistReducer(userPersistConfig, userReducer),
     offer: offerReducer,
+    payment: paymentReducer,
+    globals: globalsReducer,
+    courses: coursesReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: {

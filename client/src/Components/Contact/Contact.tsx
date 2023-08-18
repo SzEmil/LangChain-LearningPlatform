@@ -1,8 +1,11 @@
 import css from './Contact.module.css';
 import { useInView } from 'react-intersection-observer';
 import photo from '../../images/KarolSapilkoPhoto2.jpg';
+import { useSelector } from 'react-redux';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const Contact = () => {
+  const language = useSelector(selectPageLanguage);
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
     triggerOnce: false,
@@ -19,7 +22,7 @@ export const Contact = () => {
         <h2
           className={`${css.title} ${sectionInView.inView && css.titleVisible}`}
         >
-          Contact me
+          {language === 'PL' ? 'Skontakuj się ze mną' : 'Contact Me'}
         </h2>
         <div
           className={`${css.spanLine} ${
@@ -38,8 +41,10 @@ export const Contact = () => {
                 sectionInView.inView && css.titleVisible
               }`}
             >
-              I strive to provide you with the best service, so if you have any
-              issues or questions, please feel free to get in touch with me.
+              {language === 'PL'
+                ? `Dążę do zapewnienia Ci najlepszej obsługi, dlatego jeśli masz jakiekolwiek problemy lub pytania, śmiało skontaktuj się ze mną.`
+                : `I strive to provide you with the best service, so if you have any
+              issues or questions, please feel free to get in touch with me.`}
             </p>
 
             <div
@@ -50,7 +55,7 @@ export const Contact = () => {
               <ul className={css.contactDataList}>
                 <li>
                   <a className={css.contactDataLink} href="tel:+48729979849">
-                    Call: +48 729-979-849
+                    {language === 'PL' ? `Zadzwoń: +48 729-979-849` : `Call: +48 729-979-849`}
                   </a>
                 </li>
                 <li>
@@ -81,7 +86,7 @@ export const Contact = () => {
                 />
 
                 <label className={css.label} htmlFor="message">
-                  Message:
+                  {language === 'PL' ? 'Wiadomość:' : ' Message:'}
                 </label>
                 <textarea
                   className={css.textarea}
@@ -90,7 +95,7 @@ export const Contact = () => {
                 ></textarea>
 
                 <button className={css.button} type="submit">
-                  Send Message
+                {language === 'PL' ? 'Wyślij Wiadomość' : ' Send Message'}
                 </button>
               </form>
             </div>

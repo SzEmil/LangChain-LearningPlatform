@@ -1,7 +1,7 @@
 import Offer from './schemas/offer.js';
 
-const getOffer = () => {
-  return Offer.find();
+const getOffer = language => {
+  return Offer.find({ language: language });
 };
 
 const offerService = {

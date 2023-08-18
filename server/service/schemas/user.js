@@ -18,10 +18,14 @@ export const users = new Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
+    progressData: {
+      type: Schema.Types.ObjectId,
+      ref: 'Progress',
+    },
     courses: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Course', 
+        ref: 'Course',
       },
     ],
     // subscription: {
@@ -36,7 +40,6 @@ export const users = new Schema(
     avatarURL: {
       type: String,
     },
- 
   },
   { versionKey: false, timestamps: true }
 );

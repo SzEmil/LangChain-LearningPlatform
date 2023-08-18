@@ -3,10 +3,23 @@ import userService from '../service/serviceUsers.js';
 
 const getCurrentOfferData = async (req, res, next) => {
   try {
-    const offer = await offerService.getOffer();
+    const { language } = req.body;
+    console.log(req.body);
+    console.log(language);
+    if (!language) {
+      return res.status(409).json({
+        status: 'error',
+        code: 409,
+        ResponseBody: {
+          message: 'No body',
+        },
+      });
+    }
+
+    const offer = await offerService.getOffer(language);
 
     if (!offer) {
-      res.status(404).json({
+      return res.status(404).json({
         status: 'error',
         code: 404,
         ResponseBody: {

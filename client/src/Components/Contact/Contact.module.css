@@ -90,6 +90,7 @@
   border: none;
   border-radius: 5px;
   margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.39);
 }
 .textarea {
   resize: vertical;
