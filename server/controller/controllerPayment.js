@@ -21,7 +21,7 @@ const newPaymentLink = `https://secure.snd.payu.com/api/v2_1/orders`;
 // const newPaymentLink = `https://secure.payu.com/api/v2_1/orders`
 
 const continueServerUrl = `https://szemil.github.io/`;
-const notifyServerUrl = `https://szemil.github.io/`;
+const notifyServerUrl = `https://langchain-platform.onrender.com`;
 
 const createNewPayment = async (req, res, next) => {
   try {
