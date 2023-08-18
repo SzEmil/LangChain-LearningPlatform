@@ -7,9 +7,24 @@ export const offer = new Schema(
       type: String,
       require: true,
     },
+    currency: {
+      type: String,
+      require: true,
+      enum: ['PLN', 'EUR'],
+      default: 'PLN',
+    },
+    targetCourseId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
+    },
     price: {
       type: Number,
       require: true,
+    },
+    language: {
+      type: String,
+      enum: ['PL', 'ENG'],
+      default: 'ENG',
     },
     description: {
       about: {

@@ -11,10 +11,35 @@ import { useSelector } from 'react-redux';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { setLanguage } from '../../redux/globals/globalsSlice';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const SharedLayout = () => {
+  const [userModalOpen, setUserModalOpen] = useState(false);
+
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const language = useSelector(selectPageLanguage);
+
+  const closeUserNav = () => {
+    setUserModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (userModalOpen && !event.target.closest(`.${css.userWrapper}`)) {
+        closeUserNav();
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [userModalOpen]);
 
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   function getCurrentYear() {
@@ -39,6 +64,9 @@ export const SharedLayout = () => {
     };
   }, []);
 
+  const handleOnClickChangeLanguage = (lang: String) => {
+    dispatch(setLanguage(lang));
+  };
   return (
     <div className={css.sharedLayout}>
       <header className={`${css.header} ${isScrolled && css.movedHeader}`}>
@@ -59,7 +87,10 @@ export const SharedLayout = () => {
                       offset={-150}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Home</a>
+                      <p className={css.navItemLink}>
+                        {language === 'ENG' && <span>Home</span>}
+                        {language === 'PL' && <span>Strona główna</span>}
+                      </p>
                     </Link>
                   </li>
                   <li>
@@ -71,7 +102,7 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>LangChain</a>
+                      <p className={css.navItemLink}>LangChain</p>
                     </Link>
                   </li>
                   <li>
@@ -83,7 +114,9 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Offer</a>
+                      <p className={css.navItemLink}>
+                        {language === 'PL' ? 'Oferta' : 'Offer'}
+                      </p>
                     </Link>
                   </li>
                   <li>
@@ -95,7 +128,9 @@ export const SharedLayout = () => {
                       offset={-100}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>About Me</a>
+                      <p className={css.navItemLink}>
+                        {language === 'PL' ? 'O mnie' : 'About Me'}
+                      </p>
                     </Link>
                   </li>
                   <li>
@@ -107,7 +142,9 @@ export const SharedLayout = () => {
                       offset={-20}
                       duration={500}
                     >
-                      <a className={css.navItemLink}>Contact</a>
+                      <p className={css.navItemLink}>
+                        {language === 'PL' ? 'Kontakt' : 'Contact'}
+                      </p>
                     </Link>
                   </li>
                 </ul>
@@ -115,26 +152,63 @@ export const SharedLayout = () => {
             )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>
-                <UserNav />
+                <div className={css.btnLanguageWrapper}>
+                  <button
+                    className={`${css.languageBtn} ${
+                      language === 'PL' && css.acitveLink
+                    }`}
+                    onClick={() => handleOnClickChangeLanguage('PL')}
+                  >
+                    PL
+                  </button>
+                  <p>/</p>
+                  <button
+                    className={`${css.languageBtn} ${
+                      language !== 'PL' && css.acitveLink
+                    }`}
+                    onClick={() => handleOnClickChangeLanguage('ENG')}
+                  >
+                    ENG
+                  </button>
+                </div>
+                <UserNav
+                  setUserModalOpen={setUserModalOpen}
+                  userModalOpen={userModalOpen}
+                />
               </div>
             ) : (
-              <>
+              <div className={css.btnLanguageBox}>
+                <div className={css.btnLanguageWrapper}>
+                  <button
+                    className={css.languageBtn}
+                    onClick={() => handleOnClickChangeLanguage('PL')}
+                  >
+                    PL
+                  </button>
+                  <p>/</p>
+                  <button
+                    className={css.languageBtn}
+                    onClick={() => handleOnClickChangeLanguage('ENG')}
+                  >
+                    ENG
+                  </button>
+                </div>
                 {location.pathname === '/courses' ? (
                   <button
                     className={css.navBtn}
                     onClick={() => navigate('auth')}
                   >
-                    Register
+                    {language === 'PL' ? 'Zarejestruj' : 'Register'}
                   </button>
                 ) : (
                   <button
                     className={css.navBtn}
                     onClick={() => navigate('courses')}
                   >
-                    Get Started
+                    {language === 'PL' ? 'Zaczynamy' : 'Get Started'}
                   </button>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>
@@ -146,15 +220,6 @@ export const SharedLayout = () => {
       {/* </Suspense> */}
       <footer className={css.footer}>
         <div className="container">
-          <div className={css.creatorBox}>
-            <a
-              className={css.creatorText}
-              target="_blank"
-              href="https://github.com/SzEmil"
-            >
-              App creator
-            </a>
-          </div>
           <div className={css.footerWrapper}>
             <div>
               <ul className={css.socialList}>
@@ -171,9 +236,24 @@ export const SharedLayout = () => {
               </ul>
               <p>©{getCurrentYear()} LangChain Academy</p>
             </div>
-            <div className={css.linksWrapper}>
-              <a className={css.navItemLink}>Terms</a>
-              <a className={css.navItemLink}>Privacy</a>
+            <div>
+              <div className={css.linksWrapper}>
+                <a className={css.navItemLink}>
+                  {language === 'PL' ? 'Regulamin' : 'Terms'}
+                </a>
+                <a className={css.navItemLink}>
+                  {language === 'PL'
+                    ? 'Polityka prywatności'
+                    : 'Privacy Policy'}
+                </a>
+              </div>
+              <a
+                className={css.creatorLink}
+                target="_blank"
+                href="https://github.com/SzEmil"
+              >
+                {language === 'PL' ? 'Autor aplikacji' : 'App Creator'}
+              </a>
             </div>
           </div>
         </div>

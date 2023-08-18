@@ -1,0 +1,100 @@
+.paymentWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+}
+.container {
+  width: 1200px;
+}
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.paymentBox {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  gap: 50px;
+}
+.paymentBoxTitle {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26x;
+}
+.spanLine {
+  width: 0px;
+  height: 2px;
+  margin: 20px 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(27, 8, 75, 0.9) 30%,
+    rgba(235, 71, 167, 0.9) 100%
+  );
+  transition: width 0.5s ease-in-out;
+}
+.lineVisible {
+  width: 650px;
+}
+.courseTitle {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 46x;
+  text-align: center;
+}
+.title {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26x;
+  text-align: center;
+}
+.paymentForm {
+}
+.pickedCourseWrapper {
+  max-width: 500px;
+}
+.pickedCourseCard {
+  padding: 20px;
+  border: 0.1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(68, 13, 82, 0.288);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pickedCourseCardName {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 26x;
+}
+.courseName {
+  font-weight: 500;
+}
+.pickedCourseCardDescription {
+  font-style: normal;
+  font-weight: 200;
+  font-size: 14px;
+  line-height: 18px;
+}
+.cardDescription {
+  font-weight: 300;
+}
+.pickedCourseCardAmount {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 20px;
+}
+.pickedCourseCardPrice {
+  font-weight: 900;
+}

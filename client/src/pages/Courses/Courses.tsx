@@ -10,12 +10,18 @@ import { TiTick } from 'react-icons/ti';
 import { useInView } from 'react-intersection-observer';
 import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
+import { pickCourse } from '../../redux/payUData/paymentSlice';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { selectCoursesData } from '../../redux/courses/coursesSelectors';
 
 export const Courses = () => {
+  const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const [isMounted, setIsMounted] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+
   const currentOfferData = useSelector(selectCurrentOfferData);
+  const courseData = useSelector(selectCoursesData);
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
 
   const courseInView = useInView({
@@ -24,21 +30,33 @@ export const Courses = () => {
   });
 
   const getOfferData = async () => {
-    await dispatch(getCurrentOffer());
+    const offerObjectData = {
+      language: language,
+    };
+    await dispatch(getCurrentOffer(offerObjectData));
   };
   useEffect(() => {
-    if (!isMounted) {
-      getOfferData();
-      setIsMounted(true);
-    }
-  }, [isMounted]);
+    // if (!isMounted) {
+    getOfferData();
+    //   setIsMounted(true);
+    // }
+  }, [isMounted, language]);
+
+  const handleOnClickPickCoursToBuy = (courseId: string) => {
+    dispatch(pickCourse(courseId));
+    navigate('/payment');
+  };
 
   return (
     <div className={css.courses}>
       <div className={css.container}>
         <div className={css.titleWrapper} ref={courseInView.ref}>
           <div className={css.titleBox}>
-            <h2 className={css.title}>LangChain No-Code online courses</h2>
+            <h2 className={css.title}>
+              {language === 'PL'
+                ? 'Aktualne Kursy LangChain'
+                : 'LangChain No-Code online courses'}
+            </h2>
             <div
               className={`${css.spanLine} ${
                 courseInView.inView && css.lineMainVisible
@@ -73,13 +91,36 @@ export const Courses = () => {
                   </ul>
                   <div className={css.btnBox}>
                     {isLoggedIn ? (
-                      <button className={css.btnBuy}>Buy Now</button>
+                      <>
+                        {courseData.some(
+                          course => course._id === offer.targetCourseId
+                        ) ? (
+                          <div className={css.infoText}>
+                            <TiTick size={28} />
+
+                            <p>
+                              {language === 'PL' ? 'Kupione' : 'Already Bought'}
+                            </p>
+                          </div>
+                        ) : (
+                          <button
+                            className={css.btnBuy}
+                            onClick={() =>
+                              handleOnClickPickCoursToBuy(offer._id)
+                            }
+                          >
+                            {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
+                          </button>
+                        )}
+                      </>
                     ) : (
                       <button
                         className={css.btnBuy}
                         onClick={() => navigate('/auth')}
                       >
-                        Register free account to purchase
+                        {language === 'PL'
+                          ? 'Zarejestruj Się By Kupić'
+                          : 'Register Free Account To Purchase'}
                       </button>
                     )}
                     <p className={css.price}>{offer.price} ZŁ</p>

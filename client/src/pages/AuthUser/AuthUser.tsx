@@ -4,8 +4,11 @@ import { LoginForm } from '../../Components/LoginForm/LoginForm';
 import css from './AuthUser.module.css';
 import { useNavigate } from 'react-router-dom';
 import { IoReturnUpBack } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
+import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 
 export const AuthUser = () => {
+  const language = useSelector(selectPageLanguage);
   const [isRegisterFormVisible, setIsRegisterFormVisible] = useState(true);
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const navigate = useNavigate();
@@ -20,7 +23,9 @@ export const AuthUser = () => {
           <>
             <RegisterForm />
             <p className={css.text}>
-              Already have an account?{' '}
+              {language === 'PL'
+                ? 'Posiadasz już konto w serwisie?'
+                : 'Already have an account?'}
               <button
                 className={css.changeFormBtn}
                 onClick={() => {
@@ -28,7 +33,7 @@ export const AuthUser = () => {
                   setIsRegisterFormVisible(false);
                 }}
               >
-                Login
+                {language === 'PL' ? 'Zaloguj się' : 'LogIn'}
               </button>
             </p>
           </>
@@ -38,7 +43,10 @@ export const AuthUser = () => {
           <>
             <LoginForm />
             <p className={css.text}>
-              Still no account?
+              {language === 'PL'
+                ? 'Nadal nie posiadasz konta?'
+                : 'Still no account?'}
+
               <button
                 className={css.changeFormBtn}
                 onClick={() => {
@@ -46,7 +54,7 @@ export const AuthUser = () => {
                   setIsRegisterFormVisible(true);
                 }}
               >
-                Register
+                {language === 'PL' ? 'Rejestracja' : 'Register'}
               </button>
             </p>
           </>

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser } from './userOperations';
+import { ProgressData } from '../../types/userProgress';
+import { getUserProgress } from './userOperations';
 
 export type authInitialStateType = {
   user: {
@@ -7,7 +9,9 @@ export type authInitialStateType = {
     username: string | null;
     email: string | null;
     avatarURL: string | undefined;
+    courses: string[] | [];
   };
+  courseProgress: ProgressData | null;
   token: string | null;
   isRefreshing: boolean;
   isLoggedIn: boolean;
@@ -17,8 +21,9 @@ export type authInitialStateType = {
 };
 
 const authInitialState: authInitialStateType = {
-  user: { username: null, email: null, avatarURL: '', id: null },
+  user: { username: null, email: null, avatarURL: '', id: null, courses: [] },
   token: null,
+  courseProgress: null,
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
@@ -40,7 +45,8 @@ const authSlice = createSlice({
         (state.isLoggedIn = false),
         (state.user.avatarURL = ''),
         (state.user.email = null),
-        (state.user.username = null);
+        (state.user.courses = []);
+      (state.courseProgress = null), (state.user.username = null);
     },
     serverConnected: state => {
       state.serverConnected = true;
@@ -62,7 +68,7 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
           (state.user.email = null),
           (state.user.username = null);
-        state.user.id = null;
+        (state.courseProgress = null), (state.user.id = null);
       }
     );
     builder.addCase(
@@ -103,9 +109,10 @@ const authSlice = createSlice({
           (state.isLoggedIn = false),
           (state.isRefreshing = false),
           (state.error = action.payload);
-        (state.user.avatarURL = ''),
+        (state.courseProgress = null),
+          (state.user.avatarURL = ''),
           (state.user.email = null),
-          (state.user.username = null);
+          ((state.user.courses = []), (state.user.username = null));
         state.user.id = null;
       }
     );
@@ -121,6 +128,7 @@ const authSlice = createSlice({
               avatarURL: string;
               email: string | null;
               token: string | null;
+              courses: string[] | [];
               _id: string | null;
             };
           };
@@ -131,6 +139,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.user.avatarURL = action.payload.user.avatarURL;
         state.user.id = action.payload.user._id;
+        state.user.courses = action.payload.user.courses;
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -153,6 +162,7 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
           (state.user.email = null),
           (state.user.username = null);
+        (state.courseProgress = null), (state.user.courses = []);
         state.user.id = null;
       }
     );
@@ -167,6 +177,7 @@ const authSlice = createSlice({
         state.user.username = action.payload.username;
         state.user.email = action.payload.email;
         state.user.id = action.payload._id;
+        state.user.courses = action.payload.courses;
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -188,8 +199,22 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
         (state.user.email = null),
         (state.user.username = null);
+      state.user.courses = [];
       state.user.id = null;
       state.isLoading = false;
+    });
+
+    builder.addCase(getUserProgress.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(getUserProgress.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getUserProgress.fulfilled, (state, action) => {
+      state.error = null;
+      state.isLoading = false;
+      state.courseProgress = action.payload;
     });
   },
 });

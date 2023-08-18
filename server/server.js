@@ -27,7 +27,7 @@ import './config/config-passport.js';
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 
- app.use(checkApiKey);
+//  app.use(checkApiKey);
 
 app.use('/api', router);
 
