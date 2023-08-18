@@ -101,7 +101,7 @@ export const PayUForm = ({
         },
       },
     };
-
+    console.log(paymentData);
     // Wyślij ten obiekt do backendu
 
     console.log(paymentData);

@@ -1,11 +1,9 @@
 import offerService from '../service/serviceOffer.js';
-import userService from '../service/serviceUsers.js';
 
 const getCurrentOfferData = async (req, res, next) => {
   try {
     const { language } = req.body;
-    console.log(req.body);
-    console.log(language);
+
     if (!language) {
       return res.status(409).json({
         status: 'error',

@@ -32,6 +32,7 @@ export const TestQuiz = ({ setQuizOpen, quizStart }: any) => {
 
   const exitQuiz = () => {
     setQuizOpen(false);
+    setQuiz(quizStart)
     setQuestionNumber(0);
   };
   return (

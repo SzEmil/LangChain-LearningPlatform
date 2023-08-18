@@ -6,13 +6,13 @@ import Notiflix from 'notiflix';
 
 axios.defaults.baseURL = apiLink;
 
-const setAuthHeader = (token: string) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+// const setAuthHeader = (token: string) => {
+//   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+// };
 
-const removeAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
+// const removeAuthHeader = () => {
+//   axios.defaults.headers.common.Authorization = '';
+// };
 
 const setApiKeyHeader = (apiKey: string | undefined) => {
   axios.defaults.headers.common['x-api-key'] = apiKey;

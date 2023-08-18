@@ -1,5 +1,5 @@
 import css from './Courses.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { getCurrentOffer } from '../../redux/offer/offerOperations';
@@ -17,7 +17,6 @@ import { selectCoursesData } from '../../redux/courses/coursesSelectors';
 export const Courses = () => {
   const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
-  const [isMounted, setIsMounted] = useState(false);
   const dispatch: AppDispatch = useDispatch();
 
   const currentOfferData = useSelector(selectCurrentOfferData);
@@ -36,11 +35,8 @@ export const Courses = () => {
     await dispatch(getCurrentOffer(offerObjectData));
   };
   useEffect(() => {
-    // if (!isMounted) {
     getOfferData();
-    //   setIsMounted(true);
-    // }
-  }, [isMounted, language]);
+  }, [ language]);
 
   const handleOnClickPickCoursToBuy = (courseId: string) => {
     dispatch(pickCourse(courseId));
