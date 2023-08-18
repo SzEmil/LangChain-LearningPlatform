@@ -1,5 +1,4 @@
 import offerService from '../service/serviceOffer.js';
-import userService from '../service/serviceUsers.js';
 
 const getCurrentOfferData = async (req, res, next) => {
   try {
