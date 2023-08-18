@@ -1,5 +1,5 @@
 import css from './Courses.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { getCurrentOffer } from '../../redux/offer/offerOperations';

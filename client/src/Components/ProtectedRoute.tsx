@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { ComponentType } from 'react';
-import Notiflix from 'notiflix';
 
 type ProtectedRouteProps = {
   component: ComponentType;
