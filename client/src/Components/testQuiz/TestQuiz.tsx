@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { quizType } from './testQuizData';
-import { questionsType } from './testQuizData';
+import { quizType } from './TestQuizData';
+import { questionsType } from './TestQuizData';
 import css from './TestQuiz.module.css';
 import { nanoid } from '@reduxjs/toolkit';
 import { GrFormNextLink } from 'react-icons/gr';

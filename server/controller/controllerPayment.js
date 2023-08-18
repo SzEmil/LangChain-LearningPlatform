@@ -14,6 +14,15 @@ const merchantPosIdData = process.env.MERCHANT_POS_ID;
 const continueServerUrl = `https://aac2-46-205-213-173.ngrok-free.app`;
 const notifyServerUrl = `https://231d-46-205-213-173.ngrok-free.app`;
 
+const oAuthTokenLink = `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`;
+// const oAuthTokenLink = `https://secure.payu.com/pl/standard/user/oauth/authorize`
+
+const newPaymentLink = `https://secure.snd.payu.com/api/v2_1/orders`;
+// const newPaymentLink = `https://secure.payu.com/api/v2_1/orders`
+
+// const continueServerUrl = `https://szemil.github.io/`;
+// const notifyServerUrl = `https://szemil.github.io/`;
+
 const createNewPayment = async (req, res, next) => {
   try {
     const { _id } = req.user;
@@ -93,15 +102,11 @@ const createNewPayment = async (req, res, next) => {
 
     const oAuthData = `grant_type=trusted_merchant&client_id=${oAuthClientId}&client_secret=${oAuthClientSecret}&email=${user.email}&ext_customer_id=${user._id}`;
 
-    const oAuthToken = await axios.post(
-      `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`,
-      oAuthData,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
+    const oAuthToken = await axios.post(`${oAuthTokenLink}`, oAuthData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
 
     const payuToken = oAuthToken.data.access_token;
 
@@ -129,17 +134,13 @@ const createNewPayment = async (req, res, next) => {
       products: products,
     };
 
-    const response = await axios.post(
-      `https://secure.snd.payu.com/api/v2_1/orders`,
-      testData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${payuToken}`,
-        },
-        maxRedirects: 0,
-      }
-    );
+    const response = await axios.post(`${newPaymentLink}`, testData, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${payuToken}`,
+      },
+      maxRedirects: 0,
+    });
 
     res.status(200).json({
       status: 'success',
