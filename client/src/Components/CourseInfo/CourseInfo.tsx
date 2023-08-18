@@ -10,8 +10,8 @@ import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 import { TestQuiz } from '../testQuiz/TestQuiz';
 import { useState } from 'react';
-import { quizType } from '../testQuiz/testQuizData';
-import { quizData } from '../testQuiz/testQuizData';
+import { quizType } from '../testQuiz/TestQuizData';
+import { quizData } from '../testQuiz/TestQuizData';
 
 export const CourseInfo = () => {
   const [quizOpen, setQuizOpen] = useState(false);
