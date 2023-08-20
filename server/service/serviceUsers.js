@@ -15,9 +15,10 @@ const createUser = async (username, email) => {
   return User.create({ username, email });
 };
 
-
-const getRestaurantColabolators = usersId => {
-  return User.find({ _id: { $in: [usersId] } });
+const getUserByVerificationEmailLink = async (userId, verifyToken) => {
+  return User.findOne({
+    $and: [{ _id: userId }, { emailVerificiationToken: verifyToken }],
+  });
 };
 
 const userService = {
@@ -25,6 +26,6 @@ const userService = {
   getUserByEmail,
   createUser,
   getUserById,
-  getRestaurantColabolators,
+  getUserByVerificationEmailLink,
 };
 export default userService;

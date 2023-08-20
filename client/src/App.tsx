@@ -19,6 +19,7 @@ import { clearCoursesData } from './redux/courses/coursesSlice';
 import { selectAuthUserIsLoggedIn } from './redux/user/userSelectors';
 import { useSelector } from 'react-redux';
 import { CoursePage } from './pages/CoursePage/CoursePage';
+import { VerificationEmail } from './pages/VerificationEmail/VerificationEmail';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -60,6 +61,7 @@ export const App = () => {
               <ProtectedRoute component={CoursePage} redirectTo="/auth" />
             }
           />
+          <Route path="/verify/:token" element={<VerificationEmail />} />
         </Route>
         <Route
           path="/auth"

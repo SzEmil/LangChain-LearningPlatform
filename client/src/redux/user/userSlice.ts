@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser } from './userOperations';
 import { ProgressData } from '../../types/userProgress';
 import { getUserProgress } from './userOperations';
+import { verifyUserEmail } from './userOperations';
 
 export type authInitialStateType = {
   user: {
@@ -9,6 +10,7 @@ export type authInitialStateType = {
     username: string | null;
     email: string | null;
     avatarURL: string | undefined;
+    emailVerification: boolean;
     courses: string[] | [];
   };
   courseProgress: ProgressData | null;
@@ -21,7 +23,14 @@ export type authInitialStateType = {
 };
 
 const authInitialState: authInitialStateType = {
-  user: { username: null, email: null, avatarURL: '', id: null, courses: [] },
+  user: {
+    username: null,
+    email: null,
+    avatarURL: '',
+    id: null,
+    courses: [],
+    emailVerification: false,
+  },
   token: null,
   courseProgress: null,
   isLoggedIn: false,
@@ -45,8 +54,10 @@ const authSlice = createSlice({
         (state.isLoggedIn = false),
         (state.user.avatarURL = ''),
         (state.user.email = null),
+        state.courseProgress = null,
         (state.user.courses = []);
       (state.courseProgress = null), (state.user.username = null);
+      state.user.emailVerification = false;
     },
     serverConnected: state => {
       state.serverConnected = true;
@@ -68,7 +79,9 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
           (state.user.email = null),
           (state.user.username = null);
+          state.courseProgress = null,
         (state.courseProgress = null), (state.user.id = null);
+        state.user.emailVerification = false;
       }
     );
     builder.addCase(
@@ -80,6 +93,7 @@ const authSlice = createSlice({
             username: string | null;
             email: string | null;
             avatarURL: string;
+            emailVerification: boolean;
             token: string | null;
             _id: string | null;
           };
@@ -90,6 +104,7 @@ const authSlice = createSlice({
         state.user.id = action.payload._id;
         state.user.avatarURL = action.payload.avatarURL;
         state.token = action.payload.token;
+        state.user.emailVerification = action.payload.emailVerification;
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -112,7 +127,8 @@ const authSlice = createSlice({
         (state.courseProgress = null),
           (state.user.avatarURL = ''),
           (state.user.email = null),
-          ((state.user.courses = []), (state.user.username = null));
+          (state.user.emailVerification = false);
+        (state.user.courses = []), (state.user.username = null);
         state.user.id = null;
       }
     );
@@ -128,6 +144,7 @@ const authSlice = createSlice({
               avatarURL: string;
               email: string | null;
               token: string | null;
+              emailVerification: boolean;
               courses: string[] | [];
               _id: string | null;
             };
@@ -139,6 +156,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.user.avatarURL = action.payload.user.avatarURL;
         state.user.id = action.payload.user._id;
+        state.user.emailVerification = action.payload.user.emailVerification;
         state.user.courses = action.payload.user.courses;
         state.isLoggedIn = true;
         state.error = null;
@@ -161,7 +179,8 @@ const authSlice = createSlice({
           (state.error = action.payload);
         (state.user.avatarURL = ''),
           (state.user.email = null),
-          (state.user.username = null);
+          (state.user.emailVerification = false);
+        state.user.username = null;
         (state.courseProgress = null), (state.user.courses = []);
         state.user.id = null;
       }
@@ -178,6 +197,7 @@ const authSlice = createSlice({
         state.user.email = action.payload.email;
         state.user.id = action.payload._id;
         state.user.courses = action.payload.courses;
+        state.user.emailVerification = action.payload.emailVerification;
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -199,6 +219,7 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
         (state.user.email = null),
         (state.user.username = null);
+      state.user.emailVerification = false;
       state.user.courses = [];
       state.user.id = null;
       state.isLoading = false;
@@ -215,6 +236,15 @@ const authSlice = createSlice({
       state.error = null;
       state.isLoading = false;
       state.courseProgress = action.payload;
+    });
+
+    builder.addCase(verifyUserEmail.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    builder.addCase(verifyUserEmail.fulfilled, (state, action) => {
+      state.error = null;
+      state.isLoading = false;
+      if (action.payload) state.user.emailVerification = action.payload;
     });
   },
 });

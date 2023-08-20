@@ -24,13 +24,7 @@ router.post('/users/logout', checkApiKey, authUser, userController.logout);
 
 router.get('/users/current', checkApiKey, authUser, userController.currentUser);
 
-router.patch(
-  '/users/avatars',
-  checkApiKey,
-  authUser,
-  upload.single('avatar'),
-  userController.uploadAvatar
-);
+router.post("/users/verify/:token", checkApiKey, authUser, userController.verifyUserEmail)
 
 // offer
 router.post('/offer', checkApiKey, offerController.getCurrentOfferData);

@@ -1,6 +1,5 @@
 .userNav {
   position: relative;
-  cursor: pointer;
   transition: color 200ms ease;
 }
 .userNav:hover {

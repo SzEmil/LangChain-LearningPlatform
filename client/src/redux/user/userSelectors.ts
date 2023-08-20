@@ -6,6 +6,9 @@ export const selectAuthUser = (state: { user: authInitialStateType }) =>
 export const selectAuthUserData = (state: { user: authInitialStateType }) =>
   state.user.user;
 
+  export const selectAuthUserEmail = (state: { user: authInitialStateType }) =>
+  state.user.user.email;
+
 export const selectAuthUserIsLoggedIn = (state: {
   user: authInitialStateType;
 }) => state.user.isLoggedIn;
@@ -31,3 +34,7 @@ export const selectIsServerConnected = (state: {
 export const selectUserCoursesProgress = (state: {
   user: authInitialStateType;
 }) => state.user.courseProgress;
+
+export const selectAuthUserEmailConfrimed = (state: {
+  user: authInitialStateType;
+}) => state.user.user.emailVerification;

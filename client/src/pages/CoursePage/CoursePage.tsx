@@ -15,9 +15,9 @@ export const CoursePage = () => {
   const isLoading = useSelector(selectCurrentCourseIsLoading);
   const courseData = useSelector(selectCurrentCourseData);
 
-  //   useEffect(() => {
-  //     dispatch(getUserCourseById(courseId));
-  //   }, [courseId]);
+    // useEffect(() => {
+    //   dispatch(getUserCourseById(courseId));
+    // }, [courseId]);
   return (
     <div>
       {isLoading ? (
@@ -34,13 +34,13 @@ export const CoursePage = () => {
         <div className={css.course}>
           <div className={css.container}>
             {courseData?.title}
-            {/* <video controls width="100%" height="auto">
+            <video controls width="100%" height="auto">
               <source
                 src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
-            </video> */}
+            </video>
 
             {/* <iframe
               width="1280"

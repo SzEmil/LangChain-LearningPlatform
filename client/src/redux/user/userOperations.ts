@@ -103,7 +103,6 @@ export const refreshUser = createAsyncThunk<
   }
 });
 
-
 export const getUserProgress = createAsyncThunk(
   'user/getUserProgress',
   async (_, thunkAPI) => {
@@ -118,6 +117,28 @@ export const getUserProgress = createAsyncThunk(
       const response = await axios.get('/courses-progress');
 
       return response.data.ResponseBody.progress;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);
+
+export const verifyUserEmail = createAsyncThunk(
+  'user/verifyUserEmail',
+  async (emailToken: string | string[] | undefined, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.post(`/users/verify/${emailToken}`);
+
+      Notiflix.Notify.success(response.data.ResponseBody.message);
+      return response.data.ResponseBody.verification;
     } catch (error: any) {
       Notiflix.Notify.failure(error.response.data.ResponseBody.message);
       return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);

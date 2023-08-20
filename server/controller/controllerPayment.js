@@ -11,8 +11,8 @@ const oAuthClientId = process.env.OAUTH_CLIENT_ID;
 const oAuthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 const merchantPosIdData = process.env.MERCHANT_POS_ID;
 
-// const continueServerUrl = `https://aac2-46-205-213-173.ngrok-free.app`;
-// const notifyServerUrl = `https://231d-46-205-213-173.ngrok-free.app`;
+const continueServerUrl = `https://4270-37-128-155-23.ngrok-free.app`;
+const notifyServerUrl = `https://e8bc-37-128-155-23.ngrok-free.app`;
 
 const oAuthTokenLink = `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`;
 // const oAuthTokenLink = `https://secure.payu.com/pl/standard/user/oauth/authorize`
@@ -20,8 +20,8 @@ const oAuthTokenLink = `https://secure.snd.payu.com/pl/standard/user/oauth/autho
 const newPaymentLink = `https://secure.snd.payu.com/api/v2_1/orders`;
 // const newPaymentLink = `https://secure.payu.com/api/v2_1/orders`
 
-const continueServerUrl = `https://szemil.github.io/`;
-const notifyServerUrl = `https://langchain-platform.onrender.com`;
+// const continueServerUrl = `https://szemil.github.io/`;
+// const notifyServerUrl = `https://langchain-platform.onrender.com`;
 
 const createNewPayment = async (req, res, next) => {
   try {

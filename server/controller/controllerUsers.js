@@ -4,13 +4,9 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import dotenv from 'dotenv';
 import gravatar from 'gravatar';
-import Jimp from 'jimp';
-import path from 'path';
-import { nanoid } from 'nanoid';
-import { storeImageDir } from '../middlewares/fileUpload/upload.js';
-import fs from 'fs/promises';
 import progressService from '../service/serviceProgress.js';
-import { join } from 'path';
+import { sendVerificationEmail } from '../helpers/emailVeryfication.js';
+import { generateVerificationToken } from '../helpers/emailVeryfication.js';
 
 dotenv.config();
 
@@ -19,12 +15,22 @@ const secret = process.env.SECRET;
 export const userSchema = joi.object({
   username: joi.string().required(),
   email: joi.string().email().required(),
-  password: joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+  password: joi
+    .string()
+    .required()
+    .pattern(
+      new RegExp('^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:\'",.<>/?]{3,30}$')
+    ),
 });
 
 export const userSchemaLogin = joi.object({
   email: joi.string().email().required(),
-  password: joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+  password: joi
+    .string()
+    .required()
+    .pattern(
+      new RegExp('^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:\'",.<>/?]{3,30}$')
+    ),
 });
 
 const userSubscriptionSchema = joi.object({
@@ -132,22 +138,33 @@ const register = async (req, res, next) => {
 
       const token = jwt.sign(payload, secret, { expiresIn: '12h' });
       newUser.token = token;
-      await newUser.save();
 
-      return res.status(201).json({
-        status: 'Created',
-        code: 201,
-        ResponseBody: {
-          message: 'User created',
-          user: {
-            username: newUser.username,
-            email: newUser.email,
-            token: newUser.token,
-            avatarURL,
-            _id: newUser._id,
+      const verificationToken = generateVerificationToken();
+      newUser.emailVerificiationToken = verificationToken;
+
+      try {
+        sendVerificationEmail(newUser.email, verificationToken);
+
+        await newUser.save();
+
+        return res.status(201).json({
+          status: 'Created',
+          code: 201,
+          ResponseBody: {
+            message: 'User created',
+            user: {
+              username: newUser.username,
+              email: newUser.email,
+              token: newUser.token,
+              emailVerification: newUser.emailVerification,
+              avatarURL,
+              _id: newUser._id,
+            },
           },
-        },
-      });
+        });
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
       next(error);
@@ -206,6 +223,7 @@ const login = async (req, res, next) => {
           _id: user._id,
           username: user.username,
           email: user.email,
+          emailVerification: user.emailVerification,
           avatarURL: user.avatarURL,
           courses: user.courses,
         },
@@ -268,6 +286,7 @@ const currentUser = async (req, res, next) => {
         email: user.email,
         _id: user._id,
         avatarURL: user.avatarURL,
+        emailVerification: user.emailVerification,
         courses: user.courses,
       },
     });
@@ -276,9 +295,9 @@ const currentUser = async (req, res, next) => {
   }
 };
 
-const uploadAvatar = async (req, res, next) => {
+const verifyUserEmail = async (req, res, next) => {
+  const { _id } = req.user;
   try {
-    const { _id } = req.user;
     const user = await userService.getUserById(_id);
     if (!user) {
       return res.status(401).json({
@@ -289,42 +308,53 @@ const uploadAvatar = async (req, res, next) => {
         },
       });
     }
-    const oldAvatarPath = user.avatarURL;
-    const newOldAvatarPath = join('public', oldAvatarPath);
+    const { token } = req.params;
 
-    const file = req.file;
-    if (!file)
-      return res
-        .status(400)
-        .json({ status: false, code: 400, message: 'Missing file' });
-
-    const avatarPath = file.path;
-    Jimp.read(avatarPath)
-      .then(image => {
-        return image.resize(250, 250);
-      })
-      .catch(error => console.log(error));
-
-    const newAvatarName = `${nanoid()}_${user._id}_${file.originalname}`;
-    const destinationPath = path.join(storeImageDir, newAvatarName);
-    try {
-      await fs.rename(avatarPath, destinationPath);
-      if (!oldAvatarPath.includes('gravatar')) {
-        fs.unlink(newOldAvatarPath);
-      }
-    } catch (error) {
-      await fs.unlink(avatarPath);
-      return next(error);
+    if (!token) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: 'There is no token in request params',
+        },
+      });
     }
 
-    user.avatarURL = `/avatars/${newAvatarName}`;
-    await user.save();
+    const userVerification = await userService.getUserByVerificationEmailLink(
+      user._id,
+      token
+    );
+
+    if (user.emailVerification === true) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: `User ${user.email} already confirmed`,
+        },
+      });
+    }
+
+    if (!userVerification && user.emailVerification === false) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: `User does not have a valid verification token`,
+        },
+      });
+    }
+
+    userVerification.emailVerification = true;
+    userVerification.emailVerificiationToken = null;
+    await userVerification.save();
+
     return res.status(200).json({
-      status: 'success',
-      message: 'Avatar uploaded successfully',
+      status: 'OK',
+      code: 200,
       ResponseBody: {
-        avatarURL: user.avatarURL,
-        message: 'Avatar was successfully uploaded',
+        message: `Email ${user.email} confirmed successfully`,
+        verification: userVerification.emailVerification,
       },
     });
   } catch (error) {
@@ -338,6 +368,6 @@ const userController = {
   login,
   logout,
   currentUser,
-  uploadAvatar,
+  verifyUserEmail,
 };
 export default userController;
