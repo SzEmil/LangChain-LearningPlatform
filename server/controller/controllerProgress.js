@@ -5,6 +5,7 @@ const getUserProgress = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const user = await userService.getUserById(_id);
+
     if (!user) {
       return res.status(401).json({
         status: 'error',

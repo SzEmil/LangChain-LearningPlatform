@@ -18,6 +18,7 @@ import { getUserCourses } from './redux/courses/coursesOperations';
 import { clearCoursesData } from './redux/courses/coursesSlice';
 import { selectAuthUserIsLoggedIn } from './redux/user/userSelectors';
 import { useSelector } from 'react-redux';
+import { CoursePage } from './pages/CoursePage/CoursePage';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -51,6 +52,12 @@ export const App = () => {
             path="/my-courses"
             element={
               <ProtectedRoute component={MyCourses} redirectTo="/auth" />
+            }
+          ></Route>
+          <Route
+            path="/my-courses/:courseId"
+            element={
+              <ProtectedRoute component={CoursePage} redirectTo="/auth" />
             }
           />
         </Route>

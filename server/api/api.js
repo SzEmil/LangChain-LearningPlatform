@@ -65,9 +65,16 @@ router.get(
   coursesController.getUserCoursesData
 );
 
+router.get(
+  '/courses/:courseId',
+  checkApiKey,
+  authUser,
+  coursesController.getUserCourseById
+);
+
 //progress
 router.get(
-  '/courses/progress',
+  '/courses-progress',
   checkApiKey,
   authUser,
   progressController.getUserProgress

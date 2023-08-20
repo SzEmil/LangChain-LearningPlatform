@@ -92,6 +92,7 @@ const createNewPayment = async (req, res, next) => {
     const newPaymentData = {
       itemId: courseId,
       amount: totalAmount,
+      payInfo: 'Payment not started',
       owner: user._id,
       refererToItem: course.title,
       regulationsAccepted: regulationsAccepted,
@@ -182,13 +183,15 @@ const getNotificationFromPayment = async (req, res, next) => {
         },
       });
     }
-
+    paymentDB.payInfo = 'Payment started';
     const userId = paymentDB.owner;
     if (notification.order.status === 'CANCELED') {
+      paymentDB.payInfo = 'Payment canceled';
     }
     if (notification.order.status === 'COMPLETED') {
       const user = await userService.getUserById(userId);
       paymentDB.payMethod = notification.order.payMethod.type;
+      paymentDB.payInfo = 'Payment Completed';
       user.courses.push(paymentDB.itemId);
       const foundCourse = await courseService.getCourseById(paymentDB.itemId);
 

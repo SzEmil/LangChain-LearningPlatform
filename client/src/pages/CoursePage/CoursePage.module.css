@@ -1,0 +1,10 @@
+.course {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+.container {
+  width: 1200px;
+}

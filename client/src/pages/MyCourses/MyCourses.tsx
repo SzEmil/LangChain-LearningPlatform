@@ -12,8 +12,10 @@ import { BsFillCalendarDateFill } from 'react-icons/bs';
 import { FaPlay } from 'react-icons/fa6';
 import { TbProgressCheck } from 'react-icons/tb';
 import { MdQuiz } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 export const MyCourses = () => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const language = useSelector(selectPageLanguage);
   const coursesData = useSelector(selectUserCoursesProgress);
@@ -32,6 +34,10 @@ export const MyCourses = () => {
     const time = date!.slice(11, 16);
 
     return `${year}  ${time}`;
+  };
+
+  const handleOnClickStartCourse = (courseIdData: string) => {
+    navigate(`/my-courses/${courseIdData}`);
   };
   return (
     <div className={css.myCourses}>
@@ -60,7 +66,12 @@ export const MyCourses = () => {
                     ></div>
                     <p className={css.description}>{course.description}</p>
                     <div className={css.btnBox}>
-                      <button className={css.btn}>
+                      <button
+                        className={css.btn}
+                        onClick={() =>
+                          handleOnClickStartCourse(course.courseId)
+                        }
+                      >
                         <FaPlay size={16} />
                         {course.lastOpen ? (
                           <> {language === 'PL' ? 'Kontynuuj' : 'Continue'}</>

@@ -115,7 +115,7 @@ export const getUserProgress = createAsyncThunk(
       if (!token)
         return thunkAPI.rejectWithValue('Valid token is not provided');
       setAuthHeader(token);
-      const response = await axios.get('/courses/progress');
+      const response = await axios.get('/courses-progress');
 
       return response.data.ResponseBody.progress;
     } catch (error: any) {
