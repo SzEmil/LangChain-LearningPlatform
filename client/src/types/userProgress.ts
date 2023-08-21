@@ -3,18 +3,21 @@ interface ProgressSection {
   quizCompleted: boolean;
   quizResult: number;
 }
-
-interface ProgressCourse {
+interface About {
   courseId: string;
   title: string;
   description: string;
-  started: string;
+  language: string;
+}
+interface ProgressCourse {
+  about: About[];
   lastOpen: string;
   progressData: {
     sections: ProgressSection[];
     sectionsCompleted: number;
     quizesCompleted: number;
   };
+  started: string;
 }
 
 export interface ProgressData {

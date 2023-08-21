@@ -24,6 +24,7 @@ const courseSchema = new mongoose.Schema(
   {
     title: String,
     description: String,
+    language: String,
     sections: [sectionSchema],
   },
   { versionKey: false, timestamps: true }

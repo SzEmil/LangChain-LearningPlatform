@@ -15,9 +15,9 @@ export const CoursePage = () => {
   const isLoading = useSelector(selectCurrentCourseIsLoading);
   const courseData = useSelector(selectCurrentCourseData);
 
-    // useEffect(() => {
-    //   dispatch(getUserCourseById(courseId));
-    // }, [courseId]);
+    useEffect(() => {
+      dispatch(getUserCourseById(courseId));
+    }, [courseId]);
   return (
     <div>
       {isLoading ? (

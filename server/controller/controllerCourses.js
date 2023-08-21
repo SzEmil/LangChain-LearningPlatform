@@ -1,6 +1,6 @@
 import userService from '../service/serviceUsers.js';
 import courseService from '../service/serviceCourses.js';
-
+import courseDataService from '../service/serviceCourseData.js';
 const getUserCoursesData = async (req, res, next) => {
   try {
     const { _id } = req.user;
@@ -65,10 +65,22 @@ const getUserCourseById = async (req, res, next) => {
         },
       });
     }
-    const courseData = await courseService.getUserCourseById(
-      courseId,
-      user.courses
-    );
+    const coursesTabForCheck =
+      await courseDataService.getUserCoursesDataByCourseId(
+        courseId,
+        user.courses
+      );
+    if (!coursesTabForCheck) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        ResponseBody: {
+          message: 'Unauthorized. You have no permission to this data',
+        },
+      });
+    }
+
+    const courseData = await courseService.getCourseById(courseId);
 
     if (!courseData) {
       return res.status(404).json({

@@ -52,51 +52,64 @@ export const MyCourses = () => {
                 }`}
               >
                 <div className={css.card}>
-                  <div className={css.infoBox}>
-                    <h2 className={css.title}>{course.title}</h2>
-                    <div className={css.dateBox}>
-                      <BsFillCalendarDateFill size={16} />{' '}
-                      <p className={css.date}>{cutDate(course.started)}</p>
-                    </div>
+                  {course.about.map(about => {
+                    if (about.language === language) {
+                      return (
+                        <div className={css.infoBox} key={about.courseId}>
+                          <h2 className={css.title}>{about.title}</h2>
+                          <div className={css.dateBox}>
+                            <BsFillCalendarDateFill size={16} />{' '}
+                            <p className={css.date}>
+                              {cutDate(course.started)}
+                            </p>
+                          </div>
 
-                    <div
-                      className={`${css.spanLine} ${
-                        sectionInView.inView && css.lineVisible
-                      }`}
-                    ></div>
-                    <p className={css.description}>{course.description}</p>
-                    <div className={css.btnBox}>
-                      <button
-                        className={css.btn}
-                        onClick={() =>
-                          handleOnClickStartCourse(course.courseId)
-                        }
-                      >
-                        <FaPlay size={16} />
-                        {course.lastOpen ? (
-                          <> {language === 'PL' ? 'Kontynuuj' : 'Continue'}</>
-                        ) : (
-                          <>{language === 'PL' ? 'Zacznij' : 'Start'}</>
-                        )}
-                      </button>
-                      <div className={css.statsBox}>
-                        <TbProgressCheck size={16} />
-                        <p className={css.frame}>
-                          {language === 'PL' ? 'Ukończono' : 'Progress'}{' '}
-                          {course.progressData.sectionsCompleted}/
-                          {course.progressData.sections.length}
-                        </p>
-                      </div>
-                      <div className={css.statsBox}>
-                        <MdQuiz size={16} />
-                        <p className={css.frame}>
-                          {language === 'PL' ? 'Quiz' : 'Quiz'}{' '}
-                          {course.progressData.quizesCompleted}/
-                          {course.progressData.sections.length}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                          <div
+                            className={`${css.spanLine} ${
+                              sectionInView.inView && css.lineVisible
+                            }`}
+                          ></div>
+                          <p className={css.description}>{about.description}</p>
+                          <div className={css.btnBox}>
+                            <button
+                              className={css.btn}
+                              onClick={() =>
+                                handleOnClickStartCourse(about.courseId)
+                              }
+                            >
+                              <FaPlay size={16} />
+                              {course.lastOpen ? (
+                                <>
+                                  {' '}
+                                  {language === 'PL' ? 'Kontynuuj' : 'Continue'}
+                                </>
+                              ) : (
+                                <>{language === 'PL' ? 'Zacznij' : 'Start'}</>
+                              )}
+                            </button>
+
+                            <div className={css.statsBox}>
+                              <TbProgressCheck size={16} />
+                              <p className={css.frame}>
+                                {language === 'PL' ? 'Ukończono' : 'Progress'}{' '}
+                                {course.progressData.sectionsCompleted}/
+                                {course.progressData.sections.length}
+                              </p>
+                            </div>
+                            <div className={css.statsBox}>
+                              <MdQuiz size={16} />
+                              <p className={css.frame}>
+                                {language === 'PL' ? 'Quiz' : 'Quiz'}{' '}
+                                {course.progressData.quizesCompleted}/
+                                {course.progressData.sections.length}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null; 
+                  })}
                   <div className={css.imgBox}>
                     <img
                       className={css.galleryImage}

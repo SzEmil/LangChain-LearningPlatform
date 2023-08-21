@@ -27,11 +27,11 @@ export const App = () => {
   useEffect(() => {
     const refreshUserData = async () => {
       await dispatch(refreshUser());
-      if (loggedIn) {
-        dispatch(getUserCourses());
-      } else {
-        dispatch(clearCoursesData());
-      }
+      // if (loggedIn) {
+      //   dispatch(getUserCourses());
+      // } else {
+      //   dispatch(clearCoursesData());
+      // }
     };
 
     refreshUserData();
@@ -61,7 +61,9 @@ export const App = () => {
               <ProtectedRoute component={CoursePage} redirectTo="/auth" />
             }
           />
-          <Route path="/verify/:token" element={<VerificationEmail />} />
+          <Route path="/verify/:token"  element={
+              <ProtectedRoute component={VerificationEmail} redirectTo="/auth" />
+            } />
         </Route>
         <Route
           path="/auth"

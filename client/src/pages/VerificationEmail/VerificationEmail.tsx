@@ -7,6 +7,7 @@ import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 import { useEffect } from 'react';
 import { verifyUserEmail } from '../../redux/user/userOperations';
 import { selectAuthUserEmailConfrimed } from '../../redux/user/userSelectors';
+import css from './VerificationEmail.module.css';
 
 export const VerificationEmail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -18,9 +19,11 @@ export const VerificationEmail = () => {
     if (token) dispatch(verifyUserEmail(token));
   }, []);
   return (
-    <div>
-      Check your inbox and click in the link in email to verify your account.
-      Check also spam folder
+    <div className={css.verificationEmail}>
+      <p>
+        Check your inbox and click in the link in email to verify your account.
+      </p>
+      <p> Check also spam folder</p>
       {emailConfirmation ? (
         <p>Zweryfikowano email</p>
       ) : (

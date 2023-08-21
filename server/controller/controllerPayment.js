@@ -2,6 +2,7 @@ import paymentService from '../service/servicePayment.js';
 import userService from '../service/serviceUsers.js';
 import courseService from '../service/serviceCourses.js';
 import progressService from '../service/serviceProgress.js';
+import courseDataService from '../service/serviceCourseData.js';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
@@ -11,8 +12,8 @@ const oAuthClientId = process.env.OAUTH_CLIENT_ID;
 const oAuthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 const merchantPosIdData = process.env.MERCHANT_POS_ID;
 
-const continueServerUrl = `https://4270-37-128-155-23.ngrok-free.app`;
-const notifyServerUrl = `https://e8bc-37-128-155-23.ngrok-free.app`;
+const continueServerUrl = `https://92a2-37-128-155-23.ngrok-free.app`;
+const notifyServerUrl = `https://dc5c-37-128-155-23.ngrok-free.app`;
 
 const oAuthTokenLink = `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`;
 // const oAuthTokenLink = `https://secure.payu.com/pl/standard/user/oauth/authorize`
@@ -60,7 +61,7 @@ const createNewPayment = async (req, res, next) => {
         },
       });
     }
-    const course = await courseService.getCourseById(courseId);
+    const course = await courseDataService.getCourseById(courseId);
 
     if (!course) {
       return res.status(404).json({
@@ -193,7 +194,10 @@ const getNotificationFromPayment = async (req, res, next) => {
       paymentDB.payMethod = notification.order.payMethod.type;
       paymentDB.payInfo = 'Payment Completed';
       user.courses.push(paymentDB.itemId);
-      const foundCourse = await courseService.getCourseById(paymentDB.itemId);
+
+      const foundCourseData = await courseDataService.getCourseById(
+        paymentDB.itemId
+      );
 
       const foundUserProgress = await progressService.getUserProgress(user._id);
       if (!foundUserProgress) {
@@ -206,22 +210,41 @@ const getNotificationFromPayment = async (req, res, next) => {
         });
       }
 
-      const newCourseData = {
-        courseId: foundCourse._id,
-        title: foundCourse.title,
-        description: foundCourse.description,
+      const courseObjAboutENG = await courseService.getCourseById(
+        foundCourseData.data[0].data
+      );
+
+      const courseProgressObj = {
+        about: [],
         progressData: {
           sections: [],
         },
       };
-      const newSectionsData = foundCourse.sections.map(section => ({
+      const newSectionsData = courseObjAboutENG.sections.map(section => ({
         videoWatched: false,
         quizCompleted: false,
         quizResult: 0,
       }));
+      courseProgressObj.progressData.sections = newSectionsData;
 
-      newCourseData.progressData.sections = newSectionsData;
-      foundUserProgress.courses.push(newCourseData);
+      const courseDataPromises = foundCourseData.data.map(async courseData => {
+        const foundCourseDB = await courseService.getCourseById(
+          courseData.data
+        );
+        const newCourseData = {
+          courseId: foundCourseDB._id,
+          title: foundCourseDB.title,
+          description: foundCourseDB.description,
+          language: foundCourseDB.language,
+        };
+        return newCourseData;
+      });
+      
+      const courseDataArray = await Promise.all(courseDataPromises);
+      
+      courseProgressObj.about = courseDataArray;
+
+      foundUserProgress.courses.push(courseProgressObj);
 
       await foundUserProgress.save();
       await user.save();
