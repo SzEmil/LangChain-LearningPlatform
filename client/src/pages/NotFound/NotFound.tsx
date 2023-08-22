@@ -1,6 +1,8 @@
-
+import css from './NotFound.module.css';
 export const NotFound = () => {
   return (
-    <div>NotFound</div>
-  )
-}
+    <div className={css.notFound}>
+      <div className={css.container}></div>
+    </div>
+  );
+};

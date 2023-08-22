@@ -1,0 +1,15 @@
+.notFound {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+
+  background-image: url('../../images/page-not-found.svg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.container {
+  width: 1600px;
+}

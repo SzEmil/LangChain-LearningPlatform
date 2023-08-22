@@ -95,8 +95,9 @@ export const refreshUser = createAsyncThunk<
   setApiKeyHeader(apiKey);
   setAuthHeader(token);
   try {
-    const res = await axios.get('/users/current');
-    return res.data.ResponseBody;
+    const resUserData = await axios.get('/users/current');
+
+    return resUserData.data.ResponseBody;
   } catch (e: any) {
     Notiflix.Notify.failure(e.response.data.ResponseBody.message);
     return thunkAPI.rejectWithValue(e.response.data.ResponseBody.message);

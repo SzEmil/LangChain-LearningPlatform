@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { setLanguage } from '../../redux/globals/globalsSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { selectCurrentCourseId } from '../../redux/courses/coursesSelectors';
 
 export const SharedLayout = () => {
   const [userModalOpen, setUserModalOpen] = useState(false);
@@ -23,6 +24,7 @@ export const SharedLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const language = useSelector(selectPageLanguage);
+  const currentCourseId = useSelector(selectCurrentCourseId);
 
   const closeUserNav = () => {
     setUserModalOpen(false);
@@ -139,7 +141,7 @@ export const SharedLayout = () => {
                       to="contact"
                       spy={true}
                       smooth={true}
-                      offset={-20}
+                      offset={100}
                       duration={500}
                     >
                       <p className={css.navItemLink}>
@@ -152,6 +154,36 @@ export const SharedLayout = () => {
             )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>
+                {location.pathname !== `/my-courses/${currentCourseId}` ? (
+                  <div className={css.btnLanguageWrapper}>
+                    <button
+                      className={`${css.languageBtn} ${
+                        language === 'PL' && css.acitveLink
+                      }`}
+                      onClick={() => handleOnClickChangeLanguage('PL')}
+                    >
+                      PL
+                    </button>
+                    <p>/</p>
+                    <button
+                      className={`${css.languageBtn} ${
+                        language !== 'PL' && css.acitveLink
+                      }`}
+                      onClick={() => handleOnClickChangeLanguage('ENG')}
+                    >
+                      ENG
+                    </button>
+                  </div>
+                ) : (
+                  <p>{language}</p>
+                )}
+                <UserNav
+                  setUserModalOpen={setUserModalOpen}
+                  userModalOpen={userModalOpen}
+                />
+              </div>
+            ) : (
+              <div className={css.btnLanguageBox}>
                 <div className={css.btnLanguageWrapper}>
                   <button
                     className={`${css.languageBtn} ${
@@ -166,28 +198,6 @@ export const SharedLayout = () => {
                     className={`${css.languageBtn} ${
                       language !== 'PL' && css.acitveLink
                     }`}
-                    onClick={() => handleOnClickChangeLanguage('ENG')}
-                  >
-                    ENG
-                  </button>
-                </div>
-                <UserNav
-                  setUserModalOpen={setUserModalOpen}
-                  userModalOpen={userModalOpen}
-                />
-              </div>
-            ) : (
-              <div className={css.btnLanguageBox}>
-                <div className={css.btnLanguageWrapper}>
-                  <button
-                    className={css.languageBtn}
-                    onClick={() => handleOnClickChangeLanguage('PL')}
-                  >
-                    PL
-                  </button>
-                  <p>/</p>
-                  <button
-                    className={css.languageBtn}
                     onClick={() => handleOnClickChangeLanguage('ENG')}
                   >
                     ENG

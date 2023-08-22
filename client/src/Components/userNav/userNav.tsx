@@ -8,14 +8,15 @@ import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 import { nanoid } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
 import { clearCoursesData } from '../../redux/courses/coursesSlice';
-import { selectAuthUserEmail } from '../../redux/user/userSelectors';
-import { selectUserCoursesProgress } from '../../redux/user/userSelectors';
+import { selectAuthUserUsername } from '../../redux/user/userSelectors';
+import { selectAuthUserCourses } from '../../redux/user/userSelectors';
 
 export const UserNav = ({ setUserModalOpen, userModalOpen }: any) => {
   const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const userEmail = useSelector(selectAuthUserEmail);
+  const userName = useSelector(selectAuthUserUsername);
+  const userCourses = useSelector(selectAuthUserCourses);
 
   const handleOnClickLogOut = async () => {
     await dispatch(logOut());
@@ -31,14 +32,23 @@ export const UserNav = ({ setUserModalOpen, userModalOpen }: any) => {
 
       {userModalOpen && (
         <div className={css.userModal}>
-          <p>{userEmail}</p>
           <ul className={css.list}>
             <li key={nanoid()}>
+              <p className={css.userEmail}>{userName}</p>
+            </li>
+            <li key={nanoid()}>
+              <button className={`${css.btn} `} onClick={() => console.log()}>
+                {language === 'PL' ? 'Profil' : 'Profile'}
+              </button>
+            </li>
+            <li key={nanoid()}>
               <button
-                className={css.btn}
+                className={`${css.btn} ${
+                  userCourses.length === 0 && css.btnNoActive
+                }`}
                 onClick={() => navigate('/my-courses')}
               >
-                {language === 'PL' ? 'Kursy' : 'Courses'}
+                {language === 'PL' ? 'Moje Kursy' : 'My Courses'}
               </button>
             </li>
             <li key={nanoid()}>

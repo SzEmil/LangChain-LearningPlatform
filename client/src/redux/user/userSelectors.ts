@@ -6,6 +6,9 @@ export const selectAuthUser = (state: { user: authInitialStateType }) =>
 export const selectAuthUserData = (state: { user: authInitialStateType }) =>
   state.user.user;
 
+  export const selectAuthUserUsername = (state: { user: authInitialStateType }) =>
+  state.user.user.username;
+
   export const selectAuthUserEmail = (state: { user: authInitialStateType }) =>
   state.user.user.email;
 

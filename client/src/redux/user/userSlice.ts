@@ -54,7 +54,7 @@ const authSlice = createSlice({
         (state.isLoggedIn = false),
         (state.user.avatarURL = ''),
         (state.user.email = null),
-        state.courseProgress = null,
+        (state.courseProgress = null),
         (state.user.courses = []);
       (state.courseProgress = null), (state.user.username = null);
       state.user.emailVerification = false;
@@ -79,8 +79,9 @@ const authSlice = createSlice({
         (state.user.avatarURL = ''),
           (state.user.email = null),
           (state.user.username = null);
-          state.courseProgress = null,
-        (state.courseProgress = null), (state.user.id = null);
+        (state.courseProgress = null),
+          (state.courseProgress = null),
+          (state.user.id = null);
         state.user.emailVerification = false;
       }
     );
@@ -138,8 +139,10 @@ const authSlice = createSlice({
         state: authInitialStateType,
         action: {
           payload: {
+            progress: ProgressData | null;
             token: string | null;
             user: {
+              progress: ProgressData | null;
               username: string | null;
               avatarURL: string;
               email: string | null;
@@ -158,6 +161,7 @@ const authSlice = createSlice({
         state.user.id = action.payload.user._id;
         state.user.emailVerification = action.payload.user.emailVerification;
         state.user.courses = action.payload.user.courses;
+        state.courseProgress = action.payload.user.progress;
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -198,6 +202,8 @@ const authSlice = createSlice({
         state.user.id = action.payload._id;
         state.user.courses = action.payload.courses;
         state.user.emailVerification = action.payload.emailVerification;
+        state.courseProgress = action.payload.progress;
+
         state.isLoggedIn = true;
         state.error = null;
         state.isRefreshing = false;
@@ -221,6 +227,7 @@ const authSlice = createSlice({
         (state.user.username = null);
       state.user.emailVerification = false;
       state.user.courses = [];
+      state.courseProgress = null;
       state.user.id = null;
       state.isLoading = false;
     });

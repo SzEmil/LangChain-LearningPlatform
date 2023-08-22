@@ -14,24 +14,35 @@ import { BuyCourse } from './pages/BuyCourse/BuyCourse';
 import { RedirectPayment } from './pages/RedirectPayment/RedirectPayment';
 import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
 import { MyCourses } from './pages/MyCourses/MyCourses';
-import { getUserCourses } from './redux/courses/coursesOperations';
-import { clearCoursesData } from './redux/courses/coursesSlice';
-import { selectAuthUserIsLoggedIn } from './redux/user/userSelectors';
-import { useSelector } from 'react-redux';
 import { CoursePage } from './pages/CoursePage/CoursePage';
 import { VerificationEmail } from './pages/VerificationEmail/VerificationEmail';
+import { apiLink } from './redux/globals/globalsOperations';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
-  const loggedIn = useSelector(selectAuthUserIsLoggedIn);
+
+  // useEffect(() => {
+  //   if (!isServerConnected) {
+  //     const eventSource = new EventSource(`${apiLink}/stream`);
+  //     eventSource.onopen = () => {
+  //       dispatch(serverConnected());
+  //       eventSource.close();
+  //     };
+
+  //     eventSource.onerror = () => {
+  //       console.error('SSE connection error');
+  //     };
+
+  //     return () => {
+  //       eventSource.close();
+  //     };
+  //   }
+  // }, []);
+
+
   useEffect(() => {
     const refreshUserData = async () => {
       await dispatch(refreshUser());
-      // if (loggedIn) {
-      //   dispatch(getUserCourses());
-      // } else {
-      //   dispatch(clearCoursesData());
-      // }
     };
 
     refreshUserData();
@@ -61,9 +72,15 @@ export const App = () => {
               <ProtectedRoute component={CoursePage} redirectTo="/auth" />
             }
           />
-          <Route path="/verify/:token"  element={
-              <ProtectedRoute component={VerificationEmail} redirectTo="/auth" />
-            } />
+          <Route
+            path="/verify/:token"
+            element={
+              <ProtectedRoute
+                component={VerificationEmail}
+                redirectTo="/auth"
+              />
+            }
+          />
         </Route>
         <Route
           path="/auth"

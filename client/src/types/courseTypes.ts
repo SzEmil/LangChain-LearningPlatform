@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 interface Question {
   name: string;
   answers: string[];
@@ -11,7 +13,8 @@ interface Quiz {
   completed: boolean;
 }
 
-interface Section {
+export interface Section {
+  id: Key | null | undefined;
   name: string;
   description: string;
   photo: string;

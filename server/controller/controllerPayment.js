@@ -12,8 +12,8 @@ const oAuthClientId = process.env.OAUTH_CLIENT_ID;
 const oAuthClientSecret = process.env.OAUTH_CLIENT_SECRET;
 const merchantPosIdData = process.env.MERCHANT_POS_ID;
 
-const continueServerUrl = `https://92a2-37-128-155-23.ngrok-free.app`;
-const notifyServerUrl = `https://dc5c-37-128-155-23.ngrok-free.app`;
+const continueServerUrl = `https://feb5-37-128-155-23.ngrok-free.app`;
+const notifyServerUrl = `https://547d-37-128-155-23.ngrok-free.app`;
 
 const oAuthTokenLink = `https://secure.snd.payu.com/pl/standard/user/oauth/authorize`;
 // const oAuthTokenLink = `https://secure.payu.com/pl/standard/user/oauth/authorize`

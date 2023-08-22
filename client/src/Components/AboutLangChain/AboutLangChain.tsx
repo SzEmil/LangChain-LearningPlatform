@@ -65,7 +65,7 @@ export const AboutLangChain = () => {
             >
               <img
                 className={css.galleryImage}
-                src={'https://picsum.photos/350'}
+                src={'https://picsum.photos/450'}
                 alt="random pic"
               />
             </li>
@@ -76,7 +76,7 @@ export const AboutLangChain = () => {
             >
               <img
                 className={css.galleryImage}
-                src={'https://picsum.photos/350'}
+                src={'https://picsum.photos/450'}
                 alt="random pic"
               />
             </li>
@@ -87,7 +87,7 @@ export const AboutLangChain = () => {
             >
               <img
                 className={css.galleryImage}
-                src={'https://picsum.photos/350'}
+                src={'https://picsum.photos/450'}
                 alt="random pic"
               />
             </li>

@@ -213,7 +213,19 @@ const login = async (req, res, next) => {
     user.token = token;
     await user.save();
 
-    res.status(200).json({
+    const progressData = await progressService.getUserProgress(user._id);
+
+    if (!progressData) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: 'No progress data was found',
+        },
+      });
+    }
+
+    return res.status(200).json({
       status: 'success',
       code: 200,
       ResponseBody: {
@@ -226,6 +238,7 @@ const login = async (req, res, next) => {
           emailVerification: user.emailVerification,
           avatarURL: user.avatarURL,
           courses: user.courses,
+          progress: progressData,
         },
       },
     });
@@ -278,6 +291,18 @@ const currentUser = async (req, res, next) => {
         },
       });
     }
+    const progressData = await progressService.getUserProgress(user._id);
+
+    if (!progressData) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: 'No progress data was found',
+        },
+      });
+    }
+
     return res.status(200).json({
       status: 'OK',
       code: 200,
@@ -288,6 +313,7 @@ const currentUser = async (req, res, next) => {
         avatarURL: user.avatarURL,
         emailVerification: user.emailVerification,
         courses: user.courses,
+        progress: progressData,
       },
     });
   } catch (error) {
