@@ -146,3 +146,24 @@ export const verifyUserEmail = createAsyncThunk(
     }
   }
 );
+
+export const resendVerifyEmail = createAsyncThunk(
+  'user/reSendVerifyEmail',
+  async (_, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.post('/users/verify/send');
+      Notiflix.Notify.success(response.data.ResponseBody.message);
+      return;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);

@@ -4,9 +4,55 @@
   justify-content: center;
   min-height: 100vh;
   padding-top: 100px;
-
-
 }
 .container {
   width: 1600px;
+}
+.courseWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.aside {
+  min-width: 300px;
+  border-right: 0.3px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 0 0 0;
+}
+.sectionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sectionsTitle {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  padding-right: 10px;
+}
+.sectionBtn {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: left;
+  cursor: pointer;
+
+  transition: background-color 200ms ease;
+}
+.sectionBtn:hover {
+  background-color: rgba(180, 180, 180, 0.178);
+}
+.sectionBtnActive {
+  color: goldenrod;
+}
+.sectionWrapper {
+  padding: 0 10px;
+  min-height: 100vh;
+  width: 100%;
 }

@@ -15,7 +15,7 @@ export const AboutLangChain = () => {
   });
   return (
     <section className={css.about}>
-      <div className={css.container}>
+      <div className="container">
         <article ref={sectionInView.ref} id="aboutLangChain">
           <h2
             className={`${css.title} ${

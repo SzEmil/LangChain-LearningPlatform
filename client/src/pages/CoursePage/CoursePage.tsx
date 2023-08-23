@@ -25,7 +25,7 @@ export const CoursePage = () => {
   }, [courseId]);
   return (
     <div className={css.course}>
-      <div className={css.container}>
+      <div className="container">
         {isLoading ? (
           <ColorRing
             visible={true}
@@ -37,20 +37,26 @@ export const CoursePage = () => {
             colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
           />
         ) : (
-          <div>
-            {courseData?.title}
-            <div>
-              <ul>
-                {courseData?.sections.map(section => (
+          <div className={css.courseWrapper}>
+            <aside className={css.aside}>
+              <h2 className={css.sectionsTitle}>{courseData?.title}</h2>
+              <ul className={css.sectionsList}>
+                {courseData?.sections.map((section, index) => (
                   <li key={section.id}>
-                    <button onClick={() => setCurrentSection(section)}>
-                      {section.name}
+                    <button
+                      className={`${css.sectionBtn} ${
+                        currentSection?.id === section.id &&
+                        css.sectionBtnActive
+                      }`}
+                      onClick={() => setCurrentSection(section)}
+                    >
+                      {index + 1}. {section.name}
                     </button>
                   </li>
                 ))}
               </ul>
-            </div>
-            <div>
+            </aside>
+            <div className={css.sectionWrapper}>
               <CourseSection section={currentSection} />
             </div>
           </div>

@@ -13,7 +13,7 @@ const sectionSchema = new mongoose.Schema({
     questions: [
       {
         name: String,
-        answers: [String],
+        answers: [{ name: String, value: String }],
         correctAnswer: String,
       },
     ],

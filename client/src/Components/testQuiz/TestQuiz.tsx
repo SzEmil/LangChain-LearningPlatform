@@ -20,8 +20,6 @@ export const TestQuiz = ({ setQuizOpen, quizStart }: any) => {
     setCurrentAnswer(answer);
   };
   const handleOnClickNextQuestion = () => {
-    console.log(quiz);
-    console.log(questionNumber);
     if (currentAnswer === quizQuestion?.correctAnswer) {
       setScore(prevVal => (prevVal += 1));
     }
@@ -29,10 +27,10 @@ export const TestQuiz = ({ setQuizOpen, quizStart }: any) => {
     setQuestionNumber(prevVal => (prevVal += 1));
     setCurrentAnswer('');
   };
-
+  console.log(quiz);
   const exitQuiz = () => {
     setQuizOpen(false);
-    setQuiz(quizStart)
+    setQuiz(quizStart);
     setQuestionNumber(0);
   };
   return (

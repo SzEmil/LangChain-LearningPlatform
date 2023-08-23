@@ -18,7 +18,7 @@ export const BuyCourse = () => {
   );
   return (
     <div className={css.paymentWrapper}>
-      <div className={css.container} ref={sectionInView.ref}>
+      <div className="container" ref={sectionInView.ref}>
         {pickedCourseData === null || undefined ? (
           <p>Loading data</p>
         ) : (

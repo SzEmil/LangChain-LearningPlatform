@@ -19,7 +19,7 @@ export const Offer = () => {
 
   return (
     <section className={css.offer} id="offer">
-      <div className={css.container}>
+      <div className="container">
         <h2
           className={`${css.title} ${
             sectionInView.inView ? css.titleVisible : css.titleNoVisible

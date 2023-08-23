@@ -41,7 +41,7 @@ export const MyCourses = () => {
   };
   return (
     <div className={css.myCourses}>
-      <div className={css.container}>
+      <div className="container">
         {coursesData !== null ? (
           <ul className={css.list} ref={sectionInView.ref}>
             {coursesData!.courses.map(course => (

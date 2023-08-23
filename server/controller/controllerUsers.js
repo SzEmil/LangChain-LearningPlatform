@@ -321,6 +321,50 @@ const currentUser = async (req, res, next) => {
   }
 };
 
+const resendViryficationEmail = async (req, res, next) => {
+  const { _id } = req.user;
+  try {
+    const user = await userService.getUserById(_id);
+    if (!user) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        ResponseBody: {
+          message: 'Unauthorized',
+        },
+      });
+    }
+    if (user.emailVerification) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        ResponseBody: {
+          message: `User ${user.email} already confirmed`,
+        },
+      });
+    }
+
+    const verificationToken = generateVerificationToken();
+    user.emailVerificiationToken = verificationToken;
+
+    try {
+      sendVerificationEmail(user.email, verificationToken);
+
+      return res.status(200).json({
+        status: 'OK',
+        code: 200,
+        ResponseBody: {
+          message: `Verify link send to the ${user.email}`,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const verifyUserEmail = async (req, res, next) => {
   const { _id } = req.user;
   try {
@@ -395,5 +439,6 @@ const userController = {
   logout,
   currentUser,
   verifyUserEmail,
+  resendViryficationEmail,
 };
 export default userController;

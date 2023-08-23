@@ -14,7 +14,6 @@ const router = express.Router();
 //contacts/?page=1&limit=10&favorite=true
 
 //users api router
-router.get('/users', checkApiKey, userController.get);
 
 router.post('/users/signup', checkApiKey, userController.register);
 
@@ -24,8 +23,19 @@ router.post('/users/logout', checkApiKey, authUser, userController.logout);
 
 router.get('/users/current', checkApiKey, authUser, userController.currentUser);
 
-router.post("/users/verify/:token", checkApiKey, authUser, userController.verifyUserEmail)
+router.post(
+  '/users/verify/:token',
+  checkApiKey,
+  authUser,
+  userController.verifyUserEmail
+);
 
+router.post(
+  '/users/verify/send',
+  checkApiKey,
+  authUser,
+  userController.resendViryficationEmail
+);
 // offer
 router.post('/offer', checkApiKey, offerController.getCurrentOfferData);
 

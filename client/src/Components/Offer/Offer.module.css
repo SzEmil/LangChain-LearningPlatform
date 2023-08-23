@@ -92,7 +92,7 @@
 }
 .itemArrow {
   position: absolute;
-  right: -75px;
+  right: -60px;
   top: 50%;
 
   transform: translateX(50%);

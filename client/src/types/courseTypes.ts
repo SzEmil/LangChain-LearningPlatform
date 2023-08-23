@@ -1,16 +1,10 @@
-import { Key } from "react";
+import { Key } from 'react';
+import { quizType } from '../Components/testQuiz/TestQuizData';
 
 interface Question {
   name: string;
   answers: string[];
   correctAnswer: string;
-}
-
-interface Quiz {
-  title: string;
-  description: string;
-  questions: Question[];
-  completed: boolean;
 }
 
 export interface Section {
@@ -19,7 +13,7 @@ export interface Section {
   description: string;
   photo: string;
   video_link: string;
-  quiz: Quiz;
+  quiz: quizType;
 }
 
 export interface CourseType {

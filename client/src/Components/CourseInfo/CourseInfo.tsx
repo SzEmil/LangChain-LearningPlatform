@@ -12,7 +12,6 @@ import { TestQuiz } from '../testQuiz/TestQuiz';
 import { useState } from 'react';
 import { quizType } from '../testQuiz/TestQuizData';
 import { quizData } from '../testQuiz/TestQuizData';
-import openLaptopEmailJpg from "../../images/open-laptop-with-email-screen.png"
 
 
 export const CourseInfo = () => {

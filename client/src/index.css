@@ -38,7 +38,7 @@ body {
   display: flex;
 }
 .container {
-  width: 1200px;
+  width: 1600px;
 }
 
 @media (prefers-color-scheme: light) {
