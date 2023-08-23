@@ -1,11 +1,6 @@
 import { Key } from 'react';
 import { quizType } from '../Components/testQuiz/TestQuizData';
 
-interface Question {
-  name: string;
-  answers: string[];
-  correctAnswer: string;
-}
 
 export interface Section {
   id: Key | null | undefined;
