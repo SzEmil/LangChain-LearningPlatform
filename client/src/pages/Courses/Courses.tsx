@@ -12,15 +12,16 @@ import { selectAuthUserIsLoggedIn } from '../../redux/user/userSelectors';
 import { useNavigate } from 'react-router-dom';
 import { pickCourse } from '../../redux/payUData/paymentSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
-import { selectCoursesData } from '../../redux/courses/coursesSelectors';
+import { selectAuthUserCourses } from '../../redux/user/userSelectors';
 
 export const Courses = () => {
   const language = useSelector(selectPageLanguage);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
+  const userCoursesIds = useSelector(selectAuthUserCourses);
   const currentOfferData = useSelector(selectCurrentOfferData);
-  const courseData = useSelector(selectCoursesData);
+
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
 
   const courseInView = useInView({
@@ -36,7 +37,7 @@ export const Courses = () => {
   };
   useEffect(() => {
     getOfferData();
-  }, [ language]);
+  }, [language]);
 
   const handleOnClickPickCoursToBuy = (courseId: string) => {
     dispatch(pickCourse(courseId));
@@ -45,7 +46,7 @@ export const Courses = () => {
 
   return (
     <div className={css.courses}>
-      <div className={css.container}>
+      <div className="container">
         <div className={css.titleWrapper} ref={courseInView.ref}>
           <div className={css.titleBox}>
             <h2 className={css.title}>
@@ -88,8 +89,8 @@ export const Courses = () => {
                   <div className={css.btnBox}>
                     {isLoggedIn ? (
                       <>
-                        {courseData.some(
-                          course => course._id === offer.targetCourseId
+                        {userCoursesIds.some(
+                          course => course === offer.targetCourseId
                         ) ? (
                           <div className={css.infoText}>
                             <TiTick size={28} />

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { quizType } from '../testQuiz/TestQuizData';
 import { quizData } from '../testQuiz/TestQuizData';
 
+
 export const CourseInfo = () => {
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizStart, setQuiz] = useState<quizType>();

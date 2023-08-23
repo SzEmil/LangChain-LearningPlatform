@@ -12,7 +12,7 @@ export const BanerHero = () => {
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   return (
     <section className={css.baner} style={{ backgroundImage: baner }} id="home">
-      <div className={css.container}>
+      <div className="container">
         <div className={css.box}>
           <div className={css.sloganWrapper}>
             <h2 className={css.headerSecondary}>

@@ -18,7 +18,7 @@ export const Contact = () => {
 
   return (
     <section className={css.contact} id="contact" ref={sectionInView.ref}>
-      <div className={css.container}>
+      <div className="container">
         <h2
           className={`${css.title} ${sectionInView.inView && css.titleVisible}`}
         >

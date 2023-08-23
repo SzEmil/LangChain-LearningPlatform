@@ -1,0 +1,52 @@
+.titleWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 48px;
+  margin: 0;
+}
+.description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 28px;
+
+  padding-bottom: 20px;
+}
+.btnWrapper {
+  display: flex;
+  gap: 10px;
+}
+.quizBtn {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 50px;
+  cursor: pointer;
+
+  background-color: rgb(114, 19, 51);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+}
+.quizBtn:hover {
+  background-color: rgb(165, 25, 72);
+}
+.btnActive {
+  background-color: rgb(211, 33, 93);
+}
+.quizWrapper {
+  margin-top: 100px;
+}

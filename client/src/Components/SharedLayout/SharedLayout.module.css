@@ -19,7 +19,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 .container {
-  width: 1200px;
+  width: 1600px;
   position: relative;
 }
 .navBar {
@@ -157,4 +157,46 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.verifyModal {
+  width: 100%;
+  position: fixed;
+  z-index: 2000;
+  background-color: black;
+  bottom: 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+}
+.verifyModalTextWrapper {
+  max-width: 1600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.verifyModalText {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 24px;
+}
+.verifyModalBtn {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  cursor: pointer;
+
+  background-color: rgb(211, 33, 93);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+}
+.verifyModalBtn:hover {
+  background-color: rgb(165, 25, 72);
 }

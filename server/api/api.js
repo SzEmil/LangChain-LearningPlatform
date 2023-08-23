@@ -14,7 +14,6 @@ const router = express.Router();
 //contacts/?page=1&limit=10&favorite=true
 
 //users api router
-router.get('/users', checkApiKey, userController.get);
 
 router.post('/users/signup', checkApiKey, userController.register);
 
@@ -24,14 +23,19 @@ router.post('/users/logout', checkApiKey, authUser, userController.logout);
 
 router.get('/users/current', checkApiKey, authUser, userController.currentUser);
 
-router.patch(
-  '/users/avatars',
+router.post(
+  '/users/verify/:token',
   checkApiKey,
   authUser,
-  upload.single('avatar'),
-  userController.uploadAvatar
+  userController.verifyUserEmail
 );
 
+router.post(
+  '/users/verify/send',
+  checkApiKey,
+  authUser,
+  userController.resendViryficationEmail
+);
 // offer
 router.post('/offer', checkApiKey, offerController.getCurrentOfferData);
 
@@ -65,9 +69,16 @@ router.get(
   coursesController.getUserCoursesData
 );
 
+router.get(
+  '/courses/:courseId',
+  checkApiKey,
+  authUser,
+  coursesController.getUserCourseById
+);
+
 //progress
 router.get(
-  '/courses/progress',
+  '/courses-progress',
   checkApiKey,
   authUser,
   progressController.getUserProgress

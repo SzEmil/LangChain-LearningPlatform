@@ -1,0 +1,11 @@
+.verificationEmail {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    padding-top: 50px;
+  }
+  .container {
+    width: 1600px;
+  }

@@ -13,7 +13,7 @@ export const AboutMe = () => {
 
   return (
     <section className={css.aboutMe} id="aboutMe" ref={sectionInView.ref}>
-      <div className={css.container}>
+      <div className="container">
         <article className={css.article}>
           <div>
             <h2

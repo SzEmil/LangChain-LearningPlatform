@@ -22,6 +22,14 @@ export const users = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Progress',
     },
+    emailVerificiationToken: {
+      type: String,
+      default: null,
+    },
+    emailVerification: {
+      type: Boolean,
+      default: false,
+    },
     courses: [
       {
         type: mongoose.Schema.Types.ObjectId,

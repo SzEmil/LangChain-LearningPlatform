@@ -9,16 +9,25 @@ export const progressSchema = new Schema(
     },
     courses: [
       {
-        courseId: {
-          type: Schema.Types.ObjectId,
-          ref: 'Course',
-        },
-        title: {
-          type: String,
-        },
-        description: {
-          type: String,
-        },
+        about: [
+          {
+            courseId: {
+              type: Schema.Types.ObjectId,
+              ref: 'Course',
+            },
+            language: {
+              type: String,
+              default: 'PL',
+            },
+            title: {
+              type: String,
+            },
+            description: {
+              type: String,
+            },
+          },
+        ],
+
         started: {
           type: Date,
           default: Date.now,
