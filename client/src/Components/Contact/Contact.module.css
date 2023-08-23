@@ -5,7 +5,7 @@
   justify-content: center;
 }
 .container {
-  width: 1200px;
+  width: 1600px;
 }
 .title {
   font-style: normal;
@@ -40,7 +40,7 @@
   gap: 50px;
   margin-top: 30px;
 
-  align-items: stretch;
+  align-items: center;
 }
 .spanLine {
   width: 0px;
@@ -59,16 +59,11 @@
 }
 .formWrapper {
   margin-top: 80px;
-  background: linear-gradient(
-    45deg,
-    rgba(27, 8, 75, 0.9),
-    rgba(235, 71, 167, 0.9)
-  );
-  padding: 30px;
-  border-radius: 10px;
   color: white;
-  min-width: 500px;
-  border: 0.1px solid rgba(255, 255, 255, 0.1);
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
 
   opacity: 0;
   transform: translateX(15px);
@@ -79,6 +74,15 @@
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    rgba(27, 8, 75, 0.9),
+    rgba(235, 71, 167, 0.9)
+  );
+  border: 0.1px solid rgba(255, 255, 255, 0.1);
 }
 .label {
   font-size: 16px;
@@ -140,8 +144,7 @@
   color: white;
 }
 .image {
-  max-width: 400px;
-  max-height: 550px;
+  max-width: 600px;
   border-radius: 20px;
   opacity: 0;
   transform: translateX(-15px);

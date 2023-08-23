@@ -68,7 +68,6 @@ export const PayUForm = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    //trzeba  stworzyć obiekt payment await i pobrać z niego id i uzupełnić ID płatności oraz description
 
     const paymentData: paymentDataType = {
       merchantPosId: 'exampleShopCode',
@@ -101,10 +100,6 @@ export const PayUForm = ({
         },
       },
     };
-    console.log(paymentData);
-    // Wyślij ten obiekt do backendu
-
-    console.log(paymentData);
 
     dispatch(createNewPayment(paymentData));
 

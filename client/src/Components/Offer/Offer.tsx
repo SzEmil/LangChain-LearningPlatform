@@ -1,13 +1,13 @@
 import css from './Offer.module.css';
-import { GiChoice } from 'react-icons/gi';
-import { GiProgression } from 'react-icons/gi';
-import { BiMoneyWithdraw } from 'react-icons/bi';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { CourseInfo } from '../CourseInfo/CourseInfo';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import progressImg from '../../images/people-and-technology.png';
+import personStudingImg from '../../images/person-studying-online.png';
+import personStudingAtDesk from '../../images/person-studying-at-a-desk.png';
 
 export const Offer = () => {
   const language = useSelector(selectPageLanguage);
@@ -19,7 +19,7 @@ export const Offer = () => {
 
   return (
     <section className={css.offer} id="offer">
-      <div className={css.container}>
+      <div className="container">
         <h2
           className={`${css.title} ${
             sectionInView.inView ? css.titleVisible : css.titleNoVisible
@@ -55,22 +55,29 @@ export const Offer = () => {
             </div>
             <div className={css.card}>
               <div className={css.image}>
-                <GiChoice size={'100%'} />
+                {/* <GiChoice size={'100%'} /> */}
+                <img
+                  className={css.imageBox}
+                  src={personStudingImg}
+                  alt="people nad computer"
+                />
               </div>
-              <h3 className={css.itemHeader}>Choose course</h3>
-              <p className={css.description}>
-                {language === 'PL'
-                  ? `Jeśli jesteś gotowy/gotowa na zmianę branży lub rozszerzenie usług, teraz nadszedł czas, aby zdobyć umiejętności, których będą poszukiwać wszyscy przyszli programiści. To twój moment do zmiany swojego życia.`
-                  : `If you're ready to shift industries or expand services, now's
+              <div className={css.descriptionBox}>
+                <h3 className={css.itemHeader}>Choose course</h3>
+                <p className={css.description}>
+                  {language === 'PL'
+                    ? `Jeśli jesteś gotowy/gotowa na zmianę branży lub rozszerzenie usług, teraz nadszedł czas, aby zdobyć umiejętności, których będą poszukiwać wszyscy przyszli programiści. To twój moment do zmiany swojego życia.`
+                    : `If you're ready to shift industries or expand services, now's
                 the time to acquire skills all future programmers will seek.`}
-              </p>
-              <div className={css.buttonBox}>
-                <button
-                  className={css.button}
-                  onClick={() => navigate('/courses')}
-                >
-                  {language === 'PL' ? 'Dowiedz się Więcej' : 'Learn More'}
-                </button>
+                </p>
+                <div className={css.buttonBox}>
+                  <button
+                    className={css.button}
+                    onClick={() => navigate('/courses')}
+                  >
+                    {language === 'PL' ? 'Dowiedz się Więcej' : 'Learn More'}
+                  </button>
+                </div>
               </div>
             </div>
           </li>
@@ -85,23 +92,30 @@ export const Offer = () => {
             </div>
             <div className={css.card}>
               <div className={css.image}>
-                <GiProgression size={'100%'} />
+                {/* <GiProgression size={'100%'} /> */}
+                <img
+                  className={css.imageBox}
+                  src={personStudingAtDesk}
+                  alt="people nad computer"
+                />
               </div>
-              <h3 className={css.itemHeader}>Enroll in Program</h3>
-              <p className={css.description}>
-                {language === 'PL'
-                  ? `Zapisz się na program LangChain, aby rewolucjonizować swoją podróż w świecie programowania. Odblokuj umiejętności umożliwiające dynamiczną zmianę kariery lub poszerzenie zakresu usług w świecie technologii.`
-                  : `Enroll in LangChain's program to revolutionize your coding
+              <div className={css.descriptionBox}>
+                <h3 className={css.itemHeader}>Enroll in Program</h3>
+                <p className={css.description}>
+                  {language === 'PL'
+                    ? `Zapisz się na program LangChain, aby rewolucjonizować swoją podróż w świecie programowania. Odblokuj umiejętności umożliwiające dynamiczną zmianę kariery lub poszerzenie zakresu usług w świecie technologii.`
+                    : `Enroll in LangChain's program to revolutionize your coding
                   journey. Unlock skills for a dynamic career shift or amplified
                   service range in the tech world.`}
-              </p>
-              <div className={css.buttonBox}>
-                <button
-                  className={css.button}
-                  onClick={() => navigate('/courses')}
-                >
-                  {language === 'PL' ? 'Sprawdź Kursy' : 'Check Courses'}
-                </button>
+                </p>
+                <div className={css.buttonBox}>
+                  <button
+                    className={css.button}
+                    onClick={() => navigate('/courses')}
+                  >
+                    {language === 'PL' ? 'Sprawdź Kursy' : 'Check Courses'}
+                  </button>
+                </div>
               </div>
             </div>
           </li>
@@ -113,23 +127,30 @@ export const Offer = () => {
           >
             <div className={css.card}>
               <div className={css.image}>
-                <BiMoneyWithdraw size={'100%'} />
+                {/* <BiMoneyWithdraw size={'100%'} /> */}
+                <img
+                  className={css.imageBox}
+                  src={progressImg}
+                  alt="people nad computer"
+                />
               </div>
-              <h3 className={css.itemHeader}>Start New Career</h3>
-              <p className={css.description}>
-                {language === 'PL'
-                  ? `Przyjmij program LangChain, aby kształtować swoją przyszłość w programowaniu. Zdobądź umiejętności na zmianę kariery lub wzmocnienie usług, wyróżniając się w rozwijającej się branży technologicznej.`
-                  : `Embrace LangChain's program to shape your programming future.
+              <div className={css.descriptionBox}>
+                <h3 className={css.itemHeader}>Start New Career</h3>
+                <p className={css.description}>
+                  {language === 'PL'
+                    ? `Przyjmij program LangChain, aby kształtować swoją przyszłość w programowaniu. Zdobądź umiejętności na zmianę kariery lub wzmocnienie usług, wyróżniając się w rozwijającej się branży technologicznej.`
+                    : `Embrace LangChain's program to shape your programming future.
                 Gain skills for a career shift or service enhancement, standing
                 out in evolving tech.`}
-              </p>
-              <div className={css.buttonBox}>
-                <button
-                  className={css.button}
-                  onClick={() => navigate('/courses')}
-                >
-                  {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
-                </button>
+                </p>
+                <div className={css.buttonBox}>
+                  <button
+                    className={css.button}
+                    onClick={() => navigate('/courses')}
+                  >
+                    {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
+                  </button>
+                </div>
               </div>
             </div>
           </li>

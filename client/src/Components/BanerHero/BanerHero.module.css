@@ -129,7 +129,6 @@
   border-radius: 30px;
 }
 .btnRegister:hover {
-  cursor: pointer;
   background-color: rgb(165, 25, 72);
 }
 

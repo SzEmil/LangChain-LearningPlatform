@@ -35,3 +35,24 @@ export const getUserCourses = createAsyncThunk(
     }
   }
 );
+
+export const getUserCourseById = createAsyncThunk(
+  'courses/getUserCourseById',
+  async (courseId: string | undefined, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.get(`/courses/${courseId}`);
+
+      return response.data.ResponseBody.course;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);

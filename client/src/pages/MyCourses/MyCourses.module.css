@@ -5,19 +5,26 @@
   min-height: 100vh;
   align-items: center;
   padding-top: 50px;
+
+  background-image: url('../../images/polygonSVG.svg');
+
+  background-repeat: none;
+  background-size: cover;
 }
 .container {
-  width: 1200px;
+  width: 1600px;
 }
 .list {
   display: flex;
+  width: 100%;
+  align-items: center;
   flex-direction: column;
   gap: 50px;
 }
 .item {
   transform: translateY(-10px);
+  max-width: 1200px;
   opacity: 0;
-
   transition: all 200ms ease;
   transition-delay: 550ms;
 }
@@ -35,7 +42,7 @@ li:nth-child(odd) .card {
   background: linear-gradient(
     90deg,
     rgba(3, 3, 33, 1) 50%,
-    rgb(70, 13, 78) 100%
+    rgb(114, 20, 91) 100%
   );
 }
 
@@ -46,17 +53,21 @@ li:nth-child(even) .card {
   background: linear-gradient(
     270deg,
     rgba(3, 3, 33, 1) 50%,
-    rgb(70, 13, 78) 100%
+    rgb(114, 20, 91) 100%
   );
 }
 .card {
   background: rgb(3, 3, 33);
-
   border-radius: 10px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+.card:hover {
+  box-shadow: 0 0 10px rgba(175, 14, 135, 0.3);
 }
 .infoBox {
   padding: 60px;

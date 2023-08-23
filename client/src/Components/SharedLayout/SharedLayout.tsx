@@ -15,6 +15,10 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { setLanguage } from '../../redux/globals/globalsSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
+import { selectCurrentCourseId } from '../../redux/courses/coursesSelectors';
+import { selectAuthUserEmailConfrimed } from '../../redux/user/userSelectors';
+import { selectAuthUserEmail } from '../../redux/user/userSelectors';
+import { resendVerifyEmail } from '../../redux/user/userOperations';
 
 export const SharedLayout = () => {
   const [userModalOpen, setUserModalOpen] = useState(false);
@@ -23,6 +27,9 @@ export const SharedLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const language = useSelector(selectPageLanguage);
+  const currentCourseId = useSelector(selectCurrentCourseId);
+  const isEmailConfirmed = useSelector(selectAuthUserEmailConfrimed);
+  const userEmail = useSelector(selectAuthUserEmail);
 
   const closeUserNav = () => {
     setUserModalOpen(false);
@@ -67,10 +74,33 @@ export const SharedLayout = () => {
   const handleOnClickChangeLanguage = (lang: String) => {
     dispatch(setLanguage(lang));
   };
+
+  const handleOnClickReSedVerifyEmail = () => {
+    dispatch(resendVerifyEmail());
+  };
   return (
     <div className={css.sharedLayout}>
+      {!isEmailConfirmed && (
+        <div className={css.verifyModal}>
+          <div className={css.verifyModalTextWrapper}>
+            <p className={css.verifyModalText}>
+              {language === 'PL'
+                ? `Email nie jest zweryfikowany. Proszę sprawdź swój email: ${userEmail} i zweryfikuj swoje konto, klikając na link aktywacyjny wysłany w wiadomości. Jeśli masz problemy ze znalezieniem emaila, proszę sprawdź folder spam lub kliknij ten przycisk.`
+                : `Email is not verified. Please check your email: ${userEmail} and verify your account by clicking on the activation link sent in the message. If you have trouble finding the email, please check your spam folder or click this button.`}
+            </p>
+            <button
+              onClick={() => handleOnClickReSedVerifyEmail()}
+              className={css.verifyModalBtn}
+            >
+              {language === 'PL'
+                ? 'Wyślij Link Aktywacyjny'
+                : 'Send Verification Link'}
+            </button>
+          </div>
+        </div>
+      )}
       <header className={`${css.header} ${isScrolled && css.movedHeader}`}>
-        <div className={css.container}>
+        <div className="container">
           <div className={css.navBar}>
             <h2 className={css.logo} onClick={() => navigate('/')}>
               LangChain Academy
@@ -139,7 +169,7 @@ export const SharedLayout = () => {
                       to="contact"
                       spy={true}
                       smooth={true}
-                      offset={-20}
+                      offset={100}
                       duration={500}
                     >
                       <p className={css.navItemLink}>
@@ -152,6 +182,36 @@ export const SharedLayout = () => {
             )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>
+                {location.pathname !== `/my-courses/${currentCourseId}` ? (
+                  <div className={css.btnLanguageWrapper}>
+                    <button
+                      className={`${css.languageBtn} ${
+                        language === 'PL' && css.acitveLink
+                      }`}
+                      onClick={() => handleOnClickChangeLanguage('PL')}
+                    >
+                      PL
+                    </button>
+                    <p>/</p>
+                    <button
+                      className={`${css.languageBtn} ${
+                        language !== 'PL' && css.acitveLink
+                      }`}
+                      onClick={() => handleOnClickChangeLanguage('ENG')}
+                    >
+                      ENG
+                    </button>
+                  </div>
+                ) : (
+                  <p>{language}</p>
+                )}
+                <UserNav
+                  setUserModalOpen={setUserModalOpen}
+                  userModalOpen={userModalOpen}
+                />
+              </div>
+            ) : (
+              <div className={css.btnLanguageBox}>
                 <div className={css.btnLanguageWrapper}>
                   <button
                     className={`${css.languageBtn} ${
@@ -166,28 +226,6 @@ export const SharedLayout = () => {
                     className={`${css.languageBtn} ${
                       language !== 'PL' && css.acitveLink
                     }`}
-                    onClick={() => handleOnClickChangeLanguage('ENG')}
-                  >
-                    ENG
-                  </button>
-                </div>
-                <UserNav
-                  setUserModalOpen={setUserModalOpen}
-                  userModalOpen={userModalOpen}
-                />
-              </div>
-            ) : (
-              <div className={css.btnLanguageBox}>
-                <div className={css.btnLanguageWrapper}>
-                  <button
-                    className={css.languageBtn}
-                    onClick={() => handleOnClickChangeLanguage('PL')}
-                  >
-                    PL
-                  </button>
-                  <p>/</p>
-                  <button
-                    className={css.languageBtn}
                     onClick={() => handleOnClickChangeLanguage('ENG')}
                   >
                     ENG

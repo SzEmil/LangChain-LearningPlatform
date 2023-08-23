@@ -4,9 +4,14 @@
   justify-content: center;
   min-height: 100vh;
   align-items: center;
+
+  background-image: url('../../images/polygonSVG.svg');
+
+  background-repeat: none;
+  background-size: cover;
 }
 .container {
-  width: 1200px;
+  width: 1600px;
 }
 .titleWrapper {
   display: flex;
@@ -63,7 +68,7 @@
 .pickedCourseCard {
   padding: 20px;
   border: 0.1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(68, 13, 82, 0.288);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
 
   display: flex;

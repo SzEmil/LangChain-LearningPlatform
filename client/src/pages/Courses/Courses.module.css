@@ -1,12 +1,17 @@
 .courses {
   padding: 150px 0 150px 0;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
+
+  background-image: url('../../images/polygonSVG.svg');
+  background-repeat: none;
+  background-size: cover;
 }
 .container {
   height: 100%;
-  width: 1200px;
+  width: 1600px;
 }
 .titleBox {
   width: 600px;
@@ -29,7 +34,7 @@
 .courseList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: stretch;
   gap: 20px;
 
@@ -47,6 +52,7 @@
   border-radius: 20px;
   z-index: 5;
   transition: border-color 200ms ease;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .courseCard:hover {
   border-color: rgba(235, 71, 167, 0.9);

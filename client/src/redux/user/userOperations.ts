@@ -95,14 +95,14 @@ export const refreshUser = createAsyncThunk<
   setApiKeyHeader(apiKey);
   setAuthHeader(token);
   try {
-    const res = await axios.get('/users/current');
-    return res.data.ResponseBody;
+    const resUserData = await axios.get('/users/current');
+
+    return resUserData.data.ResponseBody;
   } catch (e: any) {
     Notiflix.Notify.failure(e.response.data.ResponseBody.message);
     return thunkAPI.rejectWithValue(e.response.data.ResponseBody.message);
   }
 });
-
 
 export const getUserProgress = createAsyncThunk(
   'user/getUserProgress',
@@ -115,9 +115,52 @@ export const getUserProgress = createAsyncThunk(
       if (!token)
         return thunkAPI.rejectWithValue('Valid token is not provided');
       setAuthHeader(token);
-      const response = await axios.get('/courses/progress');
+      const response = await axios.get('/courses-progress');
 
       return response.data.ResponseBody.progress;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);
+
+export const verifyUserEmail = createAsyncThunk(
+  'user/verifyUserEmail',
+  async (emailToken: string | string[] | undefined, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.post(`/users/verify/${emailToken}`);
+
+      Notiflix.Notify.success(response.data.ResponseBody.message);
+      return response.data.ResponseBody.verification;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);
+
+export const resendVerifyEmail = createAsyncThunk(
+  'user/reSendVerifyEmail',
+  async (_, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.post('/users/verify/send');
+      Notiflix.Notify.success(response.data.ResponseBody.message);
+      return;
     } catch (error: any) {
       Notiflix.Notify.failure(error.response.data.ResponseBody.message);
       return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);

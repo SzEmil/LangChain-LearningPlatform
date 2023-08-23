@@ -1,16 +1,16 @@
 .userNav {
   position: relative;
-  cursor: pointer;
   transition: color 200ms ease;
 }
 .userNav:hover {
   color: goldenrod;
 }
 .userModal {
+  /* min-width: 200px; */
   position: absolute;
-  right: 0;
   top: 50px;
-  background-color: rgba(0, 0, 0, 0.4);
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 10px;
 }
 .activeModal {
@@ -46,4 +46,17 @@
 .btn:hover {
   cursor: pointer;
   background-color: rgb(165, 25, 72);
+}
+.btnNoActive {
+  pointer-events: none;
+  background-color: rgb(139, 21, 60);
+}
+.userEmail {
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: white;
+  text-align: center;
 }

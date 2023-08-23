@@ -13,7 +13,7 @@ const sectionSchema = new mongoose.Schema({
     questions: [
       {
         name: String,
-        answers: [String],
+        answers: [{ name: String, value: String }],
         correctAnswer: String,
       },
     ],
@@ -24,6 +24,7 @@ const courseSchema = new mongoose.Schema(
   {
     title: String,
     description: String,
+    language: String,
     sections: [sectionSchema],
   },
   { versionKey: false, timestamps: true }

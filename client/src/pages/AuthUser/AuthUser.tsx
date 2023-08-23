@@ -15,7 +15,7 @@ export const AuthUser = () => {
 
   return (
     <div className={css.authPage}>
-      <button className={css.goBackButton} onClick={() => navigate(-1)}>
+      <button className={css.goBackButton} onClick={() => navigate('/')}>
         <IoReturnUpBack size={34} />
       </button>
       <div className={css.formsWrapper}>
