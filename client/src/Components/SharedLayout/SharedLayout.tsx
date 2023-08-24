@@ -30,6 +30,7 @@ export const SharedLayout = () => {
   const currentCourseId = useSelector(selectCurrentCourseId);
   const isEmailConfirmed = useSelector(selectAuthUserEmailConfrimed);
   const userEmail = useSelector(selectAuthUserEmail);
+  const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
 
   const closeUserNav = () => {
     setUserModalOpen(false);
@@ -48,7 +49,6 @@ export const SharedLayout = () => {
     };
   }, [userModalOpen]);
 
-  const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   function getCurrentYear() {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -80,7 +80,7 @@ export const SharedLayout = () => {
   };
   return (
     <div className={css.sharedLayout}>
-      {!isEmailConfirmed && (
+      {!isEmailConfirmed && isLoggedIn && (
         <div className={css.verifyModal}>
           <div className={css.verifyModalTextWrapper}>
             <p className={css.verifyModalText}>

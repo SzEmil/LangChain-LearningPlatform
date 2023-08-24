@@ -16,7 +16,7 @@ import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
 import { MyCourses } from './pages/MyCourses/MyCourses';
 import { CoursePage } from './pages/CoursePage/CoursePage';
 import { VerificationEmail } from './pages/VerificationEmail/VerificationEmail';
-import { apiLink } from './redux/globals/globalsOperations';
+// import { apiLink } from './redux/globals/globalsOperations';
 
 export const App = () => {
   const dispatch: AppDispatch = useDispatch();
