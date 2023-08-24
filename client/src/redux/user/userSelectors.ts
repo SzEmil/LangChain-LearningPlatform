@@ -9,6 +9,12 @@ export const selectAuthUserData = (state: { user: authInitialStateType }) =>
   export const selectAuthUserUsername = (state: { user: authInitialStateType }) =>
   state.user.user.username;
 
+  export const selectUserPaymentsData = (state: { user: authInitialStateType }) =>
+  state.user.payments.data;
+
+  export const selectUserPaymentsIsLoading = (state: { user: authInitialStateType }) =>
+  state.user.payments.isLoading;
+
   export const selectAuthUserEmail = (state: { user: authInitialStateType }) =>
   state.user.user.email;
 
