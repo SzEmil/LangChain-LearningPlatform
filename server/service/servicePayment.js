@@ -16,12 +16,17 @@ const getPaymentByOwner = async (ownerId, itemId) => {
 };
 
 const getPaymentById = async paymentId => {
-  return Payment.findOne({_id: paymentId });
+  return Payment.findOne({ _id: paymentId });
+};
+
+const getUserPayments = async userId => {
+  return Payment.find({ owner: userId });
 };
 
 const paymentService = {
   createNewPayment,
   getPaymentByOwner,
   getPaymentById,
+  getUserPayments,
 };
 export default paymentService;
