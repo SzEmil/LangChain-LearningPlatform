@@ -95,7 +95,7 @@ const createNewPayment = async (req, res, next) => {
       amount: totalAmount,
       payInfo: 'Payment not started',
       owner: user._id,
-      refererToItem: course.title,
+      refererToItem: course.name,
       regulationsAccepted: regulationsAccepted,
       buyer: buyer,
     };
@@ -239,9 +239,9 @@ const getNotificationFromPayment = async (req, res, next) => {
         };
         return newCourseData;
       });
-      
+
       const courseDataArray = await Promise.all(courseDataPromises);
-      
+
       courseProgressObj.about = courseDataArray;
 
       foundUserProgress.courses.push(courseProgressObj);
@@ -294,10 +294,50 @@ const getPaymentById = async (req, res, next) => {
     next(error);
   }
 };
+
+const getUserPayments = async (req, res, next) => {
+  const { _id } = req.user;
+  const user = await userService.getUserById(_id);
+  try {
+    if (!user) {
+      return res.status(401).json({
+        status: 'error',
+        code: 401,
+        ResponseBody: {
+          message: 'Unauthorized',
+        },
+      });
+    }
+    const userPayments = await paymentService.getUserPayments(user._id);
+    if (!userPayments) {
+      return res.status(200).json({
+        status: 'success',
+        code: 200,
+        ResponseBody: {
+          message: 'Payment successfully fetched',
+          payments: [],
+        },
+      });
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      code: 200,
+      ResponseBody: {
+        message: 'Payment successfully fetched',
+        payments: userPayments,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const paymentController = {
   createNewPayment,
   getNotificationFromPayment,
   getPaymentById,
+  getUserPayments,
 };
 
 export default paymentController;

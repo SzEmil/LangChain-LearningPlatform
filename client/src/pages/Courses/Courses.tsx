@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { pickCourse } from '../../redux/payUData/paymentSlice';
 import { selectPageLanguage } from '../../redux/globals/globalsSelectors';
 import { selectAuthUserCourses } from '../../redux/user/userSelectors';
+import { selectAuthUserEmailConfrimed } from '../../redux/user/userSelectors';
 
 export const Courses = () => {
   const language = useSelector(selectPageLanguage);
@@ -20,6 +21,7 @@ export const Courses = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const userCoursesIds = useSelector(selectAuthUserCourses);
+  const isEmailConfirmed = useSelector(selectAuthUserEmailConfrimed);
   const currentOfferData = useSelector(selectCurrentOfferData);
 
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
@@ -87,40 +89,52 @@ export const Courses = () => {
                     ))}
                   </ul>
                   <div className={css.btnBox}>
-                    {isLoggedIn ? (
+                    {!isEmailConfirmed ? (
                       <>
-                        {userCoursesIds.some(
-                          course => course === offer.targetCourseId
-                        ) ? (
-                          <div className={css.infoText}>
-                            <TiTick size={28} />
+                        {isLoggedIn ? (
+                          <>
+                            {userCoursesIds.some(
+                              course => course === offer.targetCourseId
+                            ) ? (
+                              <div className={css.infoText}>
+                                <TiTick size={28} />
 
-                            <p>
-                              {language === 'PL' ? 'Kupione' : 'Already Bought'}
-                            </p>
-                          </div>
+                                <p>
+                                  {language === 'PL'
+                                    ? 'Kupione'
+                                    : 'Already Bought'}
+                                </p>
+                              </div>
+                            ) : (
+                              <button
+                                className={css.btnBuy}
+                                onClick={() =>
+                                  handleOnClickPickCoursToBuy(offer._id)
+                                }
+                              >
+                                {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
+                              </button>
+                            )}
+                          </>
                         ) : (
                           <button
                             className={css.btnBuy}
-                            onClick={() =>
-                              handleOnClickPickCoursToBuy(offer._id)
-                            }
+                            onClick={() => navigate('/auth')}
                           >
-                            {language === 'PL' ? 'Kup Teraz' : 'Buy Now'}
+                            {language === 'PL'
+                              ? 'Zarejestruj Się By Kupić'
+                              : 'Register Free Account To Purchase'}
                           </button>
                         )}
+                        <p className={css.price}>{offer.price} ZŁ</p>
                       </>
                     ) : (
-                      <button
-                        className={css.btnBuy}
-                        onClick={() => navigate('/auth')}
-                      >
+                      <p className={css.infoText}>
                         {language === 'PL'
-                          ? 'Zarejestruj Się By Kupić'
-                          : 'Register Free Account To Purchase'}
-                      </button>
+                          ? 'Zweryfikuj konto'
+                          : 'Account Not Verified'}
+                      </p>
                     )}
-                    <p className={css.price}>{offer.price} ZŁ</p>
                   </div>
                 </div>
               </li>

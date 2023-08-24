@@ -37,7 +37,10 @@ export const UserNav = ({ setUserModalOpen, userModalOpen }: any) => {
               <p className={css.userEmail}>{userName}</p>
             </li>
             <li key={nanoid()}>
-              <button className={`${css.btn} `} onClick={() => console.log()}>
+              <button
+                className={`${css.btn} `}
+                onClick={() => navigate('/profile')}
+              >
                 {language === 'PL' ? 'Profil' : 'Profile'}
               </button>
             </li>

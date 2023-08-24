@@ -36,6 +36,14 @@ router.post(
   authUser,
   userController.resendViryficationEmail
 );
+
+router.get(
+  '/users/payments',
+  checkApiKey,
+  authUser,
+  paymentController.getUserPayments
+);
+
 // offer
 router.post('/offer', checkApiKey, offerController.getCurrentOfferData);
 

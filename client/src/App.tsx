@@ -16,6 +16,7 @@ import { PaymentStatus } from './pages/PaymentStatus/PaymentStatus';
 import { MyCourses } from './pages/MyCourses/MyCourses';
 import { CoursePage } from './pages/CoursePage/CoursePage';
 import { VerificationEmail } from './pages/VerificationEmail/VerificationEmail';
+import { UserProfile } from './pages/UserProfile/UserProfile';
 // import { apiLink } from './redux/globals/globalsOperations';
 
 export const App = () => {
@@ -70,6 +71,15 @@ export const App = () => {
             path="/my-courses/:courseId"
             element={
               <ProtectedRoute component={CoursePage} redirectTo="/auth" />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                component={UserProfile}
+                redirectTo="/auth"
+              />
             }
           />
           <Route

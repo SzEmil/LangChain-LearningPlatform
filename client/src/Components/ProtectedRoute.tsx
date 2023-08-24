@@ -8,13 +8,14 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-    component: Component,
-    redirectTo = '/',
-  }) => {
-    const { isLoggedIn, isRefreshing } = useAuth();
-  
-    const shouldRedirect = isLoggedIn === true && isRefreshing === false;
-  
-    return shouldRedirect ? <Component /> : <Navigate to={redirectTo} />;
-  };
-  
+  component: Component,
+  redirectTo = '/',
+}) => {
+
+  const { isLoggedIn, isRefreshing } = useAuth();
+
+  const shouldRedirect =
+    isLoggedIn === true && isRefreshing === false;
+
+  return shouldRedirect ? <Component /> : <Navigate to={redirectTo} />;
+};
