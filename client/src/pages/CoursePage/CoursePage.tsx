@@ -9,9 +9,11 @@ import { AppDispatch } from '../../redux/store';
 import { getUserCourseById } from '../../redux/courses/coursesOperations';
 import css from './CoursePage.module.css';
 import { CourseSection } from '../../Components/CourseSection/CourseSection';
+import { CourseNavigate } from '../../Components/CourseNavigate/CourseNavigate';
 
 export const CoursePage = () => {
   const { courseId } = useParams();
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const isLoading = useSelector(selectCurrentCourseIsLoading);
   const courseData = useSelector(selectCurrentCourseData);
@@ -23,8 +25,13 @@ export const CoursePage = () => {
   useEffect(() => {
     dispatch(getUserCourseById(courseId));
   }, [courseId]);
+
   return (
     <div className={css.course}>
+      <div
+        onClick={() => setIsMobileNavOpen(false)}
+        className={`${css.backdrop} ${isMobileNavOpen && css.backdropActive}`}
+      ></div>
       <div className="container">
         {isLoading ? (
           <ColorRing
@@ -40,6 +47,7 @@ export const CoursePage = () => {
           <div className={css.courseWrapper}>
             <aside className={css.aside}>
               <h2 className={css.sectionsTitle}>{courseData?.title}</h2>
+
               <ul className={css.sectionsList}>
                 {courseData?.sections.map((section, index) => (
                   <li key={section.id}>
@@ -57,7 +65,23 @@ export const CoursePage = () => {
               </ul>
             </aside>
             <div className={css.sectionWrapper}>
-              <CourseSection section={currentSection} />
+              <CourseSection
+                section={currentSection}
+                setIsMobileNavOpen={setIsMobileNavOpen}
+              />
+            </div>
+
+            <div
+              className={`${css.courseNavWrapper} ${
+                isMobileNavOpen && css.courseNavActive
+              }`}
+            >
+              <CourseNavigate
+                courseData={courseData}
+                currentSection={currentSection}
+                setCurrentSection={setCurrentSection}
+                setIsMobileNavOpen={setIsMobileNavOpen}
+              />
             </div>
           </div>
         )}

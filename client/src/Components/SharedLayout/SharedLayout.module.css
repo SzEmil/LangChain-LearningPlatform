@@ -1,6 +1,51 @@
 .sharedLayout {
   width: 100%;
 }
+.mobileMenuWrapper {
+  position: fixed;
+  display: block;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9);
+
+  transform: translateX(-100%);
+
+  transition: all 200ms ease;
+}
+.mobileMenuOpen {
+  transform: translateX(0);
+  opacity: 1;
+}
+.mobileSymbole {
+  transform: rotateY(0);
+  display: inline;
+
+  transition: transform 200ms ease;
+}
+.mobileSymboleOpen {
+  transform: rotateY(180deg);
+}
+.mobileButton {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0;
+  cursor: pointer;
+
+  padding: 10px 15px;
+  border: 0.1px solid white;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+}
 .header {
   width: 100%;
   position: fixed;
@@ -31,7 +76,7 @@
   color: goldenrod;
 }
 .navList {
-  display: flex;
+  display: none;
   gap: 30px;
 }
 .navItemLink {
@@ -47,12 +92,16 @@
   color: goldenrod;
 }
 .logo {
+  display: none;
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 20px;
   margin: 0;
   cursor: pointer;
+}
+.logoActive {
+  display: block;
 }
 .navBtn {
   font-style: normal;
@@ -143,8 +192,7 @@
   gap: 20px;
   padding-bottom: 10px;
 }
-.socialItem {
-}
+
 .socialLink {
   color: white;
 }
@@ -199,4 +247,22 @@
 }
 .verifyModalBtn:hover {
   background-color: rgb(165, 25, 72);
+}
+
+@media screen and (min-width: 768px) {
+  .logo {
+    display: block;
+  }
+  .mobileMenuWrapper {
+    display: none;
+  }
+  .mobileButton {
+    display: none;
+  }
+  .navList {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 1600px) {
 }

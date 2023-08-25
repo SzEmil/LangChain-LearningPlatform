@@ -89,7 +89,7 @@ export const Courses = () => {
                     ))}
                   </ul>
                   <div className={css.btnBox}>
-                    {!isEmailConfirmed ? (
+                    {isEmailConfirmed ? (
                       <>
                         {isLoggedIn ? (
                           <>
@@ -140,7 +140,7 @@ export const Courses = () => {
               </li>
             ))
           ) : (
-            <p>No courses </p>
+            <p>No courses available</p>
           )}
         </ul>
       </div>

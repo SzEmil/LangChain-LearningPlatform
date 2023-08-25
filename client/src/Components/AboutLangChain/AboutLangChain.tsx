@@ -7,11 +7,11 @@ export const AboutLangChain = () => {
   const language = useSelector(selectPageLanguage);
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
   const galleryInView = useInView({
     rootMargin: '-200px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
   return (
     <section className={css.about}>

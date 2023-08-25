@@ -1,5 +1,5 @@
 .contact {
-  padding: 150px 0 300px 0;
+  padding: 75px 0 75px 0;
 
   display: flex;
   justify-content: center;
@@ -10,8 +10,9 @@
 .title {
   font-style: normal;
   font-weight: 500;
-  font-size: 38px;
-  line-height: 40px;
+  font-size: 32px;
+  line-height: 34px;
+  padding-bottom: 10px;
   opacity: 0;
 
   transform: translateY(-10px);
@@ -22,8 +23,8 @@
   color: white;
   font-style: normal;
   font-weight: 300;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 14px;
+  line-height: 18px;
   padding-bottom: 20px;
   opacity: 0;
   transform: translateY(-10px);
@@ -34,9 +35,15 @@
   opacity: 1;
   transform: translateY(0);
 }
+.articleWrapper {
+  width: 100%;
+  max-width: 800px;
+}
 .contactWrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
   gap: 50px;
   margin-top: 30px;
 
@@ -58,7 +65,7 @@
   width: 200px;
 }
 .formWrapper {
-  margin-top: 80px;
+  margin-top: 50px;
   color: white;
 
   width: 100%;
@@ -139,11 +146,12 @@
 .contactDataLink {
   font-style: normal;
   font-weight: 100;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 18px;
   color: white;
 }
 .image {
+  display: none;
   max-width: 600px;
   border-radius: 20px;
   opacity: 0;
@@ -155,4 +163,48 @@
 .imageInView {
   opacity: 1;
   transform: translateX(0);
+}
+@media screen and (min-width: 768px) {
+  .formWrapper {
+    margin-top: 80px;
+  }
+  .contact {
+    padding: 150px 0 300px 0;
+  }
+  .contactDataLink {
+    font-style: normal;
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 18px;
+    color: white;
+  }
+  .text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 20px;
+  }
+  .article {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 100px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .image {
+    display: block;
+  }
+  .contactWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 50px;
+    margin-top: 30px;
+
+    align-items: center;
+  }
 }

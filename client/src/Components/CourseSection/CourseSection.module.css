@@ -1,31 +1,36 @@
+.courseSection {
+  width: 100%;
+}
 .titleWrapper {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 15px;
+  gap: 10px;
 }
-
 .title {
   font-style: normal;
   font-weight: 700;
-  font-size: 48px;
-  line-height: 48px;
+  font-size: 32px;
+  line-height: 38px;
   margin: 0;
 }
 .description {
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 22px;
 
   padding-bottom: 20px;
 }
 .btnWrapper {
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 .quizBtn {
+  display: none;
   font-style: normal;
   font-weight: 100;
   font-size: 18px;
@@ -44,9 +49,90 @@
 .quizBtn:hover {
   background-color: rgb(165, 25, 72);
 }
+.quizNavBtn {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 15px;
+  cursor: pointer;
+
+  background-color: rgb(114, 19, 51);
+  z-index: 100;
+
+  transition: background-color 200ms ease;
+}
+.quizNavBtn:hover {
+  background-color: rgb(165, 25, 72);
+}
 .btnActive {
   background-color: rgb(211, 33, 93);
 }
 .quizWrapper {
   margin-top: 100px;
+}
+.navWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navBtn {
+  display: block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+@media screen and (min-width: 500px) {
+  .title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 42px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 600px) {
+  .title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 48px;
+    margin: 0;
+  }
+  .description {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 28px;
+
+    padding-bottom: 20px;
+  }
+  .btnWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 1000px) {
+  .quizBtn {
+    display: block;
+  }
+  .quizNavBtn {
+    display: none;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .quizBtn {
+    display: block;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .quizBtn {
+    display: block;
+  }
 }
