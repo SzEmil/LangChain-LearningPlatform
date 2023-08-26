@@ -23,7 +23,7 @@ export const CourseInfo = () => {
   const isLoggedIn = useSelector(selectAuthUserIsLoggedIn);
   const courseInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   const handleOnClickOpenQuiz = () => {

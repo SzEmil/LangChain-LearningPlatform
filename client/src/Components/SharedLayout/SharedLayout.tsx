@@ -19,9 +19,16 @@ import { selectCurrentCourseId } from '../../redux/courses/coursesSelectors';
 import { selectAuthUserEmailConfrimed } from '../../redux/user/userSelectors';
 import { selectAuthUserEmail } from '../../redux/user/userSelectors';
 import { resendVerifyEmail } from '../../redux/user/userOperations';
+import { MobileMenu } from '../MobileMenu/MobileMenu';
 
 export const SharedLayout = () => {
   const [userModalOpen, setUserModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+    if (!e.matches) return;
+    setIsMobileMenuOpen(false);
+  });
 
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -102,83 +109,112 @@ export const SharedLayout = () => {
       <header className={`${css.header} ${isScrolled && css.movedHeader}`}>
         <div className="container">
           <div className={css.navBar}>
-            <h2 className={css.logo} onClick={() => navigate('/')}>
-              LangChain Academy
+            <h2
+              className={`${css.logo} ${
+                location.pathname !== '/' && css.logoActive
+              }`}
+              onClick={() => navigate('/')}
+            >
+              LangChain
             </h2>
             {location.pathname === '/' && (
-              <nav>
-                <ul className={css.navList}>
-                  <li>
-                    <Link
-                      activeClass={css.acitveLink}
-                      to="home"
-                      spy={true}
-                      smooth={true}
-                      offset={-150}
-                      duration={500}
-                    >
-                      <p className={css.navItemLink}>
-                        {language === 'ENG' && <span>Home</span>}
-                        {language === 'PL' && <span>Strona główna</span>}
-                      </p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      activeClass={css.acitveLink}
-                      to="aboutLangChain"
-                      spy={true}
-                      smooth={true}
-                      offset={-100}
-                      duration={500}
-                    >
-                      <p className={css.navItemLink}>LangChain</p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      activeClass={css.acitveLink}
-                      to="offer"
-                      spy={true}
-                      smooth={true}
-                      offset={-100}
-                      duration={500}
-                    >
-                      <p className={css.navItemLink}>
-                        {language === 'PL' ? 'Oferta' : 'Offer'}
-                      </p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      activeClass={css.acitveLink}
-                      to="aboutMe"
-                      spy={true}
-                      smooth={true}
-                      offset={-100}
-                      duration={500}
-                    >
-                      <p className={css.navItemLink}>
-                        {language === 'PL' ? 'O mnie' : 'About Me'}
-                      </p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      activeClass={css.acitveLink}
-                      to="contact"
-                      spy={true}
-                      smooth={true}
-                      offset={100}
-                      duration={500}
-                    >
-                      <p className={css.navItemLink}>
-                        {language === 'PL' ? 'Kontakt' : 'Contact'}
-                      </p>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+              <button
+                className={css.mobileButton}
+                onClick={() => setIsMobileMenuOpen(prevVal => !prevVal)}
+              >
+                <p>LangChain</p>
+                <p
+                  className={`${css.mobileSymbole} ${
+                    isMobileMenuOpen && css.mobileSymboleOpen
+                  }`}
+                >
+                  &gt;
+                </p>
+              </button>
+            )}
+            {location.pathname === '/' && (
+              <>
+                <div
+                  className={`${css.mobileMenuWrapper} ${
+                    isMobileMenuOpen && css.mobileMenuOpen
+                  }`}
+                >
+                  <MobileMenu setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                </div>
+                <nav>
+                  <ul className={css.navList}>
+                    <li>
+                      <Link
+                        activeClass={css.acitveLink}
+                        to="home"
+                        spy={true}
+                        smooth={true}
+                        offset={-150}
+                        duration={500}
+                      >
+                        <p className={css.navItemLink}>
+                          {language === 'ENG' && <span>Home</span>}
+                          {language === 'PL' && <span>Strona główna</span>}
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        activeClass={css.acitveLink}
+                        to="aboutLangChain"
+                        spy={true}
+                        smooth={true}
+                        offset={-100}
+                        duration={500}
+                      >
+                        <p className={css.navItemLink}>LangChain</p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        activeClass={css.acitveLink}
+                        to="offer"
+                        spy={true}
+                        smooth={true}
+                        offset={-100}
+                        duration={500}
+                      >
+                        <p className={css.navItemLink}>
+                          {language === 'PL' ? 'Oferta' : 'Offer'}
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        activeClass={css.acitveLink}
+                        to="aboutMe"
+                        spy={true}
+                        smooth={true}
+                        offset={-100}
+                        duration={500}
+                      >
+                        <p className={css.navItemLink}>
+                          {language === 'PL' ? 'O mnie' : 'About Me'}
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        activeClass={css.acitveLink}
+                        to="contact"
+                        spy={true}
+                        smooth={true}
+                        offset={100}
+                        duration={500}
+                      >
+                        <p className={css.navItemLink}>
+                          {language === 'PL' ? 'Kontakt' : 'Contact'}
+                        </p>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </>
             )}
             {isLoggedIn ? (
               <div className={css.userWrapper}>

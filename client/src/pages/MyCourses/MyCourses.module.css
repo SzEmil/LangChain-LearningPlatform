@@ -4,7 +4,7 @@
   justify-content: center;
   min-height: 100vh;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 100px;
 
   background-image: url('../../images/polygonSVG.svg');
 
@@ -23,10 +23,8 @@
 }
 .item {
   transform: translateY(-10px);
-  max-width: 1200px;
+  max-width: 550px;
   opacity: 0;
-  transition: all 200ms ease;
-  transition-delay: 550ms;
 }
 .item:nth-child(n) {
   transition-delay: calc((n - 1) * 250ms);
@@ -37,7 +35,7 @@
 }
 li:nth-child(odd) .card {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
 
   background: linear-gradient(
     90deg,
@@ -48,7 +46,7 @@ li:nth-child(odd) .card {
 
 li:nth-child(even) .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   background: linear-gradient(
     270deg,
@@ -71,6 +69,7 @@ li:nth-child(even) .card {
 }
 .infoBox {
   padding: 60px;
+  height: 100%;
 }
 .title {
   font-style: normal;
@@ -116,6 +115,7 @@ li:nth-child(even) .card {
 }
 .btnBox {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   margin-top: 40px;
@@ -130,6 +130,10 @@ li:nth-child(even) .card {
   border-radius: 30px;
   padding: 10px 30px;
   cursor: pointer;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background-color: rgb(211, 33, 93);
   z-index: 100;
@@ -160,12 +164,14 @@ li:nth-child(even) .card {
 }
 
 .imgBox {
+  display: none;
   min-width: 350px;
   height: 100%;
   overflow: hidden;
 }
 .galleryImage {
   display: block;
+  width: 100%;
 
   transition: transform 500ms ease;
 }
@@ -181,4 +187,65 @@ li:nth-child(odd) .imgBox {
 }
 .card:hover .spanLine {
   width: 300px;
+}
+@media screen and (min-width: 525px) {
+  .btnBox {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .myCourses {
+    padding-top: 100px;
+  }
+  .item {
+    max-width: 800px;
+  }
+  .card {
+    background: rgb(3, 3, 33);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  li:nth-child(odd) .card {
+    display: flex;
+    flex-direction: row-reverse;
+
+    background: linear-gradient(
+      90deg,
+      rgba(3, 3, 33, 1) 50%,
+      rgb(114, 20, 91) 100%
+    );
+  }
+
+  li:nth-child(even) .card {
+    display: flex;
+    flex-direction: row;
+
+    background: linear-gradient(
+      270deg,
+      rgba(3, 3, 33, 1) 50%,
+      rgb(114, 20, 91) 100%
+    );
+  }
+  .btnBox {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .item {
+    max-width: 1200px;
+  }
+  .imgBox {
+    display: block;
+  }
 }

@@ -39,6 +39,7 @@ body {
 }
 .container {
   width: 1600px;
+  padding: 0 5px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -50,5 +51,17 @@ body {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .container {
+    padding: 0 0;
   }
 }

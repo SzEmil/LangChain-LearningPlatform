@@ -64,7 +64,6 @@ export const BuyCourse = () => {
                   pickedCourseId={pickedCourseData?.targetCourseId}
                   pickedCourseName={pickedCourseData?.name}
                   pickedCoursePrice={pickedCourseData?.price}
-                  
                 />
               </div>
             </div>

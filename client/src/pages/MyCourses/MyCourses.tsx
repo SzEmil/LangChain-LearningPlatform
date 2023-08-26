@@ -108,7 +108,7 @@ export const MyCourses = () => {
                         </div>
                       );
                     }
-                    return null; 
+                    return null;
                   })}
                   <div className={css.imgBox}>
                     <img

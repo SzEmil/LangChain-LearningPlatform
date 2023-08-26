@@ -1,4 +1,5 @@
 .paymentWrapper {
+  padding: 70px 0 50px 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -10,9 +11,6 @@
   background-repeat: none;
   background-size: cover;
 }
-.container {
-  width: 1600px;
-}
 .titleWrapper {
   display: flex;
   flex-direction: column;
@@ -21,7 +19,9 @@
 }
 .paymentBox {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   margin-top: 50px;
   gap: 50px;
 }
@@ -44,19 +44,20 @@
   transition: width 0.5s ease-in-out;
 }
 .lineVisible {
-  width: 650px;
+  min-width: 320px;
+  max-width: 650px;
 }
 .courseTitle {
   font-style: normal;
   font-weight: 900;
-  font-size: 42px;
-  line-height: 46x;
+  font-size: 36px;
+  line-height: 40x;
   text-align: center;
 }
 .title {
   font-style: normal;
   font-weight: 300;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 26x;
   text-align: center;
 }
@@ -102,4 +103,31 @@
 }
 .pickedCourseCardPrice {
   font-weight: 900;
+}
+
+@media screen and (min-width: 768px) {
+  .courseTitle {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 42px;
+    line-height: 46x;
+    text-align: center;
+  }
+  .title {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 26x;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .paymentBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+    gap: 50px;
+  }
 }

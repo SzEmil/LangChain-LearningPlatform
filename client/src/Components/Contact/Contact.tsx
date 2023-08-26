@@ -8,12 +8,12 @@ export const Contact = () => {
   const language = useSelector(selectPageLanguage);
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   const InfoInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   return (
