@@ -8,14 +8,14 @@ export const AboutMe = () => {
   const language = useSelector(selectPageLanguage);
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   return (
     <section className={css.aboutMe} id="aboutMe" ref={sectionInView.ref}>
       <div className="container">
         <article className={css.article}>
-          <div>
+          <div className={css.articleWrapper}>
             <h2
               className={`${css.title} ${
                 sectionInView.inView && css.titleVisible

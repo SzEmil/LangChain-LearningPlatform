@@ -27,7 +27,6 @@ export const TestQuiz = ({ setQuizOpen, quizStart }: any) => {
     setQuestionNumber(prevVal => (prevVal += 1));
     setCurrentAnswer('');
   };
-  console.log(quiz);
   const exitQuiz = () => {
     setQuizOpen(false);
     setQuiz(quizStart);

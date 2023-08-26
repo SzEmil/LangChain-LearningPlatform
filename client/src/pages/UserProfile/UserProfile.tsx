@@ -68,7 +68,7 @@ export const UserProfile = () => {
                           <p>{payment._id}</p>
                           <p>{cutDate(payment.updatedAt)}</p>
                         </div>
-                        <p>Course Beginner{payment.refererToItem}</p>
+                        <p>{payment.refererToItem}</p>
                         <div className={css.titleWrapper}>
                           <p>
                             Bought for {payment.amount} {payment.currency}
@@ -79,7 +79,7 @@ export const UserProfile = () => {
                     ))}
                   </ul>
                 ) : (
-                  <p>Buy course</p>
+                  <p>{language === 'PL' ? 'Brak Płatności' : 'No Payments'}</p>
                 )}
               </div>
             )}

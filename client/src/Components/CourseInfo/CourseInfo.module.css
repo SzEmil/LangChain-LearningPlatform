@@ -1,11 +1,11 @@
 .course {
-  padding-top: 150px;
+  padding-top: 75px;
 }
 .title {
   font-style: normal;
   font-weight: 500;
-  font-size: 38px;
-  line-height: 40px;
+  font-size: 32px;
+  line-height: 34px;
   padding-bottom: 10px;
   opacity: 0;
 
@@ -31,8 +31,8 @@
 .text {
   font-style: normal;
   font-weight: 300;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 14px;
+  line-height: 18px;
   padding-bottom: 20px;
   opacity: 0;
   transform: translateY(-10px);
@@ -48,7 +48,7 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: stretch;
   margin-top: 50px;
   gap: 20px;
@@ -154,4 +154,33 @@
   left: 50%;
 
   transform: translateX(-50%);
+}
+@media screen and (min-width: 768px) {
+  .course {
+    padding-top: 150px;
+  }
+  .title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 40px;
+    padding-bottom: 10px;
+  }
+  .list {
+    justify-content: space-around;
+  }
+  .text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .list {
+    justify-content: space-between;
+  }
 }

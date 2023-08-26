@@ -14,7 +14,7 @@ export const Offer = () => {
   const navigate = useNavigate();
   const sectionInView = useInView({
     rootMargin: '-150px 0px',
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   return (

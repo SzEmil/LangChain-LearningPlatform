@@ -1,0 +1,47 @@
+.modalWindow {
+  padding: 60px 10px;
+  width: 100%;
+}
+
+.acitveLink {
+  color: goldenrod;
+}
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.navItemLink {
+  padding: 10px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+}
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.linkWrapper:hover {
+  cursor: pointer;
+  color: goldenrod;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.closeBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 7px 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.5px solid white;
+  border-radius: 2px;
+}
+.closeBtn:hover {
+  color: goldenrod;
+  border-color: goldenrod;
+}
+.contactList {
+  margin-top: 50px;
+}

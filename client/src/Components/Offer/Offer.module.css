@@ -10,8 +10,8 @@
 .title {
   font-style: normal;
   font-weight: 500;
-  font-size: 38px;
-  line-height: 40px;
+  font-size: 32px;
+  line-height: 34px;
   padding-bottom: 10px;
   opacity: 0;
 
@@ -51,8 +51,8 @@
 .text {
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 18px;
   padding-bottom: 20px;
   opacity: 0;
   transform: translateY(-10px);
@@ -68,11 +68,11 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
 }
 .item {
-  max-width: 450px;
+  max-width: 350px;
   position: relative;
   opacity: 0;
   transform: translateX(-10px);
@@ -86,11 +86,8 @@
 .item:nth-child(3) {
   transition-delay: 750ms;
 }
-.item:hover {
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-}
 .itemArrow {
+  display: none;
   position: absolute;
   right: -60px;
   top: 50%;
@@ -178,4 +175,42 @@
 }
 .titleNoVisible {
   opacity: 0;
+}
+@media screen and (min-width: 768px) {
+  .list {
+    justify-content: space-around;
+  }
+  .item {
+    max-width: 350px;
+  }
+  .offer {
+    padding: 300px 0;
+  }
+  .title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 40px;
+    padding-bottom: 10px;
+  }
+  .text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .itemArrow {
+    display: block;
+  }
+  .item {
+    max-width: 450px;
+  }
+  .list {
+    justify-content: space-between;
+  }
 }
