@@ -6,7 +6,7 @@ export type globalsStateType = {
 };
 
 const globalsInitialState: globalsStateType = {
-  serverConnection: true,
+  serverConnection: false,
   pageLanguage: 'ENG',
 };
 
@@ -18,9 +18,13 @@ const globalsSlice = createSlice({
     setLanguage: (state, action) => {
       state.pageLanguage = action.payload;
     },
+    setServerConnection: (state, action) => {
+      state.serverConnection = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { importInfoData, setLanguage } = globalsSlice.actions;
+export const { importInfoData, setLanguage, setServerConnection } =
+  globalsSlice.actions;
 export const globalsReducer = globalsSlice.reducer;

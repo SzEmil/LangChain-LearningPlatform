@@ -36,7 +36,7 @@ export const CourseSection = ({
       <div className={css.titleWrapper}>
         <div className={css.navWrapper}>
           <button
-            className={css.navBtn}
+            className={`${css.navBtn} ${css.navBtnActive}`}
             onClick={() => {
               setIsMobileNavOpen(true);
             }}

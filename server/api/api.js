@@ -92,4 +92,11 @@ router.get(
   progressController.getUserProgress
 );
 
+router.patch(
+  '/courses-progress/:courseId',
+  checkApiKey,
+  authUser,
+  progressController.editProgressDate
+);
+
 export default router;
