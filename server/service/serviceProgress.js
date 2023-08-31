@@ -10,8 +10,14 @@ const getUserProgress = async userId => {
   return Progress.findOne({ owner: userId });
 };
 
+const getUserProgressById = (ownerId, courseId) => {
+  return Progress.findOne({
+    $and: [{ owner: ownerId }, { courses: { $in: courseId } }],
+  });
+};
 
 const progressService = {
+  getUserProgressById,
   createProgress,
   getUserProgress,
 };

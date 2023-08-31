@@ -188,3 +188,24 @@ export const getUserPaymentsData = createAsyncThunk(
     }
   }
 );
+
+export const updateUserProgress = createAsyncThunk(
+  'user/updateUserProgress',
+  async (courseId: string, thunkAPI) => {
+    try {
+      setApiKeyHeader(apiKey);
+      const state = thunkAPI.getState() as AuthStateType;
+      const token = state?.user?.token || '';
+
+      if (!token)
+        return thunkAPI.rejectWithValue('Valid token is not provided');
+      setAuthHeader(token);
+      const response = await axios.patch(`/courses-progress/${courseId}`);
+
+      return response.data.ResponseBody.progress;
+    } catch (error: any) {
+      Notiflix.Notify.failure(error.response.data.ResponseBody.message);
+      return thunkAPI.rejectWithValue(error.response.data.ResponseBody.message);
+    }
+  }
+);

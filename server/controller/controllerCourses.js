@@ -55,7 +55,7 @@ const getUserCourseById = async (req, res, next) => {
       });
     }
     const { courseId } = req.params;
-    console.log(courseId);
+
     if (!courseId) {
       return res.status(400).json({
         status: 'error',
