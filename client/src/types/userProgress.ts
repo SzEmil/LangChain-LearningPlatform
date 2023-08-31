@@ -18,6 +18,7 @@ interface ProgressCourse {
     quizesCompleted: number;
   };
   started: string;
+  _id: string;
 }
 
 export interface ProgressData {

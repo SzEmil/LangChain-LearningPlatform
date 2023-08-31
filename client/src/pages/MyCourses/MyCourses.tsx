@@ -13,6 +13,7 @@ import { FaPlay } from 'react-icons/fa6';
 import { TbProgressCheck } from 'react-icons/tb';
 import { MdQuiz } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { updateUserProgress } from '../../redux/user/userOperations';
 
 export const MyCourses = () => {
   const navigate = useNavigate();
@@ -33,11 +34,15 @@ export const MyCourses = () => {
     const year = date!.slice(0, 10);
     const time = date!.slice(11, 16);
 
-    return `${year}  ${time}`;
+    return `${year}`;
   };
 
-  const handleOnClickStartCourse = (courseIdData: string) => {
+  const handleOnClickStartCourse = (
+    courseIdData: string,
+    courseProgressId: string
+  ) => {
     navigate(`/my-courses/${courseIdData}`);
+    dispatch(updateUserProgress(courseProgressId));
   };
   return (
     <div className={css.myCourses}>
@@ -60,7 +65,9 @@ export const MyCourses = () => {
                           <div className={css.dateBox}>
                             <BsFillCalendarDateFill size={16} />{' '}
                             <p className={css.date}>
-                              {cutDate(course.started)}
+                              {course.lastOpen
+                                ? cutDate(course.lastOpen)
+                                : cutDate(course.started)}
                             </p>
                           </div>
 
@@ -74,7 +81,10 @@ export const MyCourses = () => {
                             <button
                               className={css.btn}
                               onClick={() =>
-                                handleOnClickStartCourse(about.courseId)
+                                handleOnClickStartCourse(
+                                  about.courseId,
+                                  course._id
+                                )
                               }
                             >
                               <FaPlay size={16} />

@@ -4,7 +4,7 @@ import { Home } from './pages/Home/Home';
 import { NotFound } from './pages/NotFound/NotFound';
 import { AuthUser } from './pages/AuthUser/AuthUser';
 import { Courses } from './pages/Courses/Courses';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './redux/store';
 import { useEffect } from 'react';
 import { refreshUser } from './redux/user/userOperations';
@@ -17,29 +17,33 @@ import { MyCourses } from './pages/MyCourses/MyCourses';
 import { CoursePage } from './pages/CoursePage/CoursePage';
 import { VerificationEmail } from './pages/VerificationEmail/VerificationEmail';
 import { UserProfile } from './pages/UserProfile/UserProfile';
-// import { apiLink } from './redux/globals/globalsOperations';
+import { selectAppServerConnection } from './redux/globals/globalsSelectors';
+import { setServerConnection } from './redux/globals/globalsSlice';
+import { apiLink } from './redux/globals/globalsOperations';
+import { ServerLoading } from './pages/ServerLoading/ServerLoading';
 
 export const App = () => {
+  const isServerConnected = useSelector(selectAppServerConnection);
   const dispatch: AppDispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (!isServerConnected) {
-  //     const eventSource = new EventSource(`${apiLink}/stream`);
-  //     eventSource.onopen = () => {
-  //       dispatch(serverConnected());
-  //       eventSource.close();
-  //     };
+  useEffect(() => {
+    if (!isServerConnected) {
+      const eventSource = new EventSource(`${apiLink}/stream`);
+      eventSource.onopen = () => {
+        dispatch(setServerConnection(true));
+        eventSource.close();
+      };
 
-  //     eventSource.onerror = () => {
-  //       console.error('SSE connection error');
-  //     };
+      eventSource.onerror = () => {
+        dispatch(setServerConnection(false));
+        console.error('SSE connection error');
+      };
 
-  //     return () => {
-  //       eventSource.close();
-  //     };
-  //   }
-  // }, []);
-
+      return () => {
+        eventSource.close();
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const refreshUserData = async () => {
@@ -51,61 +55,62 @@ export const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
+      {!isServerConnected ? (
+        <ServerLoading />
+      ) : (
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute component={BuyCourse} redirectTo="/auth" />
+              }
+            />
+            <Route
+              path="/my-courses"
+              element={
+                <ProtectedRoute component={MyCourses} redirectTo="/auth" />
+              }
+            ></Route>
+            <Route
+              path="/my-courses/:courseId"
+              element={
+                <ProtectedRoute component={CoursePage} redirectTo="/auth" />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute component={UserProfile} redirectTo="/auth" />
+              }
+            />
+            <Route
+              path="/verify/:token"
+              element={
+                <ProtectedRoute
+                  component={VerificationEmail}
+                  redirectTo="/auth"
+                />
+              }
+            />
+          </Route>
           <Route
-            path="/payment"
-            element={
-              <ProtectedRoute component={BuyCourse} redirectTo="/auth" />
-            }
+            path="/auth"
+            element={<RestrictedRoute component={AuthUser} redirectTo="/" />}
           />
-          <Route
-            path="/my-courses"
-            element={
-              <ProtectedRoute component={MyCourses} redirectTo="/auth" />
-            }
-          ></Route>
-          <Route
-            path="/my-courses/:courseId"
-            element={
-              <ProtectedRoute component={CoursePage} redirectTo="/auth" />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                component={UserProfile}
-                redirectTo="/auth"
-              />
-            }
-          />
-          <Route
-            path="/verify/:token"
-            element={
-              <ProtectedRoute
-                component={VerificationEmail}
-                redirectTo="/auth"
-              />
-            }
-          />
-        </Route>
-        <Route
-          path="/auth"
-          element={<RestrictedRoute component={AuthUser} redirectTo="/" />}
-        />
-        {/* <Route
+          {/* <Route
           path="/secure"
           element={
             <ProtectedRoute component={RedirectPayment} redirectTo="/" />
           }
         /> */}
-        <Route path="/secure" element={<RedirectPayment />} />
-        <Route path="/payment/:paymentId" element={<PaymentStatus />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="/secure" element={<RedirectPayment />} />
+          <Route path="/payment/:paymentId" element={<PaymentStatus />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      )}
     </>
   );
 };

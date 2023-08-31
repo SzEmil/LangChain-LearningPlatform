@@ -31,23 +31,23 @@ app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.use('/api', router);
 
-// app.get('/api/stream', (req, res) => {
-//   res.set({
-//     'Content-Type': 'text/event-stream',
-//     'Cache-Control': 'no-cache',
-//     Connection: 'keep-alive',
-//   });
+app.get('/api/stream', (req, res) => {
+  res.set({
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive',
+  });
 
-//   connection
-//     .then(() => {
-//       res.write('data: connected\n\n');
-//       res.end();
-//     })
-//     .catch(error => {
-//       res.write('data: error\n\n');
-//       res.end();
-//     });
-// });
+  connection
+    .then(() => {
+      res.write('data: connected\n\n');
+      res.end();
+    })
+    .catch(error => {
+      res.write('data: error\n\n');
+      res.end();
+    });
+});
 
 app.use((_, res, __) => {
   res.status(404).json({

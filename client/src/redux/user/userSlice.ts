@@ -3,7 +3,7 @@ import { register, logIn, logOut, refreshUser } from './userOperations';
 import { ProgressData } from '../../types/userProgress';
 import { getUserProgress } from './userOperations';
 import { verifyUserEmail } from './userOperations';
-import { getUserPaymentsData } from './userOperations';
+import { getUserPaymentsData, updateUserProgress } from './userOperations';
 
 type paymentType = {
   _id: string;
@@ -286,6 +286,13 @@ const authSlice = createSlice({
         state.payments.error = null;
         state.payments.isLoading = false;
         state.payments.data = action.payload;
+      });
+
+      builder.addCase(updateUserProgress.rejected, (state, action) => {
+        state.error = action.payload;
+      });
+      builder.addCase(updateUserProgress.fulfilled, (state, action) => {
+        state.error = null;
       });
     } catch (error) {
       console.log(error);

@@ -23,8 +23,6 @@ export const checkApiKey = (req, res, next) => {
     const decryptedBytes = CryptoJS.AES.decrypt(encryptedKey, secretKey);
     const decryptedApiKey = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-    console.log(decryptedApiKey == privateApiKey);
-
     if (decryptedApiKey === privateApiKey) {
       next();
     } else {

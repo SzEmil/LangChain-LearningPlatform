@@ -209,7 +209,6 @@ const getNotificationFromPayment = async (req, res, next) => {
           },
         });
       }
-
       const courseObjAboutENG = await courseService.getCourseById(
         foundCourseData.data[0].data
       );

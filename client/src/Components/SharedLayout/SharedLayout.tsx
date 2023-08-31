@@ -20,6 +20,7 @@ import { selectAuthUserEmailConfrimed } from '../../redux/user/userSelectors';
 import { selectAuthUserEmail } from '../../redux/user/userSelectors';
 import { resendVerifyEmail } from '../../redux/user/userOperations';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
+import { AiFillPlayCircle } from 'react-icons/ai';
 
 export const SharedLayout = () => {
   const [userModalOpen, setUserModalOpen] = useState(false);
@@ -275,12 +276,20 @@ export const SharedLayout = () => {
                     {language === 'PL' ? 'Zarejestruj' : 'Register'}
                   </button>
                 ) : (
-                  <button
-                    className={css.navBtn}
-                    onClick={() => navigate('courses')}
-                  >
-                    {language === 'PL' ? 'Zaczynamy' : 'Get Started'}
-                  </button>
+                  <>
+                    <button
+                      className={css.navBtnStart}
+                      onClick={() => navigate('courses')}
+                    >
+                      {language === 'PL' ? 'Zaczynamy' : 'Get Started'}
+                    </button>
+                    <button
+                      className={css.navBtnMod}
+                      onClick={() => navigate('courses')}
+                    >
+                      <AiFillPlayCircle size={36} />
+                    </button>
+                  </>
                 )}
               </div>
             )}
