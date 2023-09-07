@@ -1,5 +1,5 @@
 # LangChain-LearningPlatform
-App is uploaded to free server. Server needs some time to start (about 30s or more). Lodaing screen is normal behavior.
+App is uploaded to free server. Server needs some time to start (about 30s or more). Loading screen is normal behavior.
 The current application uses a sandbox mode and is a preview version of the
 final application.
 
