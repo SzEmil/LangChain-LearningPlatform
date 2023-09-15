@@ -335,9 +335,9 @@ const resendViryficationEmail = async (req, res, next) => {
       });
     }
     if (user.emailVerification) {
-      return res.status(404).json({
+      return res.status(400).json({
         status: 'error',
-        code: 404,
+        code: 400,
         ResponseBody: {
           message: `User ${user.email} already confirmed`,
         },

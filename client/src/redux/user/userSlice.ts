@@ -291,7 +291,7 @@ const authSlice = createSlice({
       builder.addCase(updateUserProgress.rejected, (state, action) => {
         state.error = action.payload;
       });
-      builder.addCase(updateUserProgress.fulfilled, (state, action) => {
+      builder.addCase(updateUserProgress.fulfilled, (state) => {
         state.error = null;
       });
     } catch (error) {
