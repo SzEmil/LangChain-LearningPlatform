@@ -20,7 +20,7 @@ import { UserProfile } from './pages/UserProfile/UserProfile';
 import { selectAppServerConnection } from './redux/globals/globalsSelectors';
 import { setServerConnection } from './redux/globals/globalsSlice';
 import { apiLink } from './redux/globals/globalsOperations';
-import { ServerLoading } from './pages/ServerLoading/ServerLoading';
+import { ServerLoading } from './pages/serverLoading/ServerLoading';
 
 export const App = () => {
   const isServerConnected = useSelector(selectAppServerConnection);
