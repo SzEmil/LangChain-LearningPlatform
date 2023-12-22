@@ -11,9 +11,9 @@ import progressController from '../controller/controllerProgress.js';
 
 const router = express.Router();
 
-//contacts/?page=1&limit=10&favorite=true
+// contacts/?page=1&limit=10&favorite=true
 
-//users api router
+// users api router
 
 router.post('/users/signup', checkApiKey, userController.register);
 
@@ -47,7 +47,7 @@ router.get(
 // offer
 router.post('/offer', checkApiKey, offerController.getCurrentOfferData);
 
-//payment
+// payment
 router.get(
   '/payment/:paymentId',
   checkApiKey,
@@ -68,7 +68,7 @@ router.post(
   paymentController.getNotificationFromPayment
 );
 
-//courses
+// courses
 
 router.get(
   '/courses',
@@ -84,7 +84,7 @@ router.get(
   coursesController.getUserCourseById
 );
 
-//progress
+// progress
 router.get(
   '/courses-progress',
   checkApiKey,
