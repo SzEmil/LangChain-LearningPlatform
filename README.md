@@ -1,40 +1,19 @@
-# LangChain-LearningPlatform
-App is uploaded to free server. Server needs some time to start (about 30s or more). Loading screen is normal behavior.
-The current application uses a sandbox mode and is a preview version of the
-final application.
-
-## Tech stack
-
-- Frontend: TYPESCRIPT | REACT | REDUX | CSS-MODULES
-- Backend: NodeJs | Express | ApiKey | PayU | JWT | MongoDB
-
-## About App
-
-I am developing an innovative online learning platform that offers registered
-users access to a wide range of courses. Through a variety of textual content,
-videos, and interactive quizzes, our users can acquire knowledge tailored to
-their preferences. Our platform not only facilitates the purchase of intriguing
-courses but also allows users to track their progress, engage with a community
-of learners, and acquire skills necessary to accomplish personal and
-professional goals.
-
-
-________________________________________________________________________________________________
-
 <div align="center">
 
-  <h3 align="center">Pixel Perfect - Imporve Your Media Using AI</h3>
+  <h3 align="center">LangChain-LearningPlatform - Get knowledge about modern AI technology!</h3>
   <div>
-    <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=nextdotjs&color=000000" alt="nextdotjs" />
-    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
-    <img src="https://img.shields.io/badge/-Stripe-black?style=for-the-badge&logoColor=white&logo=stripe&color=008CDD" alt="stripe" />
-    <img src="https://img.shields.io/badge/-MongoDB-black?style=for-the-badge&logoColor=white&logo=mongodb&color=47A248" alt="mongodb" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-Clerk-black?style=for-the-badge&logoColor=white&logo=clerk&color=A020F0" alt="clerk" />
-    <img src="https://img.shields.io/badge/-Cloudinary-black?style=for-the-badge&logoColor=white&logo=cloudinary&color=3178C6" alt="cloudinary" />
+    <img src="https://img.shields.io/badge/-React-black?style=for-the-badge&logoColor=white&logo=react&color=#072485" alt="react" />
+    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=#3178C6" alt="typescript" />
+    <img src="https://img.shields.io/badge/-MongoDB-black?style=for-the-badge&logoColor=white&logo=mongodb&color=#47A248" alt="mongodb" />
+    <img src="https://img.shields.io/badge/-Express-black?style=for-the-badge&logoColor=white&logo=express&color=#000000" alt="express" />
+     <img src="https://img.shields.io/badge/-Payu-black?style=for-the-badge&logoColor=white&color=#078509" alt="payu" />
   </div>
 
 </div>
+
+**App is uploaded to free server. Server needs some time to start (about 30s or more). Loading screen is normal behavior.
+The current application uses a sandbox mode and is a preview version of the
+final application.**
 
 ## 📋 <a name="table">Table of Contents</a>
 
@@ -45,23 +24,15 @@ ________________________________________________________________________________
 
 ## <a name="introduction">📎 Introduction</a>
 
-Unleash your creativity with our AI-powered image transformer. Explore a suite
-of features to enhance your images:
-
-- Secure user access and control with registration, login, and route protection.
-- Community showcase: Discover user transformations and find inspiration.
-- Advanced search: Find specific images based on content or objects.
-- Image restoration, recoloring, and generative fill: Enhance and customize
-  images with ease.
-- Object and background removal: Clean up and extract objects with precision.
-- Download transformed images, view details, and manage transformations: Track
-  and control your edits.
-- Credits system: Earn or purchase credits for continued use.
-- Profile page and secure credit purchases: Manage your images and buy credits
-  seamlessly.
-- Responsive UI/UX: Enjoy a smooth experience on any device.
-
-Transform your images and create stunning visuals with this powerful platform.
+I am developing an innovative online learning platform that offers registered
+users access to a wide range of courses. 
+Through a variety of textual content,
+videos, and interactive quizzes, our users can acquire knowledge tailored to
+their preferences. 
+My platform not only facilitates the purchase of intriguing
+courses but also allows users to track their progress, engage with a community
+of learners, and acquire skills necessary to accomplish personal and
+professional goals.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -75,10 +46,7 @@ Transform your images and create stunning visuals with this powerful platform.
 
 ## <a name="first-look">💻 First Look</a>
 
-✨ Welcome to Pixel Perfect! Enhance your visual content with the power of
-AI-powered image and video transformations. Let Pixel Perfect elevate your media
-with ease! ![home](./public/assets/images/pixel1.png)
-
+✨ Welcome to LangChain!
 
 ![app baner](./client/public/mainBaner.jpg)
 
